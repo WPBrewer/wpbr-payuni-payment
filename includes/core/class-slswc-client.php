@@ -1,4 +1,5 @@
 <?php
+// namespace WPBrewer\Core;
 /**
  * The Software License Server for WooCommerce Client Library
  *
@@ -213,7 +214,7 @@ if ( ! class_exists( 'SLSWC_Client' ) ) :
 		 * @param   mixed  ...$args - array of additional arguments to override default ones.
 		 * @return  object A single instance of this class.
 		 */
-		public static function get_instance( $license_server_url, $base_file, $software_type = 'plugin', $args ) {
+		public static function get_instance( $license_server_url, $base_file, $software_type = 'plugin', ...$args ) {
 
 			$args = recursive_parse_args( $args, recursive_parse_args( self::get_default_args(), self::get_file_information( $base_file, $software_type ) ) );
 			$text_domain = $args['text_domain'];
@@ -264,6 +265,7 @@ if ( ! class_exists( 'SLSWC_Client' ) ) :
 			$this->software_type       = $software_type;
 			$this->environment         = $args['environment'];
 			$this->license_manager_url = esc_url( admin_url( 'options-general.php?page=slswc_license_manager&tab=licenses' ) );
+			$this->license_client_url  = esc_url( admin_url( 'options-general.php?page=' . $this->slug . '_license_manager' ) );
 
 			// Get the license server host.
 			// phpcs:ignore
@@ -390,7 +392,7 @@ if ( ! class_exists( 'SLSWC_Client' ) ) :
 			echo '<div class="error notice is-dismissible"><p>';
 			// phpcs:disable
 			// translators: 1 - Product name. 2 - Link opening html. 3 - link closing html.
-			echo sprintf( __( 'The %1$s license key has not been activated, so you will not be able to get automatic updates or support! %2$sClick here%3$s to activate your support and updates license key.', 'slswcclient' ), esc_attr( $this->name ), '<a href="' . esc_url_raw( $this->license_manager_url ) . '">', '</a>' );
+			echo sprintf( __( 'The %1$s license key has not been activated, so you will not be able to get automatic updates or support! %2$sClick here%3$s to activate your support and updates license key.', 'slswcclient' ), esc_attr( $this->name ), '<a href="' . esc_url_raw( $this->license_client_url ) . '">', '</a>' );
 			echo '</p></div>';
 			// phpcs:enable
 

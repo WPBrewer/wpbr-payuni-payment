@@ -1,5 +1,10 @@
 <?php
 
+if ( ! defined( 'ABSPATH' ) ) {
+	exit; // Exit if accessed directly.
+}
+if ( ! class_exists( 'SLSWC' ) ) :
+
 class SLSWC {
 
 	private static $instance;
@@ -198,3 +203,4 @@ class SLSWC {
 	}
 }
 
+endif;

@@ -39,6 +39,17 @@ function payuni_payment_needs_woocommerce() {
 
 }
 
+function payuni_bank_slswc_client() {
+    require_once 'includes/core/class-slswc-client.php';
+	require_once 'includes/core/class-slswc-client-manager.php';
+	require_once 'includes/core/class-slswc.php';
+
+	SLSWC::init();
+
+    return SLSWC_Client::get_instance( 'https://wpbrewer.com/', __FILE__, 'plugin', array( 'slug'=>'woo-payuni-payment' ) );
+}
+add_action( 'plugins_loaded', 'payuni_bank_slswc_client', 11 );
+
 /**
  * Run PAYUNi Payment plugin.
  *

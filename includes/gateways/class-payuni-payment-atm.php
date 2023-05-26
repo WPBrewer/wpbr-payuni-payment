@@ -13,13 +13,6 @@ defined( 'ABSPATH' ) || exit;
 class Payuni_Payment_ATM extends Payuni_Abstract_Payment_Gateway {
 
 	/**
-	 *  Order payment meta
-	 *
-	 * @var array
-	 */
-	public static $order_metas;
-
-	/**
 	 * Constructor
 	 */
 	public function __construct() {
@@ -36,15 +29,6 @@ class Payuni_Payment_ATM extends Payuni_Abstract_Payment_Gateway {
 		$this->title       = $this->get_option( 'title' );
 		$this->description = $this->get_option( 'description' );
 		$this->expire_days = empty( $this->get_option( 'expire_days' ) ) ? '7' : $this->get_option( 'expire_days' );
-
-		static::$order_metas =
-			array(
-				'_payuni_atm_payno'      => _x( 'Pay No', 'ATM', 'woo-payuni-payment' ),
-				'_payuni_atm_banktype'   => __( 'Bank Code', 'woo-payuni-payment' ),
-				'_payuni_atm_expiredate' => __( 'Expire Date', 'woo-payuni-payment' ),
-				'_payuni_atm_paytime'    => __( 'Pay Time', 'woo-payuni-payment' ),
-				'_payuni_atm_account5no' => __( 'Account 5 No', 'woo-payuni-payment' ),
-			);
 
 		add_action( 'woocommerce_update_options_payment_gateways_' . $this->id, array( $this, 'process_admin_options' ) );
 		add_action( 'woocommerce_receipt_' . $this->id, array( $this, 'receipt_page' ) );
@@ -79,6 +63,19 @@ class Payuni_Payment_ATM extends Payuni_Abstract_Payment_Gateway {
 				'ATM'        => '1',
 			)
 		);
+	}
+
+	public static function get_payment_order_metas() {
+		$order_metas =
+			array(
+				'_payuni_atm_payno'      => _x( 'Pay No', 'ATM', 'woo-payuni-payment' ),
+				'_payuni_atm_banktype'   => __( 'Bank Code', 'woo-payuni-payment' ),
+				'_payuni_atm_expiredate' => __( 'Expire Date', 'woo-payuni-payment' ),
+				'_payuni_atm_paytime'    => __( 'Pay Time', 'woo-payuni-payment' ),
+				'_payuni_atm_account5no' => __( 'Account 5 No', 'woo-payuni-payment' ),
+			);
+
+		return $order_metas;
 	}
 
 }

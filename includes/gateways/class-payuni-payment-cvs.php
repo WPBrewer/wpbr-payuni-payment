@@ -13,13 +13,6 @@ defined( 'ABSPATH' ) || exit;
 class Payuni_Payment_CVS extends Payuni_Abstract_Payment_Gateway {
 
 	/**
-	 *  Order payment meta
-	 *
-	 * @var array
-	 */
-	public static $order_metas;
-
-	/**
 	 * Constructor
 	 */
 	public function __construct() {
@@ -37,13 +30,6 @@ class Payuni_Payment_CVS extends Payuni_Abstract_Payment_Gateway {
 		$this->description                = $this->get_option( 'description' );
 		$this->expire_days                = empty( $this->get_option( 'expire_days' ) ) ? '7' : $this->get_option( 'expire_days' );
 		$this->incomplete_payment_message = $this->get_option( 'incomplete_payment_message' );
-
-		static::$order_metas =
-			array(
-				'_payuni_cvs_payno'      => _x( 'Pay No', 'CVS', 'woo-payuni-payment' ),
-				'_payuni_cvs_store'      => __( 'CVS Store', 'woo-payuni-payment' ),
-				'_payuni_cvs_expiredate' => __( 'Expire Date', 'woo-payuni-payment' ),
-			);
 
 		add_action( 'woocommerce_update_options_payment_gateways_' . $this->id, array( $this, 'process_admin_options' ) );
 		add_action( 'woocommerce_receipt_' . $this->id, array( $this, 'receipt_page' ) );
@@ -80,6 +66,17 @@ class Payuni_Payment_CVS extends Payuni_Abstract_Payment_Gateway {
 				'CVS'        => '1',
 			)
 		);
+	}
+
+	public static function get_payment_order_metas() {
+		$order_metas =
+			array(
+				'_payuni_cvs_payno'      => _x( 'Pay No', 'CVS', 'woo-payuni-payment' ),
+				'_payuni_cvs_store'      => __( 'CVS Store', 'woo-payuni-payment' ),
+				'_payuni_cvs_expiredate' => __( 'Expire Date', 'woo-payuni-payment' ),
+			);
+
+		return $order_metas;
 	}
 
 }

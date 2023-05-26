@@ -79,7 +79,9 @@ class Payuni_Payment_Order_Meta_Boxes {
 		$payment_method = $order->get_payment_method();
 		$gateway        = Payuni_Payment::$allowed_payments[ $payment_method ];
 
-		foreach ( $gateway::get_order_metas() as $key => $value ) {
+		Payuni_Payment::log('gateway:' . $gateway );
+		echo '<div><strong>訂單編號:</strong> ' . esc_html( $order->get_meta( '_payuni_order_no' ) ) . '</div>';
+		foreach (  $gateway::get_order_metas() as $key => $value ) {
 			echo '<div><strong>' . esc_html( $value ) . ':</strong> ' . esc_html( $order->get_meta( $key ) ) . '</div>';
 		}
 

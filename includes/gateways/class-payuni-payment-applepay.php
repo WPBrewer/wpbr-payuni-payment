@@ -41,12 +41,6 @@ class Payuni_Payment_ApplePay extends Payuni_Abstract_Payment_Gateway {
 		$this->description                = $this->get_option( 'description' );
 		$this->incomplete_payment_message = $this->get_option( 'incomplete_payment_message' );
 
-		static::$order_metas =
-			array(
-				'_payuni_credit_authday'  => __( 'Auth Date', 'woo-payuni-payment' ),
-				'_payuni_credit_authtime' => __( 'Auth Time', 'woo-payuni-payment' ),
-			);
-
 		add_action( 'woocommerce_update_options_payment_gateways_' . $this->id, array( $this, 'process_admin_options' ) );
 		add_action( 'woocommerce_receipt_' . $this->id, array( $this, 'receipt_page' ) );
 		add_filter( 'payuni_transaction_args_' . $this->id, array( $this, 'payuni_payment_applepay_transaction_arrgs' ), 10, 2 );
@@ -97,6 +91,16 @@ class Payuni_Payment_ApplePay extends Payuni_Abstract_Payment_Gateway {
 	public function process_refund( $order_id, $amount = null, $reason = '' ) {
 		$request = new Payuni_Payment_Request( $this );
 		return $request->refund( $order_id, $amount, $reason );
+	}
+
+	public static function get_payment_order_metas() {
+		$order_metas =
+			array(
+				'_payuni_credit_authday'  => __( 'Auth Date', 'woo-payuni-payment' ),
+				'_payuni_credit_authtime' => __( 'Auth Time', 'woo-payuni-payment' ),
+			);
+
+		return $order_metas;
 	}
 
 

@@ -17,13 +17,6 @@ class Payuni_Payment_Installment_6 extends Payuni_Abstract_Payment_Gateway {
 	use PayuniInstallmentableTrait;
 
 	/**
-	 *  Order payment meta
-	 *
-	 * @var array
-	 */
-	public static $order_metas;
-
-	/**
 	 * The Constructor
 	 */
 	public function __construct() {

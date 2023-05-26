@@ -55,14 +55,6 @@ abstract class Payuni_Abstract_Payment_Gateway extends WC_Payment_Gateway {
 	protected $min_amount = 0;
 
 	/**
-	 *  Order payment meta
-	 *
-	 * @var array
-	 */
-	public static $order_metas;
-
-
-	/**
 	 * Constructor
 	 */
 	public function __construct() {
@@ -78,13 +70,6 @@ abstract class Payuni_Abstract_Payment_Gateway extends WC_Payment_Gateway {
 		$this->hashkey                    = get_option( 'payuni_payment_hashkey' );
 		$this->hashiv                     = get_option( 'payuni_payment_hashiv' );
 		$this->incomplete_payment_message = $this->get_option( 'incomplete_payment_message' );
-
-		self::$order_metas = array(
-			'_payuni_trade_no'     => __( 'Trade No', 'woo-payuni-payment' ),
-			'_payuni_trade_amt'    => __( 'Trade Amount', 'woo-payuni-payment' ),
-			'_payuni_trade_status' => __( 'Trade Status', 'woo-payuni-payment' ),
-			'_payuni_message'      => __( 'Message', 'woo-payuni-payment' ),
-		);
 
 		$this->testmode       = wc_string_to_bool( get_option( 'payuni_payment_testmode_enabled' ) );
 		$this->api_url        = ( $this->testmode ) ? 'https://sandbox-api.payuni.com.tw/api/upp' : 'https://api.payuni.com.tw/api/upp';
@@ -238,7 +223,7 @@ abstract class Payuni_Abstract_Payment_Gateway extends WC_Payment_Gateway {
 	 * @return array
 	 */
 	public static function get_order_metas() {
-		return array_merge( self::$order_metas, static::$order_metas );
+		return array_merge( Payuni_Payment::$order_metas, static::get_payment_order_metas() );
 	}
 
 	/**

@@ -37,15 +37,6 @@ trait PayuniInstallmentableTrait {
 		$this->set_installs( $installs );
 		$this->min_amount = $min_amount;
 
-		static::$order_metas =
-			array(
-				'_payuni_credit_card4no'  => __( 'Card Last 4 No', 'woo-payuni-payment' ),
-				'_payuni_credit_cardinst' => __( 'Installments', 'woo-payuni-payment' ),
-				'_payuni_credit_firstamt' => __( 'First Amount', 'woo-payuni-payment' ),
-				'_payuni_credit_eachamt'  => __( 'Each Amount', 'woo-payuni-payment' ),
-				'_payuni_credit_authday'  => __( 'Auth Date', 'woo-payuni-payment' ),
-				'_payuni_credit_authtime' => __( 'Auth Time', 'woo-payuni-payment' ),
-			);
 	}
 	/**
 	 * Set payment installs
@@ -129,6 +120,20 @@ trait PayuniInstallmentableTrait {
 	public function process_refund( $order_id, $amount = null, $reason = '' ) {
 		$request = new Payuni_Payment_Request();
 		return $request->refund( $order_id, $amount, $reason );
+	}
+
+	public static function get_payment_order_metas() {
+		$order_metas =
+			array(
+				'_payuni_credit_card4no'  => __( 'Card Last 4 No', 'woo-payuni-payment' ),
+				'_payuni_credit_cardinst' => __( 'Installments', 'woo-payuni-payment' ),
+				'_payuni_credit_firstamt' => __( 'First Amount', 'woo-payuni-payment' ),
+				'_payuni_credit_eachamt'  => __( 'Each Amount', 'woo-payuni-payment' ),
+				'_payuni_credit_authday'  => __( 'Auth Date', 'woo-payuni-payment' ),
+				'_payuni_credit_authtime' => __( 'Auth Time', 'woo-payuni-payment' ),
+			);
+
+		return $order_metas;
 	}
 
 }

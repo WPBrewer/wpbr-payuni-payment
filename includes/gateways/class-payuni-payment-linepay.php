@@ -1,6 +1,6 @@
 <?php
 /**
- * Payuni_Payment_Credit class file
+ * Payuni_Payment_LINEPay class file
  *
  * @package payuni
  */
@@ -8,9 +8,16 @@
 defined( 'ABSPATH' ) || exit;
 
 /**
- * Payuni_Payment_Credit class for Credit Card payment
+ * Payuni_Payment_LINEPay class for LINE Pay payment
  */
-class Payuni_Payment_Credit extends Payuni_Abstract_Payment_Gateway {
+class Payuni_Payment_LINEPay extends Payuni_Abstract_Payment_Gateway {
+
+	/**
+	 *  Order payment meta
+	 *
+	 * @var array
+	 */
+	public static $order_metas;
 
 	/**
 	 * Constructor
@@ -19,12 +26,11 @@ class Payuni_Payment_Credit extends Payuni_Abstract_Payment_Gateway {
 
 		parent::__construct();
 
-		$this->id                 = 'payuni-credit';
-		$this->method_title       = __( 'PAYUNi Credit Card Payment', 'woo-payuni-payment' );
-		$this->method_description = __( 'PAYUNi Credit Card Payment', 'woo-payuni-payment' );
+		$this->id                 = 'payuni-linepay';
+		$this->method_title       = __( 'PAYUNi LINE Pay', 'woo-payuni-payment' );
+		$this->method_description = __( 'PAYUNi LINE Pay', 'woo-payuni-payment' );
 		$this->supports           = array(
 			'products',
-			'refunds',
 		);
 
 		$this->init_form_fields();
@@ -36,7 +42,7 @@ class Payuni_Payment_Credit extends Payuni_Abstract_Payment_Gateway {
 
 		add_action( 'woocommerce_update_options_payment_gateways_' . $this->id, array( $this, 'process_admin_options' ) );
 		add_action( 'woocommerce_receipt_' . $this->id, array( $this, 'receipt_page' ) );
-		add_filter( 'payuni_transaction_args_' . $this->id, array( $this, 'payuni_payment_credit_transaction_arrgs' ), 10, 2 );
+		add_filter( 'payuni_transaction_args_' . $this->id, array( $this, 'payuni_payment_linepay_transaction_arrgs' ), 10, 2 );
 
 	}
 
@@ -47,22 +53,22 @@ class Payuni_Payment_Credit extends Payuni_Abstract_Payment_Gateway {
 	 * @return void
 	 */
 	public function init_form_fields() {
-		$this->form_fields = include PAYUNI_PLUGIN_DIR . 'includes/settings/settings-payuni-payment-credit.php';
+		$this->form_fields = include PAYUNI_PLUGIN_DIR . 'includes/settings/settings-payuni-payment-linepay.php';
 	}
 
 	/**
-	 * Add payment parameter for credit card payment.
+	 * Add payment parameter for Apple Pay payment.
 	 *
 	 * @param array    $args The payment parameters.
 	 * @param WC_ORDER $order The order object.
 	 *
 	 * @return array
 	 */
-	public function payuni_payment_credit_transaction_arrgs( $args, $order ) {
+	public function payuni_payment_linepay_transaction_arrgs( $args, $order ) {
 		return array_merge(
 			$args,
 			array(
-				'Credit' => '1',
+				'LinePay' => '1',
 			)
 		);
 	}
@@ -82,17 +88,12 @@ class Payuni_Payment_Credit extends Payuni_Abstract_Payment_Gateway {
 	 * @return bool|WP_Error
 	 */
 	public function process_refund( $order_id, $amount = null, $reason = '' ) {
-		$request = new Payuni_Payment_Request();
+		$request = new Payuni_Payment_Request( $this );
 		return $request->refund( $order_id, $amount, $reason );
 	}
 
 	public static function get_payment_order_metas() {
-		$order_metas =
-			array(
-				'_payuni_credit_authday'  => __( 'Auth Date', 'woo-payuni-payment' ),
-				'_payuni_credit_authtime' => __( 'Auth Time', 'woo-payuni-payment' ),
-			);
-
+		$order_metas = array();
 		return $order_metas;
 	}
 

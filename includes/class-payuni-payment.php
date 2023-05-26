@@ -47,6 +47,8 @@ class Payuni_Payment {
 	 * */
 	public static $available_installments;
 
+	public static $order_metas;
+
 	/**
 	 * Constructor
 	 */
@@ -65,6 +67,8 @@ class Payuni_Payment {
 
 		self::$log_enabled = 'yes' === get_option( 'payuni_payment_debug_log_enabled', 'no' );
 
+		load_plugin_textdomain( 'woo-payuni-payment', false, dirname( PAYUNI_BASENAME ) . '/languages/' );
+
 		require_once PAYUNI_PLUGIN_DIR . 'includes/gateways/abstract-payuni-payment.php';
 		require_once PAYUNI_PLUGIN_DIR . 'includes/gateways/class-payuni-payment-request.php';
 		require_once PAYUNI_PLUGIN_DIR . 'includes/gateways/class-payuni-payment-response.php';
@@ -81,6 +85,7 @@ class Payuni_Payment {
 		require_once PAYUNI_PLUGIN_DIR . 'includes/gateways/class-payuni-payment-installment-30.php';
 		require_once PAYUNI_PLUGIN_DIR . 'includes/gateways/class-payuni-payment-applepay.php';
 		require_once PAYUNI_PLUGIN_DIR . 'includes/gateways/class-payuni-payment-aftee.php';
+		require_once PAYUNI_PLUGIN_DIR . 'includes/gateways/class-payuni-payment-linepay.php';
 
 		require_once PAYUNI_PLUGIN_DIR . 'includes/admin/meta-boxes/class-payuni-payment-order-meta-boxes.php';
 
@@ -93,6 +98,7 @@ class Payuni_Payment {
 			'payuni-atm'      => 'Payuni_Payment_ATM',
 			'payuni-aftee'    => 'Payuni_Payment_Aftee',
 			'payuni-applepay' => 'Payuni_Payment_ApplePay',
+			'payuni-linepay'  => 'Payuni_Payment_LINEPay',
 		);
 
 		$number_of_payments = get_option( 'payuni_payment_installment_number_of_payments', array() );
@@ -113,7 +119,14 @@ class Payuni_Payment {
 			}
 		}
 
-		load_plugin_textdomain( 'woo-payuni-payment', false, dirname( PAYUNI_BASENAME ) . '/languages/' );
+		self::$order_metas = array(
+			'_payuni_trade_no'     => __( 'Trade No', 'woo-payuni-payment' ),
+			'_payuni_trade_amt'    => __( 'Trade Amount', 'woo-payuni-payment' ),
+			'_payuni_trade_status' => __( 'Trade Status', 'woo-payuni-payment' ),
+			'_payuni_message'      => __( 'Message', 'woo-payuni-payment' ),
+		);
+
+
 
 		add_filter( 'woocommerce_get_settings_pages', array( self::get_instance(), 'payuni_add_settings' ), 15 );
 
@@ -279,6 +292,32 @@ class Payuni_Payment {
 	public static function hash_info( string $encrypt_str = '' ) {
 		return strtoupper( hash( 'sha256', get_option( 'payuni_payment_hashkey' ) . $encrypt_str . get_option( 'payuni_payment_hashiv' ) ) );
 	}
+
+	//payuni訂單編號 = woo訂單id + 3位數字
+    public static function build_payuni_order_no( $order_id ) {
+
+        $payuni_order_no = $order_id;
+
+        $order_serial_no = get_post_meta( $order_id, '_payuni_order_serial_no', true );
+        if ( $order_serial_no && $order_serial_no < 999 ) {
+            $order_serial_no += 1;
+            $payuni_order_no = $payuni_order_no . str_pad( $order_serial_no, 3, '0', STR_PAD_LEFT); ;
+        } else {
+			$order_serial_no = 1;
+            $payuni_order_no = $payuni_order_no . str_pad( $order_serial_no, 3, '0', STR_PAD_LEFT);
+        }
+
+        update_post_meta( $order_id, '_payuni_order_serial_no', $order_serial_no );
+
+        return $payuni_order_no;
+
+    }
+
+    //將payuni的訂單編號轉成woo的訂單編號
+    public static function parse_payuni_order_no_to_woo_order_id( $payuni_order_no ) {
+        $real_woo_order_id = substr($payuni_order_no, 0, -3);
+        return $real_woo_order_id;
+    }
 
 	/**
 	 * Get refund api url by payment method.

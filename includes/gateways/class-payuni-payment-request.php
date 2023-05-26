@@ -41,7 +41,7 @@ class Payuni_Payment_Request {
 			'payuni_transaction_args_' . $this->gateway->id,
 			array(
 				'MerID'      => $this->gateway->get_merchant_id(),
-				'MerTradeNo' => $order->get_id(),
+				'MerTradeNo' => Payuni_Payment::build_payuni_order_no( $order->get_id() ),
 				'TradeAmt'   => (int) $order->get_total(),
 				'ProdDesc'   => implode( ';', $prod_desc ),
 				// 'BackURL'    => $order->get_checkout_payment_url( true ),
@@ -171,13 +171,7 @@ class Payuni_Payment_Request {
 			throw new Exception( 'PAYUNi refund failed. Payment method not found.' );
 		}
 
-		$testmode       = wc_string_to_bool( get_option( 'payuni_payment_testmode_enabled' ) );
-		if ( $testmode ) {
-			$url = 'https://sandbox-api.payuni.com.tw/api/trade/close';
-		} else {
-			$url = 'https://api.payuni.com.tw/api/trade/close';
-		}
-
+		$url = 'https://sandbox-api.payuni.com.tw/api/trade/close';
 		Payuni_Payment::log( 'refund url:' . $url );
 		$response = wp_remote_post( $url, $request_args );
 
@@ -203,9 +197,10 @@ class Payuni_Payment_Request {
 
 	public static function query( $order_id ) {
 		$mer_id       = get_option( 'payuni_payment_merchant_id' );
+		$order_serial_no = get_post_meta( $order_id, '_payuni_order_serial_no', true );
 		$encrypt_info = array(
 			'MerID'      => $mer_id,
-			'MerTradeNo' => $order_id,
+			'MerTradeNo' => $order_id . str_pad( $order_serial_no, 3, '0', STR_PAD_LEFT),
 			'Timestamp'  => time(),
 		);
 
@@ -247,9 +242,11 @@ class Payuni_Payment_Request {
 		$payment_date = $decrypted['Result'][0]['PaymentDay'];
 		$create_date  = $decrypted['Result'][0]['CreateDay'];
 
+		$woo_order_id = Payuni_Payment::parse_payuni_order_no_to_woo_order_id( $order_no );
+
 		if ( 'SUCCESS' === $result['Status'] ) {
 
-			$order = wc_get_order( $order_no );
+			$order = wc_get_order( $woo_order_id );
 			$order->add_order_note( sprintf( __( 'PAYUNi query succeed. Query result: %s', 'woo-payuni-payment' ), wc_print_r( $decrypted, true ) ), );
 			Payuni_Payment::log( 'PAYUNi query success. Status:' . $result['Status'] . ', Message:' . $decrypted['Message'] . ', Trade Status:' . $trade_status );
 			return true;
@@ -257,6 +254,32 @@ class Payuni_Payment_Request {
 			Payuni_Payment::log( 'PAYUNi query failed. Status:' . $result['Status'] . ', Message:' . $decrypted['Message'] );
 			return false;
 		}
+	}
+
+	/**
+	 * Gennerate the order number with serial no to avoid order number conflict
+	 *
+	 * @param string $order_id The order id.
+	 * @return string
+	 */
+	public function build_payuni_order_id( $order_id ) {
+
+		$payuni_order_no = $order_id;
+
+		$serial_no = get_post_meta( $order_id, '_payuni_order_serial_no', true );
+		if ( $serial_no ) {
+			if ( $serial_no < 999 ) {
+				$serial_no    += 1;
+				$payuni_order_no = $payuni_order_no . $serial_no;
+			}
+		} else {
+			$serial_no     = 100;
+			$payuni_order_no = $payuni_order_no . $serial_no;
+		}
+
+		update_post_meta( $order_id, '_payuni_order_serial_no', $serial_no );
+
+		return $payuni_order_no;
 	}
 
 	/**

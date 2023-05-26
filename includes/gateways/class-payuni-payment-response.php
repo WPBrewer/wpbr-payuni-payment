@@ -76,21 +76,26 @@ class Payuni_Payment_Response {
 		$message      = $decrypted_info['Message'];
 		$pay_type     = $decrypted_info['PaymentType'];
 
-		$order = wc_get_order( $order_id );
+		$woo_order_id = Payuni_Payment::parse_payuni_order_no_to_woo_order_id( $order_id );
+
+		$order = wc_get_order( $woo_order_id );
 		if ( ! $order ) {
-			Payuni_Payment::log( 'Cant find order by id:' . $order_id );
+			Payuni_Payment::log( 'Cant find order by id:' . $woo_order_id );
 			return;
 		}
 
+		$order->update_meta_data( '_payuni_order_no', $order_id );
 		$order->update_meta_data( '_payuni_trade_no', $decrypted_info['TradeNo'] );
 		$order->update_meta_data( '_payuni_trade_status', $trade_status );
 		$order->update_meta_data( '_payuni_trade_amt', $decrypted_info['TradeAmt'] );
 		$order->update_meta_data( '_payuni_message', $message );
 
+		self::update_order_meta( $order, $decrypted_info, '_payuni_credit_rescode', 'ResCode' );
+		self::update_order_meta( $order, $decrypted_info, '_payuni_credit_rescode_msg', 'ResCodeMsg' );
+
 		if ( '1' === $pay_type ) {
 
-			self::update_order_meta( $order, $decrypted_info, '_payuni_credit_rescode', 'ResCode' );
-			self::update_order_meta( $order, $decrypted_info, '_payuni_credit_rescode_msg', 'ResCodeMsg' );
+
 			self::update_order_meta( $order, $decrypted_info, '_payuni_credit_card4no', 'Card4No' );
 			self::update_order_meta( $order, $decrypted_info, '_payuni_credit_authday', 'AuthDay' );
 			self::update_order_meta( $order, $decrypted_info, '_payuni_credit_authtime', 'AuthTime' );
@@ -136,7 +141,7 @@ class Payuni_Payment_Response {
 		} else {
 			$order->update_status( 'pending' );
 			$order->update_meta_data( '_payuni_error_message', $message );
-			$order->add_order_note( 'PAYUNi payment incompleted. Trade Status:' . $trade_status . ', Message:' . $message );
+			$order->add_order_note( 'PAYUNi payment incompleted. Pay Type:' . $pay_type . ', Trade Status:' . $trade_status . ', Message:' . $message );
 			$order->save();
 		}
 

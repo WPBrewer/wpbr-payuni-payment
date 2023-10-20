@@ -196,9 +196,16 @@ class Payuni_Payment_Request {
 	}//end refund()
 
 	public static function query( $order_id ) {
-		$mer_id       = get_option( 'payuni_payment_merchant_id' );
-		$order_serial_no = get_post_meta( $order_id, '_payuni_order_serial_no', true );
-		$encrypt_info = array(
+		$mer_id          = get_option( 'payuni_payment_merchant_id' );
+
+		$order = wc_get_order( $order_id );
+		if ( ! $order ) {
+			Payuni_Payment::log( 'PAYUNi query faied. No such order_id:' . $order_id );
+			return false;
+		}
+
+		$order_serial_no = $order->get_meta( '_payuni_order_serial_no' );
+		$encrypt_info    = array(
 			'MerID'      => $mer_id,
 			'MerTradeNo' => $order_id . str_pad( $order_serial_no, 3, '0', STR_PAD_LEFT),
 			'Timestamp'  => time(),
@@ -254,32 +261,6 @@ class Payuni_Payment_Request {
 			Payuni_Payment::log( 'PAYUNi query failed. Status:' . $result['Status'] . ', Message:' . $decrypted['Message'] );
 			return false;
 		}
-	}
-
-	/**
-	 * Gennerate the order number with serial no to avoid order number conflict
-	 *
-	 * @param string $order_id The order id.
-	 * @return string
-	 */
-	public function build_payuni_order_id( $order_id ) {
-
-		$payuni_order_no = $order_id;
-
-		$serial_no = get_post_meta( $order_id, '_payuni_order_serial_no', true );
-		if ( $serial_no ) {
-			if ( $serial_no < 999 ) {
-				$serial_no    += 1;
-				$payuni_order_no = $payuni_order_no . $serial_no;
-			}
-		} else {
-			$serial_no     = 100;
-			$payuni_order_no = $payuni_order_no . $serial_no;
-		}
-
-		update_post_meta( $order_id, '_payuni_order_serial_no', $serial_no );
-
-		return $payuni_order_no;
 	}
 
 	/**

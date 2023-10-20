@@ -34,7 +34,7 @@ class Payuni_Payment_Order_Meta_Boxes {
 	public static function init() {
 		self::get_instance();
 
-		add_action( 'add_meta_boxes', array( self::get_instance(), 'payuni_add_meta_boxes' ) );
+		add_action( 'add_meta_boxes', array( self::get_instance(), 'payuni_add_meta_boxes' ), 10, 2 );
 	}
 
 	/**
@@ -43,23 +43,34 @@ class Payuni_Payment_Order_Meta_Boxes {
 	 * @param object $post The post object.
 	 * @return void
 	 */
-	public function payuni_add_meta_boxes( $post ) {
+	public function payuni_add_meta_boxes( $post_type, $post_or_order_object ) {
 
-		global $post;
+		$order = ( $post_or_order_object instanceof WP_Post ) ? wc_get_order( $post_or_order_object->ID ) : $post_or_order_object;
 
-		if ( array_key_exists( get_post_meta( $post->ID, '_payment_method', true ), Payuni_Payment::$allowed_payments ) ) {
-			add_meta_box(
-				'payuni-order-meta-boxes',
-				__( 'PAYUNi Payment Detail', 'wc-payuni-payment' ),
-				array(
-					self::get_instance(),
-					'payuni_order_admin_meta_box',
-				),
-				'shop_order',
-				'side',
-				'high'
-			);
+		if ( ! $order instanceof WC_Order ) {
+			return;
 		}
+
+		if ( ! array_key_exists( $order->get_payment_method(), Payuni_Payment::$allowed_payments ) ) {
+			return;
+		}
+
+		$screen = wc_get_container()->get( CustomOrdersTableController::class )->custom_orders_table_usage_is_enabled()
+		? wc_get_page_screen_id( 'shop-order' )
+		: 'shop_order';
+
+		add_meta_box(
+			'payuni-order-meta-boxes',
+			__( 'PAYUNi Payment Detail', 'wc-payuni-payment' ),
+			array(
+				self::get_instance(),
+				'payuni_order_admin_meta_box',
+			),
+			$screen,
+			'side',
+			'high'
+		);
+
 
 	}
 
@@ -69,9 +80,10 @@ class Payuni_Payment_Order_Meta_Boxes {
 	 * @param object $post The post object.
 	 * @return void
 	 */
-	public function payuni_order_admin_meta_box( $post ) {
+	public function payuni_order_admin_meta_box( $post_or_order_object ) {
 
-		$order = wc_get_order( $post->ID );
+		$order = ( $post_or_order_object instanceof WP_Post ) ? wc_get_order( $post_or_order_object->ID ) : $post_or_order_object;
+
 		if ( ! $order ) {
 			return;
 		}
@@ -79,12 +91,10 @@ class Payuni_Payment_Order_Meta_Boxes {
 		$payment_method = $order->get_payment_method();
 		$gateway        = Payuni_Payment::$allowed_payments[ $payment_method ];
 
-		Payuni_Payment::log('gateway:' . $gateway );
 		echo '<div><strong>訂單編號:</strong> ' . esc_html( $order->get_meta( '_payuni_order_no' ) ) . '</div>';
 		foreach (  $gateway::get_order_metas() as $key => $value ) {
 			echo '<div><strong>' . esc_html( $value ) . ':</strong> ' . esc_html( $order->get_meta( $key ) ) . '</div>';
 		}
-
 
 		echo '<div><button id="payuni-query-btn" class="button" data-id="' . esc_html( $order->get_id() ) . '">查詢</button></div>';
 

@@ -174,7 +174,8 @@ abstract class Payuni_Abstract_Payment_Gateway extends WC_Payment_Gateway {
 				return $text;
 			}
 
-			$tran_status = get_post_meta( $order->get_id(), '_payuni_trade_status', true );
+			$tran_status = $order->get_meta( '_payuni_trade_status' );
+
 			if ( 'pending' === $order->get_status() || '1' !== $tran_status ) {
 				if ( empty( $this->incomplete_payment_message ) ) {
 					$text = '<span class="payuni-incomplete-payment-message">' . esc_html__( 'We have received your order, but the payment is incompleted.', 'woo-payuni-payment' ) . '</span>';

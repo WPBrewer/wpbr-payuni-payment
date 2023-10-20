@@ -49,6 +49,8 @@ class Payuni_Payment {
 
 	public static $order_metas;
 
+	public static $notify_url;
+
 	/**
 	 * Constructor
 	 */
@@ -296,9 +298,12 @@ class Payuni_Payment {
 	//payuni訂單編號 = woo訂單id + 3位數字
     public static function build_payuni_order_no( $order_id ) {
 
+		$order = wc_get_order( $order_id );
+
         $payuni_order_no = $order_id;
 
-        $order_serial_no = get_post_meta( $order_id, '_payuni_order_serial_no', true );
+		$order_serial_no = $order->get_meta( '_payuni_order_serial_no' );
+
         if ( $order_serial_no && $order_serial_no < 999 ) {
             $order_serial_no += 1;
             $payuni_order_no = $payuni_order_no . str_pad( $order_serial_no, 3, '0', STR_PAD_LEFT); ;
@@ -307,7 +312,8 @@ class Payuni_Payment {
             $payuni_order_no = $payuni_order_no . str_pad( $order_serial_no, 3, '0', STR_PAD_LEFT);
         }
 
-        update_post_meta( $order_id, '_payuni_order_serial_no', $order_serial_no );
+		$order->update_meta_data( '_payuni_order_serial_no', $order_serial_no );
+		$order->save();
 
         return $payuni_order_no;
 

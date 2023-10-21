@@ -86,6 +86,7 @@ class Payuni_Payment {
 		require_once PAYUNI_PLUGIN_DIR . 'includes/gateways/class-payuni-payment-installment-24.php';
 		require_once PAYUNI_PLUGIN_DIR . 'includes/gateways/class-payuni-payment-installment-30.php';
 		require_once PAYUNI_PLUGIN_DIR . 'includes/gateways/class-payuni-payment-applepay.php';
+		require_once PAYUNI_PLUGIN_DIR . 'includes/gateways/class-payuni-payment-googlepay.php';
 		require_once PAYUNI_PLUGIN_DIR . 'includes/gateways/class-payuni-payment-aftee.php';
 		require_once PAYUNI_PLUGIN_DIR . 'includes/gateways/class-payuni-payment-linepay.php';
 
@@ -95,12 +96,13 @@ class Payuni_Payment {
 		Payuni_Payment_Response::init();
 
 		self::$allowed_payments = array(
-			'payuni-credit'   => 'Payuni_Payment_Credit',
-			'payuni-cvs'      => 'Payuni_Payment_CVS',
-			'payuni-atm'      => 'Payuni_Payment_ATM',
-			'payuni-aftee'    => 'Payuni_Payment_Aftee',
-			'payuni-applepay' => 'Payuni_Payment_ApplePay',
-			'payuni-linepay'  => 'Payuni_Payment_LINEPay',
+			'payuni-credit'    => 'Payuni_Payment_Credit',
+			'payuni-cvs'       => 'Payuni_Payment_CVS',
+			'payuni-atm'       => 'Payuni_Payment_ATM',
+			'payuni-aftee'     => 'Payuni_Payment_Aftee',
+			'payuni-applepay'  => 'Payuni_Payment_ApplePay',
+			'payuni-googlepay' => 'Payuni_Payment_GooglePay',
+			'payuni-linepay'   => 'Payuni_Payment_LINEPay',
 		);
 
 		$number_of_payments = get_option( 'payuni_payment_installment_number_of_payments', array() );

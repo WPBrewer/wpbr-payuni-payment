@@ -47,6 +47,7 @@ class Payuni_Payment_Response {
 	public static function init() {
 		self::get_instance();
 		add_action( 'woocommerce_api_payuni_payment', array( self::get_instance(), 'payuni_receive_response' ) );
+		add_action( 'woocommerce_init', array( self::get_instance(), 'payuni_receive_response' ) );
 	}
 
 	/**
@@ -68,7 +69,7 @@ class Payuni_Payment_Response {
 		$hash_info    = $posted['HashInfo'];
 
 		$decrypted_info = Payuni_Payment::decrypt( $encrypt_info );
-		Payuni_Payment::log( 'PAYUNi response decrypted:' . wc_print_r( $decrypted_info, true ) );
+		Payuni_Payment::log( 'PAYUNi notifyURL response decrypted:' . wc_print_r( $decrypted_info, true ) );
 
 		$status       = $decrypted_info['Status']; // SUCESS = 成功，OK = 審核通過.
 		$trade_status = $decrypted_info['TradeStatus']; // 訂單狀態 0=取號成功or信用審查成功,  1 = 已付款, 2 = 付款失敗, 3 = 付款取消.
@@ -94,7 +95,6 @@ class Payuni_Payment_Response {
 		self::update_order_meta( $order, $decrypted_info, '_payuni_credit_rescode_msg', 'ResCodeMsg' );
 
 		if ( '1' === $pay_type ) {
-
 
 			self::update_order_meta( $order, $decrypted_info, '_payuni_credit_card4no', 'Card4No' );
 			self::update_order_meta( $order, $decrypted_info, '_payuni_credit_authday', 'AuthDay' );
@@ -139,7 +139,6 @@ class Payuni_Payment_Response {
 			$order->payment_complete( $decrypted_info['TradeNo'] );
 			$order->add_order_note( 'PAYUNi payment completed. Trade Status:' . $trade_status . ', Message:' . $message );
 		} else {
-			$order->update_status( 'pending' );
 			$order->update_meta_data( '_payuni_error_message', $message );
 			$order->add_order_note( 'PAYUNi payment incompleted. Pay Type:' . $pay_type . ', Trade Status:' . $trade_status . ', Message:' . $message );
 			$order->save();

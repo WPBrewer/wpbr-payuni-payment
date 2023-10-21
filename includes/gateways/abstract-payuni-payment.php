@@ -88,7 +88,7 @@ abstract class Payuni_Abstract_Payment_Gateway extends WC_Payment_Gateway {
 	 */
 	public function payuni_payment_detail_after_order_table( $order ) {
 
-		if ( $order->get_meta( '_payment_method' ) === $this->id ) {
+		if ( $order->get_payment_method() === $this->id ) {
 
 			echo '<h2>' . esc_html__( 'PAYUNi Payment Detail', 'woo-payuni-payment' ) . '</h2>';
 

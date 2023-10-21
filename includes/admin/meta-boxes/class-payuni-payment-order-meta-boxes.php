@@ -7,6 +7,8 @@
 
 defined( 'ABSPATH' ) || exit;
 
+use Automattic\WooCommerce\Internal\DataStores\Orders\CustomOrdersTableController;
+
 /**
  * Payuni_Payment main class for handling all checkout related process.
  */

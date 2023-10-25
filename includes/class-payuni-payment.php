@@ -143,6 +143,10 @@ class Payuni_Payment {
 
 		add_action( 'wp_ajax_payuni_query', array( self::get_instance(), 'payuni_ajax_query_payment' ) );
 
+		if ( version_compare( WC_VERSION, '8.2.0', '>=' ) &&  version_compare( WC_VERSION, '8.3.0', '<' ) ) {
+			add_filter( 'woocommerce_locate_template', array( self::get_instance(), 'wpbr_payuni_wc_template' ), 10, 3 );
+		}
+
 	}
 
 	/**
@@ -326,6 +330,25 @@ class Payuni_Payment {
         $real_woo_order_id = substr($payuni_order_no, 0, -3);
         return $real_woo_order_id;
     }
+
+	/**
+	 * Filter the cart template path to use cart.php in this plugin instead of the one in WooCommerce.
+	 *
+	 * @param string $template      Default template file path.
+	 * @param string $template_name Template file slug.
+	 * @param string $template_path Template file name.
+	 *
+	 * @return string The new Template file path.
+	 */
+	public function wpbr_payuni_wc_template( $template, $template_name, $template_path ) {
+
+		if ( 'order-received.php' === basename( $template ) ) {
+			$template = trailingslashit( PAYUNI_PLUGIN_DIR ) . 'includes/templates/checkout/order-received.php';
+		}
+
+		return $template;
+
+	}
 
 	/**
 	 * Get refund api url by payment method.

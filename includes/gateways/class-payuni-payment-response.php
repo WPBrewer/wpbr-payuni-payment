@@ -47,7 +47,7 @@ class Payuni_Payment_Response {
 	public static function init() {
 		self::get_instance();
 		add_action( 'woocommerce_api_payuni_payment', array( self::get_instance(), 'payuni_receive_response' ) );
-		add_action( 'woocommerce_init', array( self::get_instance(), 'payuni_receive_response' ) );
+		add_action( 'init', array( self::get_instance(), 'payuni_receive_response' ) );
 	}
 
 	/**
@@ -59,14 +59,28 @@ class Payuni_Payment_Response {
 		// phpcs:disable WordPress.Security.NonceVerification.Missing
 		global $woocommerce;
 
-		Payuni_Payment::log( 'payuni_receive_response. raw post data ' . wc_print_r( $_POST, true ) );
+		if ( empty( $_POST ) ) {
+			return;
+		}
+
+		$current_action = current_action();
 
 		$posted = wc_clean( wp_unslash( $_POST ) );
 
-		$status       = $posted['Status'];
-		$merid        = $posted['MerID'];
-		$encrypt_info = $posted['EncryptInfo'];
-		$hash_info    = $posted['HashInfo'];
+		if ( ! array_key_exists( 'MerID', $posted ) ) {
+			return;
+		}
+
+		Payuni_Payment::log( 'payuni_receive_response from ' . $current_action . '. raw post data ' . wc_print_r( $posted, true ) );
+
+		$status       = array_key_exists( 'Status', $posted )? $posted['Status'] : '';
+		$merid        = array_key_exists( 'MerID', $posted )? $posted['MerID'] : '';
+		$encrypt_info = array_key_exists( 'EncryptInfo', $posted )? $posted['EncryptInfo']: '';
+		$hash_info    = array_key_exists( 'HashInfo', $posted )? $posted['HashInfo'] : '';
+
+		if ( empty( $encrypt_info ) ) {
+			return;
+		}
 
 		$decrypted_info = Payuni_Payment::decrypt( $encrypt_info );
 		Payuni_Payment::log( 'PAYUNi notifyURL response decrypted:' . wc_print_r( $decrypted_info, true ) );
@@ -144,11 +158,14 @@ class Payuni_Payment_Response {
 			$order->save();
 		}
 
+		if ( 'init' == $current_action ) {
+			wp_redirect( $order->get_checkout_order_received_url() );
+			exit;
+		}
+
 		// phpcs:enable WordPress.Security.NonceVerification.Missing
 
 	}
-
-
 
 	/**
 	 * Save received post data from PAYUNi

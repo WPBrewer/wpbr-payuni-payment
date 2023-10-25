@@ -45,7 +45,7 @@ class Payuni_Payment_Request {
 				'TradeAmt'   => (int) $order->get_total(),
 				'ProdDesc'   => implode( ';', $prod_desc ),
 				// 'BackURL'    => $order->get_checkout_payment_url( true ),
-				'ReturnURL'  => $this->gateway->get_return_url( $order ),//前景通知網址付款完成返回指定網址
+				'ReturnURL'  => $this->gateway->get_return_url( $order ),//前景通知網址付款完成返回指定網址 (感謝頁面)
 				'NotifyURL'  => $this->gateway->notify_url, // 幕後.
 				'UsrMail'    => $order->get_billing_email(),
 				'UsrMailFix' => '1',
@@ -171,7 +171,7 @@ class Payuni_Payment_Request {
 			throw new Exception( 'PAYUNi refund failed. Payment method not found.' );
 		}
 
-		$url = 'https://sandbox-api.payuni.com.tw/api/trade/close';
+		$url = ( wc_string_to_bool( get_option( 'payuni_payment_testmode_enabled' ) ) ) ? 'https://sandbox-api.payuni.com.tw/api/trade/close' : 'https://api.payuni.com.tw/api/trade/close';
 		Payuni_Payment::log( 'refund url:' . $url );
 		$response = wp_remote_post( $url, $request_args );
 
@@ -227,7 +227,7 @@ class Payuni_Payment_Request {
 			'body'        => $form_data,
 		);
 
-		$url = 'https://sandbox-api.payuni.com.tw/api/trade/query';
+		$url = ( wc_string_to_bool( get_option( 'payuni_payment_testmode_enabled' ) ) ) ? 'https://sandbox-api.payuni.com.tw/api/trade/query' : 'https://api.payuni.com.tw/api/trade/query';
 		Payuni_Payment::log( 'query url:' . $url );
 		$response = wp_remote_post( $url, $request_args );
 

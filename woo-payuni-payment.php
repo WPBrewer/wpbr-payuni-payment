@@ -7,7 +7,7 @@
  * @wordpress-plugin
  * Plugin Name:       PAYUNi Payment for WooCommerce
  * Description:       PAYUNi Payment for WooCommerce
- * Version:           1.0.0
+ * Version:           1.1.0
  * Author:            <a href="https://wpbrewer.com">WPBrewer</a>
  * License:           GPL-2.0+
  * License URI:       http://www.gnu.org/licenses/gpl-2.0.txt
@@ -24,7 +24,7 @@ if ( ! defined( 'WPINC' ) ) {
 define( 'PAYUNI_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
 define( 'PAYUNI_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
 define( 'PAYUNI_BASENAME', plugin_basename( __FILE__ ) );
-define( 'PAYUNI_PAYMENT_VERSION', '1.0.0' );
+define( 'PAYUNI_PAYMENT_VERSION', '1.1.0' );
 
 /**
  * Display warning when WooCommerce is not installed and activated.

@@ -47,9 +47,9 @@ class Payuni_Payment_Order_Meta_Boxes {
 	 */
 	public function payuni_add_meta_boxes( $post_type, $post_or_order_object ) {
 
-		$order = ( $post_or_order_object instanceof WP_Post ) ? wc_get_order( $post_or_order_object->ID ) : $post_or_order_object;
+		$order = ( $post_or_order_object instanceof \WP_Post ) ? wc_get_order( $post_or_order_object->ID ) : $post_or_order_object;
 
-		if ( ! $order instanceof WC_Order ) {
+		if ( ! $order instanceof \WC_Order ) {
 			return;
 		}
 
@@ -84,7 +84,7 @@ class Payuni_Payment_Order_Meta_Boxes {
 	 */
 	public function payuni_order_admin_meta_box( $post_or_order_object ) {
 
-		$order = ( $post_or_order_object instanceof WP_Post ) ? wc_get_order( $post_or_order_object->ID ) : $post_or_order_object;
+		$order = ( $post_or_order_object instanceof \WP_Post ) ? wc_get_order( $post_or_order_object->ID ) : $post_or_order_object;
 
 		if ( ! $order ) {
 			return;

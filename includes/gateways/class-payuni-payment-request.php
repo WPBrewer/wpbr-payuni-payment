@@ -47,8 +47,8 @@ class Payuni_Payment_Request {
 				// 'BackURL'    => $order->get_checkout_payment_url( true ),
 				'ReturnURL'  => $this->gateway->get_return_url( $order ),//前景通知網址付款完成返回指定網址 (感謝頁面)
 				'NotifyURL'  => $this->gateway->notify_url, // 幕後.
-				'UsrMail'    => $order->get_billing_email(),
-				'UsrMailFix' => '1',
+				'UsrMail'    => $order->get_billing_email(),//付款頁帶入 email
+				'UsrMailFix' => '1',//不可修改 email
 				'Timestamp'  => time(),
 			),
 			$order

@@ -89,6 +89,7 @@ class Payuni_Payment_Credit extends Payuni_Abstract_Payment_Gateway {
 	public static function get_payment_order_metas() {
 		$order_metas =
 			array(
+				'_payuni_credit_authtype' => __( 'Auth Type', 'woo-payuni-payment' ),
 				'_payuni_credit_authday'  => __( 'Auth Date', 'woo-payuni-payment' ),
 				'_payuni_credit_authtime' => __( 'Auth Time', 'woo-payuni-payment' ),
 			);

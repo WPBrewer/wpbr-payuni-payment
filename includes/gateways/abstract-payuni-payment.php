@@ -48,6 +48,13 @@ abstract class Payuni_Abstract_Payment_Gateway extends WC_Payment_Gateway {
 	protected $api_url;
 
 	/**
+	 * Frontend return url
+	 *
+	 * @var string
+	 */
+	public $return_url;
+
+	/**
 	 * Minimum amount of the order
 	 *
 	 * @var string
@@ -74,6 +81,7 @@ abstract class Payuni_Abstract_Payment_Gateway extends WC_Payment_Gateway {
 		$this->testmode       = wc_string_to_bool( get_option( 'payuni_payment_testmode_enabled' ) );
 		$this->api_url        = ( $this->testmode ) ? 'https://sandbox-api.payuni.com.tw/api/upp' : 'https://api.payuni.com.tw/api/upp';
 		$this->notify_url     = add_query_arg( 'wc-api', 'payuni_payment', home_url( '/' ) );
+		$this->return_url     = add_query_arg( 'wc-api', 'payuni_return', home_url( '/' ) );
 
 		add_action( 'woocommerce_order_details_after_order_table', array( $this, 'payuni_payment_detail_after_order_table' ), 10, 1 );
 		add_filter( 'woocommerce_thankyou_order_received_text', array( $this, 'payuni_thankyou_order_unpaid_message' ), 10, 2 );

@@ -73,6 +73,15 @@ class Payuni_Payment_LINEPay extends Payuni_Abstract_Payment_Gateway {
 		);
 	}
 
+	public static function get_payment_order_metas() {
+		$order_metas =
+			array(
+				'_payuni_linepay_payno'   => _x( 'Pay No', 'LINE Pay', 'woo-payuni-payment' ),
+			);
+
+		return $order_metas;
+	}
+
 	/**
 	 * Process the refund and return the result.
 	 *
@@ -91,12 +100,5 @@ class Payuni_Payment_LINEPay extends Payuni_Abstract_Payment_Gateway {
 		$request = new Payuni_Payment_Request( $this );
 		return $request->refund( $order_id, $amount, $reason );
 	}
-
-	public static function get_payment_order_metas() {
-		$order_metas = array();
-		return $order_metas;
-	}
-
-
 
 }

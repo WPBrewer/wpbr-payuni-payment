@@ -125,6 +125,7 @@ trait PayuniInstallmentableTrait {
 	public static function get_payment_order_metas() {
 		$order_metas =
 			array(
+				'_payuni_credit_authtype' => __( 'Auth Type', 'woo-payuni-payment' ),
 				'_payuni_credit_card4no'  => __( 'Card Last 4 No', 'woo-payuni-payment' ),
 				'_payuni_credit_cardinst' => __( 'Installments', 'woo-payuni-payment' ),
 				'_payuni_credit_firstamt' => __( 'First Amount', 'woo-payuni-payment' ),

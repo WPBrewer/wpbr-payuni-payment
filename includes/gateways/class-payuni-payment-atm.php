@@ -59,7 +59,7 @@ class Payuni_Payment_ATM extends Payuni_Abstract_Payment_Gateway {
 		return array_merge(
 			$args,
 			array(
-				'ExpireDate' => date( 'Y-m-d', strtotime( '+' . $this->expire_days . ' days' ) ),
+				'ExpireDate' => date( 'Y-m-d H:i:s', strtotime( '+' . $this->expire_days . ' days' ) ),
 				'ATM'        => '1',
 			)
 		);

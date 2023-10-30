@@ -48,7 +48,7 @@ function payuni_bank_slswc_client() {
 
     return SLSWC_Client::get_instance( 'https://wpbrewer.com/', __FILE__, 'plugin', array( 'slug'=>'woo-payuni-payment' ) );
 }
-add_action( 'plugins_loaded', 'payuni_bank_slswc_client', 11 );
+// add_action( 'plugins_loaded', 'payuni_bank_slswc_client', 11 );
 
 add_action( 'before_woocommerce_init', function() {
 	if ( class_exists( \Automattic\WooCommerce\Utilities\FeaturesUtil::class ) ) {

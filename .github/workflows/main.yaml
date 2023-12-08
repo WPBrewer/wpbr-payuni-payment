@@ -14,15 +14,15 @@ jobs:
       - name: Create artifact
         uses: montudor/action-zip@v1
         with:
-          args: zip -X -r build/woo-payuni-payment.zip . -x *.git* node_modules/\* .* "*/\.*" *.dist grumphp.yml composer.* build**
+          args: zip -X -r build/wpbr-payuni-payment.zip . -x *.git* node_modules/\* .* "*/\.*" *.dist grumphp.yml composer.* build**
       - name: Upload artifact
         uses: actions/upload-artifact@v2
         with:
-          name: woo-payuni-payment.
-          path: build/woo-payuni-payment.zip
+          name: wpbr-payuni-payment.
+          path: build/wpbr-payuni-payment.zip
       - name: Upload to release
         uses: JasonEtco/upload-to-release@master
         with:
-          args: build/woo-payuni-payment.zip application/zip
+          args: build/wpbr-payuni-payment.zip application/zip
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

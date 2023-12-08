@@ -27,8 +27,8 @@ class Payuni_Payment_Aftee extends Payuni_Abstract_Payment_Gateway {
 		parent::__construct();
 
 		$this->id                 = 'payuni-aftee';
-		$this->method_title       = __( 'PAYUNi AFTEE Payment', 'woo-payuni-payment' );
-		$this->method_description = __( 'PAYUNi AFTEE Payment', 'woo-payuni-payment' );
+		$this->method_title       = __( 'PAYUNi AFTEE Payment', 'wpbr-payuni-payment' );
+		$this->method_description = __( 'PAYUNi AFTEE Payment', 'wpbr-payuni-payment' );
 		$this->supports           = array(
 			'products',
 		);
@@ -78,8 +78,8 @@ class Payuni_Payment_Aftee extends Payuni_Abstract_Payment_Gateway {
 	public static function get_payment_order_metas() {
 		$order_metas =
 			array(
-				'_payuni_aftee_payno'   => _x( 'Pay No', 'AFTEE', 'woo-payuni-payment' ),
-				'_payuni_aftee_paytime' => __( 'Pay Time', 'woo-payuni-payment' ),
+				'_payuni_aftee_payno'   => _x( 'Pay No', 'AFTEE', 'wpbr-payuni-payment' ),
+				'_payuni_aftee_paytime' => __( 'Pay Time', 'wpbr-payuni-payment' ),
 			);
 
 		return $order_metas;

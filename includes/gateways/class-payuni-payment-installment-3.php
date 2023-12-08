@@ -24,8 +24,8 @@ class Payuni_Payment_Installment_3 extends Payuni_Abstract_Payment_Gateway {
 		parent::__construct();
 
 		$this->id                 = 'payuni-installment-3';
-		$this->method_title       = __( 'PAYUNi Installment Payment (3 Installments)', 'woo-payuni-payment' );
-		$this->method_description = __( 'PAYUNi Installment Payment (3 Installments)', 'woo-payuni-payment' );
+		$this->method_title       = __( 'PAYUNi Installment Payment (3 Installments)', 'wpbr-payuni-payment' );
+		$this->method_description = __( 'PAYUNi Installment Payment (3 Installments)', 'wpbr-payuni-payment' );
 
 		// Load the settings.
 		$this->init_from_fields();

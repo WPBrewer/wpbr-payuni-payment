@@ -20,8 +20,8 @@ class Payuni_Payment_Credit extends Payuni_Abstract_Payment_Gateway {
 		parent::__construct();
 
 		$this->id                 = 'payuni-credit';
-		$this->method_title       = __( 'PAYUNi Credit Card Payment', 'woo-payuni-payment' );
-		$this->method_description = __( 'PAYUNi Credit Card Payment', 'woo-payuni-payment' );
+		$this->method_title       = __( 'PAYUNi Credit Card Payment', 'wpbr-payuni-payment' );
+		$this->method_description = __( 'PAYUNi Credit Card Payment', 'wpbr-payuni-payment' );
 		$this->supports           = array(
 			'products',
 			'refunds',
@@ -89,9 +89,9 @@ class Payuni_Payment_Credit extends Payuni_Abstract_Payment_Gateway {
 	public static function get_payment_order_metas() {
 		$order_metas =
 			array(
-				'_payuni_credit_authtype' => __( 'Auth Type', 'woo-payuni-payment' ),
-				'_payuni_credit_authday'  => __( 'Auth Date', 'woo-payuni-payment' ),
-				'_payuni_credit_authtime' => __( 'Auth Time', 'woo-payuni-payment' ),
+				'_payuni_credit_authtype' => __( 'Auth Type', 'wpbr-payuni-payment' ),
+				'_payuni_credit_authday'  => __( 'Auth Date', 'wpbr-payuni-payment' ),
+				'_payuni_credit_authtime' => __( 'Auth Time', 'wpbr-payuni-payment' ),
 			);
 
 		return $order_metas;

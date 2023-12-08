@@ -68,7 +68,7 @@ abstract class Payuni_Abstract_Payment_Gateway extends WC_Payment_Gateway {
 
 		// $this->icon              = $this->get_icon();
 		$this->has_fields        = false;
-		$this->order_button_text = __( 'Proceed to PAYUNi', 'woo-payuni-payment' );
+		$this->order_button_text = __( 'Proceed to PAYUNi', 'wpbr-payuni-payment' );
 		$this->supports          = array(
 			'products',
 		);
@@ -98,10 +98,10 @@ abstract class Payuni_Abstract_Payment_Gateway extends WC_Payment_Gateway {
 
 		if ( $order->get_payment_method() === $this->id ) {
 
-			echo '<h2>' . esc_html__( 'PAYUNi Payment Detail', 'woo-payuni-payment' ) . '</h2>';
+			echo '<h2>' . esc_html__( 'PAYUNi Payment Detail', 'wpbr-payuni-payment' ) . '</h2>';
 
 			if ( empty( $order->get_meta( '_payuni_trade_no' ) ) ) {
-				echo '<div class="payuni_payment_notify_not_received">' . esc_html__( 'If the payment detail is not displayed. Please wait for a moment and reload the page.', 'woo-payuni-payment' ) . '</div>';
+				echo '<div class="payuni_payment_notify_not_received">' . esc_html__( 'If the payment detail is not displayed. Please wait for a moment and reload the page.', 'wpbr-payuni-payment' ) . '</div>';
 			}
 
 			echo '<table class="shop_table payuni_payment_details"><tbody>';
@@ -126,12 +126,12 @@ abstract class Payuni_Abstract_Payment_Gateway extends WC_Payment_Gateway {
 		echo '<h3>' . esc_html( $this->get_method_title() ) . '</h3>';
 		echo '<p>' . sprintf(
 			/* translators: 1: Payment method title 2: PAYUNi URL */
-			esc_html__( '%1$s is a payment gateway provided by %2$s', 'woo-payuni-payment' ),
+			esc_html__( '%1$s is a payment gateway provided by %2$s', 'wpbr-payuni-payment' ),
 			esc_html( $this->get_method_title() ),
 			sprintf(
 				'<a href="%s">%s</a>',
 				esc_url( 'https://www.tcbbank.com.tw/' ),
-				esc_html__( 'PAYUNi', 'woo-payuni-payment' )
+				esc_html__( 'PAYUNi', 'wpbr-payuni-payment' )
 			)
 		) . '</p>';
 		echo '<table class="form-table">';
@@ -186,7 +186,7 @@ abstract class Payuni_Abstract_Payment_Gateway extends WC_Payment_Gateway {
 
 			if ( 'pending' === $order->get_status() || '1' !== $tran_status ) {
 				if ( empty( $this->incomplete_payment_message ) ) {
-					$text = '<span class="payuni-incomplete-payment-message">' . esc_html__( 'We have received your order, but the payment is incompleted.', 'woo-payuni-payment' ) . '</span>';
+					$text = '<span class="payuni-incomplete-payment-message">' . esc_html__( 'We have received your order, but the payment is incompleted.', 'wpbr-payuni-payment' ) . '</span>';
 				} else {
 					$text = '<span class="payuni-incomplete-payment-message">' . $this->incomplete_payment_message . '</span>';
 				}
@@ -222,7 +222,7 @@ abstract class Payuni_Abstract_Payment_Gateway extends WC_Payment_Gateway {
 	 */
 	public function get_icon() {
 		// $icon_html  = '';
-		// $icon_html .= '<img src="' . PAYUNI_PLUGIN_URL . 'payuni-logo.jpg " alt="' . __( 'PAYUNi Payment Gateway', 'woo-payuni-payment' ) . '" />';
+		// $icon_html .= '<img src="' . PAYUNI_PLUGIN_URL . 'payuni-logo.jpg " alt="' . __( 'PAYUNi Payment Gateway', 'wpbr-payuni-payment' ) . '" />';
 		// return apply_filters( 'woocommerce_gateway_icon', $icon_html, $this->id );
 	}
 

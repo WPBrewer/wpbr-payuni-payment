@@ -20,8 +20,8 @@ class Payuni_Payment_ATM extends Payuni_Abstract_Payment_Gateway {
 		parent::__construct();
 
 		$this->id                 = 'payuni-atm';
-		$this->method_title       = __( 'PAYUNi ATM Payment', 'woo-payuni-payment' );
-		$this->method_description = __( 'PAYUNi ATM Payment', 'woo-payuni-payment' );
+		$this->method_title       = __( 'PAYUNi ATM Payment', 'wpbr-payuni-payment' );
+		$this->method_description = __( 'PAYUNi ATM Payment', 'wpbr-payuni-payment' );
 
 		$this->init_form_fields();
 		$this->init_settings();
@@ -68,15 +68,14 @@ class Payuni_Payment_ATM extends Payuni_Abstract_Payment_Gateway {
 	public static function get_payment_order_metas() {
 		$order_metas =
 			array(
-				'_payuni_atm_payno'      => _x( 'Pay No', 'ATM', 'woo-payuni-payment' ),
-				'_payuni_atm_banktype'   => __( 'Bank Code', 'woo-payuni-payment' ),
-				'_payuni_atm_expiredate' => __( 'Expire Date', 'woo-payuni-payment' ),
-				'_payuni_atm_paytime'    => __( 'Pay Time', 'woo-payuni-payment' ),
-				'_payuni_atm_account5no' => __( 'Account 5 No', 'woo-payuni-payment' ),
+				'_payuni_atm_payno'      => _x( 'Pay No', 'ATM', 'wpbr-payuni-payment' ),
+				'_payuni_atm_banktype'   => __( 'Bank Code', 'wpbr-payuni-payment' ),
+				'_payuni_atm_expiredate' => __( 'Expire Date', 'wpbr-payuni-payment' ),
+				'_payuni_atm_paytime'    => __( 'Pay Time', 'wpbr-payuni-payment' ),
+				'_payuni_atm_account5no' => __( 'Account 5 No', 'wpbr-payuni-payment' ),
 			);
 
 		return $order_metas;
 	}
 
 }
-

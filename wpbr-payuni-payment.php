@@ -7,11 +7,13 @@
  * @wordpress-plugin
  * Plugin Name:       PAYUNi Payment for WooCommerce
  * Description:       PAYUNi Payment for WooCommerce
+ * Plugin URI:        https://wpbrewer.com/product/wpbr-payuni-payment
  * Version:           1.1.1
- * Author:            <a href="https://wpbrewer.com">WPBrewer</a>
+ * Author:            WPBrewer
+ * Author URI:        https://wpbrewer.com/
  * License:           GPL-2.0+
  * License URI:       http://www.gnu.org/licenses/gpl-2.0.txt
- * Text Domain:       woo-payuni-payment
+ * Text Domain:       wpbr-payuni-payment
  * Domain Path:       /languages
  * @package payuni
  */
@@ -34,21 +36,10 @@ define( 'PAYUNI_PAYMENT_VERSION', '1.1.1' );
 function payuni_payment_needs_woocommerce() {
 
 	echo '<div id="message" class="error">';
-	echo '  <p>' . esc_html__( 'PAYUNi Payment needs WooCommerce, please intall and activate WooCommerce first!', 'woo-payuni-payment' ) . '</p>';
+	echo '  <p>' . esc_html__( 'PAYUNi Payment needs WooCommerce, please intall and activate WooCommerce first!', 'wpbr-payuni-payment' ) . '</p>';
 	echo '</div>';
 
 }
-
-function payuni_bank_slswc_client() {
-    require_once 'includes/core/class-slswc-client.php';
-	require_once 'includes/core/class-slswc-client-manager.php';
-	require_once 'includes/core/class-slswc.php';
-
-	SLSWC::init();
-
-    return SLSWC_Client::get_instance( 'https://wpbrewer.com/', __FILE__, 'plugin', array( 'slug'=>'woo-payuni-payment' ) );
-}
-// add_action( 'plugins_loaded', 'payuni_bank_slswc_client', 11 );
 
 add_action( 'before_woocommerce_init', function() {
 	if ( class_exists( \Automattic\WooCommerce\Utilities\FeaturesUtil::class ) ) {
@@ -65,7 +56,7 @@ function run_payuni_payment() {
 
 	if ( ! in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', get_option( 'active_plugins' ) ) ) ) {
 		require_once ABSPATH . 'wp-admin/includes/plugin.php';
-		if ( is_plugin_active( 'woo-payuni-payment/woo-payuni-payment.php' ) ) {
+		if ( is_plugin_active( 'wpbr-payuni-payment/wpbr-payuni-payment.php' ) ) {
 			deactivate_plugins( plugin_basename( __FILE__ ) );
 			add_action( 'admin_notices', 'payuni_payment_needs_woocommerce' );
 			return;

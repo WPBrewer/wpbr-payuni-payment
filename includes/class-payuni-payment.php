@@ -69,7 +69,7 @@ class Payuni_Payment {
 
 		self::$log_enabled = 'yes' === get_option( 'payuni_payment_debug_log_enabled', 'no' );
 
-		load_plugin_textdomain( 'woo-payuni-payment', false, dirname( PAYUNI_BASENAME ) . '/languages/' );
+		load_plugin_textdomain( 'wpbr-payuni-payment', false, dirname( PAYUNI_BASENAME ) . '/languages/' );
 
 		require_once PAYUNI_PLUGIN_DIR . 'includes/gateways/abstract-payuni-payment.php';
 		require_once PAYUNI_PLUGIN_DIR . 'includes/gateways/class-payuni-payment-request.php';
@@ -124,10 +124,10 @@ class Payuni_Payment {
 		}
 
 		self::$order_metas = array(
-			'_payuni_trade_no'     => __( 'Trade No', 'woo-payuni-payment' ),
-			'_payuni_trade_amt'    => __( 'Trade Amount', 'woo-payuni-payment' ),
-			'_payuni_trade_status' => __( 'Trade Status', 'woo-payuni-payment' ),
-			'_payuni_message'      => __( 'Message', 'woo-payuni-payment' ),
+			'_payuni_trade_no'     => __( 'Trade No', 'wpbr-payuni-payment' ),
+			'_payuni_trade_amt'    => __( 'Trade Amount', 'wpbr-payuni-payment' ),
+			'_payuni_trade_status' => __( 'Trade Status', 'wpbr-payuni-payment' ),
+			'_payuni_message'      => __( 'Message', 'wpbr-payuni-payment' ),
 		);
 
 
@@ -168,8 +168,8 @@ class Payuni_Payment {
 	 */
 	public function payuni_add_action_links( $links ) {
 		$setting_links = array(
-			'<a href="' . admin_url( 'admin.php?page=wc-settings&tab=payuni' ) . '">' . __( 'General Settings', 'woo-payuni-payment' ) . '</a>',
-			'<a href="' . admin_url( 'admin.php?page=wc-settings&tab=checkout' ) . '">' . __( 'Payment Settings', 'woo-payuni-payment' ) . '</a>',
+			'<a href="' . admin_url( 'admin.php?page=wc-settings&tab=payuni' ) . '">' . __( 'General Settings', 'wpbr-payuni-payment' ) . '</a>',
+			'<a href="' . admin_url( 'admin.php?page=wc-settings&tab=checkout' ) . '">' . __( 'Payment Settings', 'wpbr-payuni-payment' ) . '</a>',
 		);
 		return array_merge( $links, $setting_links );
 	}
@@ -221,7 +221,7 @@ class Payuni_Payment {
 		if ( ! array_key_exists( 'security', $posted ) || ! wp_verify_nonce( $posted['security'], 'payuni-query' ) ) {
 			$return = array(
 				'success' => false,
-				'message' => __( 'Unsecure AJAX call', 'woo-payuni-payment' ),
+				'message' => __( 'Unsecure AJAX call', 'wpbr-payuni-payment' ),
 			);
 			wp_send_json( $return );
 		}
@@ -232,7 +232,7 @@ class Payuni_Payment {
 		if ( ! $order ) {
 			$return = array(
 				'success' => false,
-				'message' => __( 'No such order id', 'woo-payuni-payment' ),
+				'message' => __( 'No such order id', 'wpbr-payuni-payment' ),
 			);
 			wp_send_json( $return );
 		}
@@ -244,13 +244,13 @@ class Payuni_Payment {
 			if ( $request->query( $order->get_id() ) ) {
 				$return = array(
 					'success' => true,
-					'message' => __( 'PAYUNi Query Successfully', 'woo-payuni-payment' ),
+					'message' => __( 'PAYUNi Query Successfully', 'wpbr-payuni-payment' ),
 				);
 				wp_send_json( $return );
 			}
 		} catch ( Exception $e ) {
 
-			$order->add_order_note( __( 'PAYUNi Query Failed!', 'woo-payuni-payment' ) . $e->getMessage() );
+			$order->add_order_note( __( 'PAYUNi Query Failed!', 'wpbr-payuni-payment' ) . $e->getMessage() );
 			$return = array(
 				'success' => false,
 				'message' => $e->getMessage(),
@@ -377,7 +377,7 @@ class Payuni_Payment {
 			if ( empty( self::$log ) ) {
 				self::$log = new WC_Logger();
 			}
-			self::$log->log( $level, $message, array( 'source' => 'woo-payuni-payment' ) );
+			self::$log->log( $level, $message, array( 'source' => 'wpbr-payuni-payment' ) );
 		}
 	}
 

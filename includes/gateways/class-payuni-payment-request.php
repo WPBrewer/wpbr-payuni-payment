@@ -80,7 +80,7 @@ class Payuni_Payment_Request {
 
 		try {
 			?>
-			<div><?php esc_html_e( 'Redirecting...', 'woo-payuni-payment' ); ?></div>
+			<div><?php esc_html_e( 'Redirecting...', 'wpbr-payuni-payment' ); ?></div>
 			<form method="post" id="payuni-form" action="<?php echo esc_url( $this->gateway->get_api_url() ); ?>" accept="UTF-8" accept-charset="UTF-8">
 				<?php
 				$fields = $this->get_transaction_args( $order );
@@ -109,7 +109,7 @@ class Payuni_Payment_Request {
 
 			return new WP_Error(
 				'process_refund_request',
-				sprintf( __( 'Unable to find order #%s', 'woo-payuni-payment' ), $order_id ),
+				sprintf( __( 'Unable to find order #%s', 'wpbr-payuni-payment' ), $order_id ),
 				array(
 					'order_id'      => $order_id,
 					'refund_amount' => $amount,
@@ -123,7 +123,7 @@ class Payuni_Payment_Request {
 			if ( $order->get_total() != $amount ) {
 				return new WP_Error(
 					'process_refund_request',
-					sprintf( __( 'The refund amount for order #%s should be the same as the order total for installment payment.', 'woo-payuni-payment' ), $order_id ),
+					sprintf( __( 'The refund amount for order #%s should be the same as the order total for installment payment.', 'wpbr-payuni-payment' ), $order_id ),
 					array(
 						'order_id' => $order_id,
 					)
@@ -254,7 +254,7 @@ class Payuni_Payment_Request {
 		if ( 'SUCCESS' === $result['Status'] ) {
 
 			$order = wc_get_order( $woo_order_id );
-			$order->add_order_note( sprintf( __( 'PAYUNi query succeed. Query result: %s', 'woo-payuni-payment' ), wc_print_r( $decrypted, true ) ), );
+			$order->add_order_note( sprintf( __( 'PAYUNi query succeed. Query result: %s', 'wpbr-payuni-payment' ), wc_print_r( $decrypted, true ) ), );
 			Payuni_Payment::log( 'PAYUNi query success. Status:' . $result['Status'] . ', Message:' . $decrypted['Message'] . ', Trade Status:' . $trade_status );
 			return true;
 		} else {

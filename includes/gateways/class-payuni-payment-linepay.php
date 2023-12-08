@@ -27,8 +27,8 @@ class Payuni_Payment_LINEPay extends Payuni_Abstract_Payment_Gateway {
 		parent::__construct();
 
 		$this->id                 = 'payuni-linepay';
-		$this->method_title       = __( 'PAYUNi LINE Pay', 'woo-payuni-payment' );
-		$this->method_description = __( 'PAYUNi LINE Pay', 'woo-payuni-payment' );
+		$this->method_title       = __( 'PAYUNi LINE Pay', 'wpbr-payuni-payment' );
+		$this->method_description = __( 'PAYUNi LINE Pay', 'wpbr-payuni-payment' );
 		$this->supports           = array(
 			'products',
 		);
@@ -76,7 +76,7 @@ class Payuni_Payment_LINEPay extends Payuni_Abstract_Payment_Gateway {
 	public static function get_payment_order_metas() {
 		$order_metas =
 			array(
-				'_payuni_linepay_payno'   => _x( 'Pay No', 'LINE Pay', 'woo-payuni-payment' ),
+				'_payuni_linepay_payno'   => _x( 'Pay No', 'LINE Pay', 'wpbr-payuni-payment' ),
 			);
 
 		return $order_metas;

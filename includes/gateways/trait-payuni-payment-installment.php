@@ -125,13 +125,13 @@ trait PayuniInstallmentableTrait {
 	public static function get_payment_order_metas() {
 		$order_metas =
 			array(
-				'_payuni_credit_authtype' => __( 'Auth Type', 'woo-payuni-payment' ),
-				'_payuni_credit_card4no'  => __( 'Card Last 4 No', 'woo-payuni-payment' ),
-				'_payuni_credit_cardinst' => __( 'Installments', 'woo-payuni-payment' ),
-				'_payuni_credit_firstamt' => __( 'First Amount', 'woo-payuni-payment' ),
-				'_payuni_credit_eachamt'  => __( 'Each Amount', 'woo-payuni-payment' ),
-				'_payuni_credit_authday'  => __( 'Auth Date', 'woo-payuni-payment' ),
-				'_payuni_credit_authtime' => __( 'Auth Time', 'woo-payuni-payment' ),
+				'_payuni_credit_authtype' => __( 'Auth Type', 'wpbr-payuni-payment' ),
+				'_payuni_credit_card4no'  => __( 'Card Last 4 No', 'wpbr-payuni-payment' ),
+				'_payuni_credit_cardinst' => __( 'Installments', 'wpbr-payuni-payment' ),
+				'_payuni_credit_firstamt' => __( 'First Amount', 'wpbr-payuni-payment' ),
+				'_payuni_credit_eachamt'  => __( 'Each Amount', 'wpbr-payuni-payment' ),
+				'_payuni_credit_authday'  => __( 'Auth Date', 'wpbr-payuni-payment' ),
+				'_payuni_credit_authtime' => __( 'Auth Time', 'wpbr-payuni-payment' ),
 			);
 
 		return $order_metas;

@@ -32,7 +32,6 @@ class WC_Settings_Tab_Payuni extends WC_Settings_Page {
 
 		add_action( 'woocommerce_settings_' . $this->id, array( $this, 'output' ) );
 		add_action( 'woocommerce_settings_save_' . $this->id, array( $this, 'save' ) );
-		// add_action( 'woocommerce_sections_' . $this->id, array( $this, 'output_sections' ) );
 
 		add_action( 'admin_init', array( $this, 'payuni_redirect_default_tab' ) );
 

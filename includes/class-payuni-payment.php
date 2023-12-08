@@ -168,7 +168,7 @@ class Payuni_Payment {
 	 */
 	public function payuni_add_action_links( $links ) {
 		$setting_links = array(
-			'<a href="' . admin_url( 'admin.php?page=wc-settings&tab=payuni' ) . '">' . __( 'General Settings', 'wpbr-payuni-payment' ) . '</a>',
+			'<a href="' . admin_url( 'admin.php?page=wc-settings&tab=payuni&section=payment' ) . '">' . __( 'General Settings', 'wpbr-payuni-payment' ) . '</a>',
 			'<a href="' . admin_url( 'admin.php?page=wc-settings&tab=checkout' ) . '">' . __( 'Payment Settings', 'wpbr-payuni-payment' ) . '</a>',
 		);
 		return array_merge( $links, $setting_links );

@@ -40,21 +40,6 @@ class WC_Settings_Tab_Payuni extends WC_Settings_Page {
 	}
 
 	/**
-	 * Add payment settings to sections.
-	 *
-	 * @param array $sections The sections.
-	 * @return array
-	 */
-	public function paynow_payment_sections( $sections ) {
-
-		if ( ! array_key_exists( 'payment', $sections ) ) {
-			$sections['payment'] = __( 'Payment Settings', 'wpbr-payuni-payment' );
-		}
-
-		return $sections;
-	}
-
-	/**
 	 * Get setting sections
 	 *
 	 * @return array

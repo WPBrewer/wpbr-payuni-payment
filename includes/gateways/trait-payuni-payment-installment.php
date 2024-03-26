@@ -64,7 +64,7 @@ trait PayuniInstallmentableTrait {
 	 * @return void
 	 */
 	public function init_from_fields() {
-		$this->form_fields = include PAYUNI_PLUGIN_DIR . 'includes/settings/settings-payuni-payment-installment.php';
+		$this->form_fields = include WPBR_PAYUNI_PLUGIN_DIR . 'includes/settings/settings-payuni-payment-installment.php';
 	}
 
 	/**

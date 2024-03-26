@@ -69,28 +69,28 @@ class Payuni_Payment {
 
 		self::$log_enabled = 'yes' === get_option( 'payuni_payment_debug_log_enabled', 'no' );
 
-		load_plugin_textdomain( 'wpbr-payuni-payment', false, dirname( PAYUNI_BASENAME ) . '/languages/' );
+		load_plugin_textdomain( 'wpbr-payuni-payment', false, dirname( WPBR_PAYUNI_BASENAME ) . '/languages/' );
 
-		require_once PAYUNI_PLUGIN_DIR . 'includes/gateways/abstract-payuni-payment.php';
-		require_once PAYUNI_PLUGIN_DIR . 'includes/gateways/class-payuni-payment-request.php';
-		require_once PAYUNI_PLUGIN_DIR . 'includes/gateways/class-payuni-payment-response.php';
-		require_once PAYUNI_PLUGIN_DIR . 'includes/gateways/class-payuni-payment-credit.php';
-		require_once PAYUNI_PLUGIN_DIR . 'includes/gateways/class-payuni-payment-cvs.php';
-		require_once PAYUNI_PLUGIN_DIR . 'includes/gateways/class-payuni-payment-atm.php';
-		require_once PAYUNI_PLUGIN_DIR . 'includes/gateways/trait-payuni-payment-installment.php';
-		require_once PAYUNI_PLUGIN_DIR . 'includes/gateways/class-payuni-payment-installment-3.php';
-		require_once PAYUNI_PLUGIN_DIR . 'includes/gateways/class-payuni-payment-installment-6.php';
-		require_once PAYUNI_PLUGIN_DIR . 'includes/gateways/class-payuni-payment-installment-9.php';
-		require_once PAYUNI_PLUGIN_DIR . 'includes/gateways/class-payuni-payment-installment-12.php';
-		require_once PAYUNI_PLUGIN_DIR . 'includes/gateways/class-payuni-payment-installment-18.php';
-		require_once PAYUNI_PLUGIN_DIR . 'includes/gateways/class-payuni-payment-installment-24.php';
-		require_once PAYUNI_PLUGIN_DIR . 'includes/gateways/class-payuni-payment-installment-30.php';
-		require_once PAYUNI_PLUGIN_DIR . 'includes/gateways/class-payuni-payment-applepay.php';
-		require_once PAYUNI_PLUGIN_DIR . 'includes/gateways/class-payuni-payment-googlepay.php';
-		require_once PAYUNI_PLUGIN_DIR . 'includes/gateways/class-payuni-payment-aftee.php';
-		require_once PAYUNI_PLUGIN_DIR . 'includes/gateways/class-payuni-payment-linepay.php';
+		require_once WPBR_PAYUNI_PLUGIN_DIR . 'includes/gateways/abstract-payuni-payment.php';
+		require_once WPBR_PAYUNI_PLUGIN_DIR . 'includes/gateways/class-payuni-payment-request.php';
+		require_once WPBR_PAYUNI_PLUGIN_DIR . 'includes/gateways/class-payuni-payment-response.php';
+		require_once WPBR_PAYUNI_PLUGIN_DIR . 'includes/gateways/class-payuni-payment-credit.php';
+		require_once WPBR_PAYUNI_PLUGIN_DIR . 'includes/gateways/class-payuni-payment-cvs.php';
+		require_once WPBR_PAYUNI_PLUGIN_DIR . 'includes/gateways/class-payuni-payment-atm.php';
+		require_once WPBR_PAYUNI_PLUGIN_DIR . 'includes/gateways/trait-payuni-payment-installment.php';
+		require_once WPBR_PAYUNI_PLUGIN_DIR . 'includes/gateways/class-payuni-payment-installment-3.php';
+		require_once WPBR_PAYUNI_PLUGIN_DIR . 'includes/gateways/class-payuni-payment-installment-6.php';
+		require_once WPBR_PAYUNI_PLUGIN_DIR . 'includes/gateways/class-payuni-payment-installment-9.php';
+		require_once WPBR_PAYUNI_PLUGIN_DIR . 'includes/gateways/class-payuni-payment-installment-12.php';
+		require_once WPBR_PAYUNI_PLUGIN_DIR . 'includes/gateways/class-payuni-payment-installment-18.php';
+		require_once WPBR_PAYUNI_PLUGIN_DIR . 'includes/gateways/class-payuni-payment-installment-24.php';
+		require_once WPBR_PAYUNI_PLUGIN_DIR . 'includes/gateways/class-payuni-payment-installment-30.php';
+		require_once WPBR_PAYUNI_PLUGIN_DIR . 'includes/gateways/class-payuni-payment-applepay.php';
+		require_once WPBR_PAYUNI_PLUGIN_DIR . 'includes/gateways/class-payuni-payment-googlepay.php';
+		require_once WPBR_PAYUNI_PLUGIN_DIR . 'includes/gateways/class-payuni-payment-aftee.php';
+		require_once WPBR_PAYUNI_PLUGIN_DIR . 'includes/gateways/class-payuni-payment-linepay.php';
 
-		require_once PAYUNI_PLUGIN_DIR . 'includes/admin/meta-boxes/class-payuni-payment-order-meta-boxes.php';
+		require_once WPBR_PAYUNI_PLUGIN_DIR . 'includes/admin/meta-boxes/class-payuni-payment-order-meta-boxes.php';
 
 		Payuni_Payment_Order_Meta_Boxes::init();
 		Payuni_Payment_Response::init();
@@ -136,7 +136,7 @@ class Payuni_Payment {
 
 		add_filter( 'woocommerce_payment_gateways', array( self::get_instance(), 'add_payuni_payment_gateway' ) );
 
-		add_filter( 'plugin_action_links_' . PAYUNI_BASENAME, array( self::get_instance(), 'payuni_add_action_links' ) );
+		add_filter( 'plugin_action_links_' . WPBR_PAYUNI_BASENAME, array( self::get_instance(), 'payuni_add_action_links' ) );
 
 		add_action( 'wp_enqueue_scripts', array( self::get_instance(), 'payuni_checkout_enqueue_scripts' ), 9 );
 		add_action( 'admin_enqueue_scripts', array( self::get_instance(), 'payuni_admin_scripts' ), 9 );
@@ -185,7 +185,7 @@ class Payuni_Payment {
 			return;
 		}
 
-		wp_enqueue_style( 'payuni-payment', PAYUNI_PLUGIN_URL . 'assets/css/payuni-payment-public.css', array(), '1.0.0', 'all' );
+		wp_enqueue_style( 'payuni-payment', WPBR_PAYUNI_PLUGIN_URL . 'assets/css/payuni-payment-public.css', array(), '1.0.0', 'all' );
 	}
 
 	/**
@@ -195,8 +195,8 @@ class Payuni_Payment {
 	 */
 	public function payuni_admin_scripts() {
 
-		wp_enqueue_script( 'payuni-admin', PAYUNI_PLUGIN_URL . 'assets/js/payuni-payment-admin.js', array(), '1.0', true );
-		// wp_enqueue_style( 'payuni-admin', PAYUNI_PLUGIN_URL . 'assets/css/payuni-payment-admin.css', array(), '1.0' );
+		wp_enqueue_script( 'payuni-admin', WPBR_PAYUNI_PLUGIN_URL . 'assets/js/payuni-payment-admin.js', array(), '1.0', true );
+		// wp_enqueue_style( 'payuni-admin', WPBR_PAYUNI_PLUGIN_URL . 'assets/css/payuni-payment-admin.css', array(), '1.0' );
 
 		wp_localize_script(
 			'payuni-admin',
@@ -267,7 +267,7 @@ class Payuni_Payment {
 	 * @return WC_Settings_Tab_Payuni
 	 */
 	public function payuni_add_settings() {
-		require_once PAYUNI_PLUGIN_DIR . 'includes/settings/class-payuni-payment-settings-tab.php';
+		require_once WPBR_PAYUNI_PLUGIN_DIR . 'includes/settings/class-payuni-payment-settings-tab.php';
 		return new WC_Settings_Tab_Payuni();
 	}
 
@@ -343,7 +343,7 @@ class Payuni_Payment {
 	public function wpbr_payuni_wc_template( $template, $template_name, $template_path ) {
 
 		if ( 'order-received.php' === basename( $template ) ) {
-			$template = trailingslashit( PAYUNI_PLUGIN_DIR ) . 'includes/templates/checkout/order-received.php';
+			$template = trailingslashit( WPBR_PAYUNI_PLUGIN_DIR ) . 'includes/templates/checkout/order-received.php';
 		}
 
 		return $template;

@@ -222,7 +222,7 @@ abstract class Payuni_Abstract_Payment_Gateway extends WC_Payment_Gateway {
 	 */
 	public function get_icon() {
 		// $icon_html  = '';
-		// $icon_html .= '<img src="' . PAYUNI_PLUGIN_URL . 'payuni-logo.jpg " alt="' . __( 'PAYUNi Payment Gateway', 'wpbr-payuni-payment' ) . '" />';
+		// $icon_html .= '<img src="' . WPBR_PAYUNI_PLUGIN_URL . 'payuni-logo.jpg " alt="' . __( 'PAYUNi Payment Gateway', 'wpbr-payuni-payment' ) . '" />';
 		// return apply_filters( 'woocommerce_gateway_icon', $icon_html, $this->id );
 	}
 

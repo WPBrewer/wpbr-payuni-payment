@@ -23,10 +23,10 @@ if ( ! defined( 'WPINC' ) ) {
 	die;
 }
 
-define( 'PAYUNI_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
-define( 'PAYUNI_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
-define( 'PAYUNI_BASENAME', plugin_basename( __FILE__ ) );
-define( 'PAYUNI_PAYMENT_VERSION', '1.1.1' );
+define( 'WPBR_PAYUNI_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
+define( 'WPBR_PAYUNI_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
+define( 'WPBR_PAYUNI_BASENAME', plugin_basename( __FILE__ ) );
+define( 'WPBR_PAYUNI_PAYMENT_VERSION', '1.1.1' );
 
 /**
  * Display warning when WooCommerce is not installed and activated.
@@ -63,7 +63,7 @@ function run_payuni_payment() {
 		}
 	}
 
-	require_once PAYUNI_PLUGIN_DIR . 'includes/class-payuni-payment.php';
+	require_once WPBR_PAYUNI_PLUGIN_DIR . 'includes/class-payuni-payment.php';
 	Payuni_Payment::init();
 }
 

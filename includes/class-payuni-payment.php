@@ -266,9 +266,10 @@ class Payuni_Payment {
 	 *
 	 * @return WC_Settings_Tab_Payuni
 	 */
-	public function payuni_add_settings() {
+	public function payuni_add_settings( $settings ) {
 		require_once WPBR_PAYUNI_PLUGIN_DIR . 'includes/settings/class-payuni-payment-settings-tab.php';
-		return new WC_Settings_Tab_Payuni();
+		$settings[] = new WC_Settings_Tab_Payuni();
+		return $settings;
 	}
 
 	/**

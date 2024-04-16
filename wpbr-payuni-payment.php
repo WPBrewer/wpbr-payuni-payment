@@ -5,14 +5,15 @@
  * @since             1.0.0
  *
  * @wordpress-plugin
- * Plugin Name:       PAYUNi Payment for WooCommerce
- * Description:       PAYUNi Payment for WooCommerce
+ * Plugin Name:       Pay with PAYUNi
+ * Description:       Provides PAYUNi Payment for WooCommerce.
  * Plugin URI:        https://wpbrewer.com/product/wpbr-payuni-payment
  * Version:           1.1.1
  * Author:            WPBrewer
  * Author URI:        https://wpbrewer.com/
  * License:           GPL-2.0+
  * License URI:       http://www.gnu.org/licenses/gpl-2.0.txt
+ * Requires Plugins:  woocommerce
  * Text Domain:       wpbr-payuni-payment
  * Domain Path:       /languages
  * @package payuni

@@ -87,6 +87,7 @@ class Payuni_Payment {
 		require_once WPBR_PAYUNI_PLUGIN_DIR . 'includes/gateways/class-payuni-payment-installment-30.php';
 		require_once WPBR_PAYUNI_PLUGIN_DIR . 'includes/gateways/class-payuni-payment-applepay.php';
 		require_once WPBR_PAYUNI_PLUGIN_DIR . 'includes/gateways/class-payuni-payment-googlepay.php';
+		require_once WPBR_PAYUNI_PLUGIN_DIR . 'includes/gateways/class-payuni-payment-samsungpay.php';
 		require_once WPBR_PAYUNI_PLUGIN_DIR . 'includes/gateways/class-payuni-payment-aftee.php';
 		require_once WPBR_PAYUNI_PLUGIN_DIR . 'includes/gateways/class-payuni-payment-linepay.php';
 
@@ -96,13 +97,14 @@ class Payuni_Payment {
 		Payuni_Payment_Response::init();
 
 		self::$allowed_payments = array(
-			'payuni-credit'    => 'Payuni_Payment_Credit',
-			'payuni-cvs'       => 'Payuni_Payment_CVS',
-			'payuni-atm'       => 'Payuni_Payment_ATM',
-			'payuni-aftee'     => 'Payuni_Payment_Aftee',
-			'payuni-applepay'  => 'Payuni_Payment_ApplePay',
-			'payuni-googlepay' => 'Payuni_Payment_GooglePay',
-			'payuni-linepay'   => 'Payuni_Payment_LINEPay',
+			'payuni-credit'     => 'Payuni_Payment_Credit',
+			'payuni-cvs'        => 'Payuni_Payment_CVS',
+			'payuni-atm'        => 'Payuni_Payment_ATM',
+			'payuni-aftee'      => 'Payuni_Payment_Aftee',
+			'payuni-applepay'   => 'Payuni_Payment_ApplePay',
+			'payuni-googlepay'  => 'Payuni_Payment_GooglePay',
+			'payuni-samsungpay' => 'Payuni_Payment_SamsungPay',
+			'payuni-linepay'    => 'Payuni_Payment_LINEPay',
 		);
 
 		$number_of_payments = get_option( 'payuni_payment_installment_number_of_payments', array() );
@@ -130,8 +132,6 @@ class Payuni_Payment {
 			'_payuni_message'      => __( 'Message', 'wpbr-payuni-payment' ),
 		);
 
-
-
 		add_filter( 'woocommerce_get_settings_pages', array( self::get_instance(), 'payuni_add_settings' ), 15 );
 
 		add_filter( 'woocommerce_payment_gateways', array( self::get_instance(), 'add_payuni_payment_gateway' ) );
@@ -143,10 +143,9 @@ class Payuni_Payment {
 
 		add_action( 'wp_ajax_payuni_query', array( self::get_instance(), 'payuni_ajax_query_payment' ) );
 
-		if ( version_compare( WC_VERSION, '8.2.0', '>=' ) &&  version_compare( WC_VERSION, '8.3.0', '<' ) ) {
+		if ( version_compare( WC_VERSION, '8.2.0', '>=' ) && version_compare( WC_VERSION, '8.3.0', '<' ) ) {
 			add_filter( 'woocommerce_locate_template', array( self::get_instance(), 'wpbr_payuni_wc_template' ), 10, 3 );
 		}
-
 	}
 
 	/**
@@ -202,11 +201,10 @@ class Payuni_Payment {
 			'payuni-admin',
 			'payuni_object',
 			array(
-				'ajax_url'      => admin_url( 'admin-ajax.php' ),
+				'ajax_url'    => admin_url( 'admin-ajax.php' ),
 				'query_nonce' => wp_create_nonce( 'payuni-query' ),
 			)
 		);
-
 	}
 
 	/**
@@ -258,7 +256,6 @@ class Payuni_Payment {
 			wp_send_json( $return );
 
 		}
-
 	}
 
 	/**
@@ -302,35 +299,34 @@ class Payuni_Payment {
 		return strtoupper( hash( 'sha256', get_option( 'payuni_payment_hashkey' ) . $encrypt_str . get_option( 'payuni_payment_hashiv' ) ) );
 	}
 
-	//payuni訂單編號 = woo訂單id + 3位數字
-    public static function build_payuni_order_no( $order_id ) {
+	// payuni訂單編號 = woo訂單id + 3位數字
+	public static function build_payuni_order_no( $order_id ) {
 
 		$order = wc_get_order( $order_id );
 
-        $payuni_order_no = $order_id;
+		$payuni_order_no = $order_id;
 
 		$order_serial_no = $order->get_meta( '_payuni_order_serial_no' );
 
-        if ( $order_serial_no && $order_serial_no < 999 ) {
-            $order_serial_no += 1;
-            $payuni_order_no = $payuni_order_no . str_pad( $order_serial_no, 3, '0', STR_PAD_LEFT); ;
-        } else {
+		if ( $order_serial_no && $order_serial_no < 999 ) {
+			$order_serial_no += 1;
+			$payuni_order_no  = $payuni_order_no . str_pad( $order_serial_no, 3, '0', STR_PAD_LEFT );
+		} else {
 			$order_serial_no = 1;
-            $payuni_order_no = $payuni_order_no . str_pad( $order_serial_no, 3, '0', STR_PAD_LEFT);
-        }
+			$payuni_order_no = $payuni_order_no . str_pad( $order_serial_no, 3, '0', STR_PAD_LEFT );
+		}
 
 		$order->update_meta_data( '_payuni_order_serial_no', $order_serial_no );
 		$order->save();
 
-        return $payuni_order_no;
+		return $payuni_order_no;
+	}
 
-    }
-
-    //將payuni的訂單編號轉成woo的訂單編號
-    public static function parse_payuni_order_no_to_woo_order_id( $payuni_order_no ) {
-        $real_woo_order_id = substr($payuni_order_no, 0, -3);
-        return $real_woo_order_id;
-    }
+	// 將payuni的訂單編號轉成woo的訂單編號
+	public static function parse_payuni_order_no_to_woo_order_id( $payuni_order_no ) {
+		$real_woo_order_id = substr( $payuni_order_no, 0, -3 );
+		return $real_woo_order_id;
+	}
 
 	/**
 	 * Filter the cart template path to use cart.php in this plugin instead of the one in WooCommerce.
@@ -348,7 +344,6 @@ class Payuni_Payment {
 		}
 
 		return $template;
-
 	}
 
 	/**
@@ -394,5 +389,4 @@ class Payuni_Payment {
 
 		return self::$instance;
 	}
-
 }

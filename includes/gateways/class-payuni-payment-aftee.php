@@ -46,7 +46,6 @@ class Payuni_Payment_Aftee extends Payuni_Abstract_Payment_Gateway {
 		add_action( 'woocommerce_update_options_payment_gateways_' . $this->id, array( $this, 'process_admin_options' ) );
 		add_action( 'woocommerce_receipt_' . $this->id, array( $this, 'receipt_page' ) );
 		add_filter( 'payuni_transaction_args_' . $this->id, array( $this, 'payuni_payment_aftee_transaction_arrgs' ), 10, 2 );
-
 	}
 
 	/**
@@ -61,7 +60,7 @@ class Payuni_Payment_Aftee extends Payuni_Abstract_Payment_Gateway {
 	/**
 	 * Set transaction args for AFTEE payment
 	 *
-	 * @param array    $args transaction args.
+	 * @param array    $args  transaction args.
 	 * @param WC_Order $order order object.
 	 *
 	 * @return array
@@ -75,15 +74,16 @@ class Payuni_Payment_Aftee extends Payuni_Abstract_Payment_Gateway {
 		);
 	}
 
+     /**
+	 * The order meta for the payment method.
+	 */
 	public static function get_payment_order_metas() {
 		$order_metas =
-			array(
-				'_payuni_aftee_payno'   => _x( 'Pay No', 'AFTEE', 'wpbr-payuni-payment' ),
-				'_payuni_aftee_paytime' => __( 'Pay Time', 'wpbr-payuni-payment' ),
-			);
+		array(
+			'_payuni_aftee_payno'   => _x( 'Pay No', 'AFTEE', 'wpbr-payuni-payment' ),
+			'_payuni_aftee_paytime' => __( 'Pay Time', 'wpbr-payuni-payment' ),
+		);
 
 		return $order_metas;
 	}
-
-
 }

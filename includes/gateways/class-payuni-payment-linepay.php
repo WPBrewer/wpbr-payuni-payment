@@ -43,7 +43,6 @@ class Payuni_Payment_LINEPay extends Payuni_Abstract_Payment_Gateway {
 		add_action( 'woocommerce_update_options_payment_gateways_' . $this->id, array( $this, 'process_admin_options' ) );
 		add_action( 'woocommerce_receipt_' . $this->id, array( $this, 'receipt_page' ) );
 		add_filter( 'payuni_transaction_args_' . $this->id, array( $this, 'payuni_payment_linepay_transaction_arrgs' ), 10, 2 );
-
 	}
 
 
@@ -59,7 +58,7 @@ class Payuni_Payment_LINEPay extends Payuni_Abstract_Payment_Gateway {
 	/**
 	 * Add payment parameter for Apple Pay payment.
 	 *
-	 * @param array    $args The payment parameters.
+	 * @param array    $args  The payment parameters.
 	 * @param WC_ORDER $order The order object.
 	 *
 	 * @return array
@@ -73,11 +72,14 @@ class Payuni_Payment_LINEPay extends Payuni_Abstract_Payment_Gateway {
 		);
 	}
 
+	/**
+	 * The order meta for the payment method.
+	 */
 	public static function get_payment_order_metas() {
 		$order_metas =
-			array(
-				'_payuni_linepay_payno'   => _x( 'Pay No', 'LINE Pay', 'wpbr-payuni-payment' ),
-			);
+		array(
+			'_payuni_linepay_payno' => _x( 'Pay No', 'LINE Pay', 'wpbr-payuni-payment' ),
+		);
 
 		return $order_metas;
 	}
@@ -91,8 +93,8 @@ class Payuni_Payment_LINEPay extends Payuni_Abstract_Payment_Gateway {
 	 * @see woocommerce::action - woocommerce_delete_shop_order_transients
 	 *
 	 * @param int    $order_id The order id.
-	 * @param float  $amount The ammount to be refund.
-	 * @param string $reason The reason why the refund is requested.
+	 * @param float  $amount   The ammount to be refund.
+	 * @param string $reason   The reason why the refund is requested.
 	 *
 	 * @return bool|WP_Error
 	 */
@@ -100,5 +102,4 @@ class Payuni_Payment_LINEPay extends Payuni_Abstract_Payment_Gateway {
 		$request = new Payuni_Payment_Request( $this );
 		return $request->refund( $order_id, $amount, $reason );
 	}
-
 }

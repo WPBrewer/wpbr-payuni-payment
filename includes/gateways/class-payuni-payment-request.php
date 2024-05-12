@@ -22,7 +22,7 @@ class Payuni_Payment_Request {
 	/**
 	 * Build transaction args.
 	 *
-	 * @param WC_Order $order The order object.
+	 * @param  WC_Order $order The order object.
 	 * @return array
 	 */
 	public function get_transaction_args( $order ) {
@@ -45,10 +45,10 @@ class Payuni_Payment_Request {
 				'TradeAmt'   => (int) $order->get_total(),
 				'ProdDesc'   => implode( ';', $prod_desc ),
 				// 'BackURL'    => $order->get_checkout_payment_url( true ),
-				'ReturnURL'  => $this->gateway->return_url,//前景通知網址付款完成返回指定網址 (感謝頁面)
+				'ReturnURL'  => $this->gateway->return_url, // 前景通知網址付款完成返回指定網址 (感謝頁面)
 				'NotifyURL'  => $this->gateway->notify_url, // 幕後.
-				'UsrMail'    => $order->get_billing_email(),//付款頁帶入 email
-				'UsrMailFix' => '1',//不可修改 email
+				'UsrMail'    => $order->get_billing_email(), // 付款頁帶入 email
+				'UsrMailFix' => '1', // 不可修改 email
 				'Timestamp'  => time(),
 			),
 			$order
@@ -71,7 +71,7 @@ class Payuni_Payment_Request {
 	/**
 	 * Generate the form and redirect to PAYUNi
 	 *
-	 * @param WC_Order $order The order object.
+	 * @param  WC_Order $order The order object.
 	 * @return void
 	 */
 	public function build_request_form( $order ) {
@@ -82,15 +82,15 @@ class Payuni_Payment_Request {
 			?>
 			<div><?php esc_html_e( 'Redirecting...', 'wpbr-payuni-payment' ); ?></div>
 			<form method="post" id="payuni-form" action="<?php echo esc_url( $this->gateway->get_api_url() ); ?>" accept="UTF-8" accept-charset="UTF-8">
-				<?php
-				$fields = $this->get_transaction_args( $order );
+			<?php
+			$fields = $this->get_transaction_args( $order );
 
-				Payuni_Payment::log( 'request transaction args:' . wc_print_r( $fields, true ) );
+			Payuni_Payment::log( 'request transaction args:' . wc_print_r( $fields, true ) );
 
-				foreach ( $fields as $key => $value ) {
-					echo '<input type="hidden" name="' . esc_html( $key ) . '" value="' . esc_html( $value ) . '">';
-				}
-				?>
+			foreach ( $fields as $key => $value ) {
+				echo '<input type="hidden" name="' . esc_html( $key ) . '" value="' . esc_html( $value ) . '">';
+			}
+			?>
 			</form>
 			<script type="text/javascript">
 				document.getElementById('payuni-form').submit();
@@ -109,6 +109,7 @@ class Payuni_Payment_Request {
 
 			return new WP_Error(
 				'process_refund_request',
+				/* translators:  %s is the order id */
 				sprintf( __( 'Unable to find order #%s', 'wpbr-payuni-payment' ), $order_id ),
 				array(
 					'order_id'      => $order_id,
@@ -123,6 +124,7 @@ class Payuni_Payment_Request {
 			if ( $order->get_total() != $amount ) {
 				return new WP_Error(
 					'process_refund_request',
+					/* translators:  %s is the order id */
 					sprintf( __( 'The refund amount for order #%s should be the same as the order total for installment payment.', 'wpbr-payuni-payment' ), $order_id ),
 					array(
 						'order_id' => $order_id,
@@ -190,13 +192,15 @@ class Payuni_Payment_Request {
 			return true;
 		} else {
 			$order->add_order_note( 'PAYUNi payment refund failed. Status:' . $result['Status'] . ', Message:' . $decrypted['Message'] );
-			throw new Exception( 'PAYUNi refund failed. Status:' . $result['Status'] );
+			throw new Exception( 'PAYUNi refund failed. Status:' . esc_html( $result['Status'] ) );
 		}
-
 	}//end refund()
 
+	/**
+	 * Query payment status and result
+	 */
 	public static function query( $order_id ) {
-		$mer_id          = get_option( 'payuni_payment_merchant_id' );
+		$mer_id = get_option( 'payuni_payment_merchant_id' );
 
 		$order = wc_get_order( $order_id );
 		if ( ! $order ) {
@@ -207,7 +211,7 @@ class Payuni_Payment_Request {
 		$order_serial_no = $order->get_meta( '_payuni_order_serial_no' );
 		$encrypt_info    = array(
 			'MerID'      => $mer_id,
-			'MerTradeNo' => $order_id . str_pad( $order_serial_no, 3, '0', STR_PAD_LEFT),
+			'MerTradeNo' => $order_id . str_pad( $order_serial_no, 3, '0', STR_PAD_LEFT ),
 			'Timestamp'  => time(),
 		);
 
@@ -254,7 +258,8 @@ class Payuni_Payment_Request {
 		if ( 'SUCCESS' === $result['Status'] ) {
 
 			$order = wc_get_order( $woo_order_id );
-			$order->add_order_note( sprintf( __( 'PAYUNi query succeed. Query result: %s', 'wpbr-payuni-payment' ), wc_print_r( $decrypted, true ) ), );
+			/* translators:  %s is the decrypted result */
+			$order->add_order_note( sprintf( __( 'PAYUNi query succeed. Query result: %s', 'wpbr-payuni-payment' ), wc_print_r( $decrypted, true ) ) );
 			Payuni_Payment::log( 'PAYUNi query success. Status:' . $result['Status'] . ', Message:' . $decrypted['Message'] . ', Trade Status:' . $trade_status );
 			return true;
 		} else {
@@ -271,5 +276,4 @@ class Payuni_Payment_Request {
 	public function set_gateway( $gateway ) {
 		$this->gateway = $gateway;
 	}
-
 }

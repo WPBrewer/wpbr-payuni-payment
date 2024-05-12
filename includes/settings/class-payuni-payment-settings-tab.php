@@ -12,23 +12,12 @@ defined( 'ABSPATH' ) || exit;
 class WC_Settings_Tab_Payuni extends WC_Settings_Page {
 
 	/**
-	 * The sections.
-	 *
-	 * @var $sections
-	 */
-	// private static $sections;
-
-	/**
 	 * Setting constructor.
 	 */
 	public function __construct() {
 
 		$this->id    = 'payuni';
 		$this->label = __( 'PAYUNi', 'wpbr-payuni-payment' );
-
-		// self::$sections = array(
-		// 	'payment' => __( 'Payment Settings', 'wpbr-payuni-payment' ),
-		// );
 
 		add_action( 'woocommerce_settings_' . $this->id, array( $this, 'output' ) );
 		add_action( 'woocommerce_settings_save_' . $this->id, array( $this, 'save' ) );
@@ -40,6 +29,11 @@ class WC_Settings_Tab_Payuni extends WC_Settings_Page {
 		parent::__construct();
 	}
 
+	/**
+	 * Get settings array.
+	 * @param mixed $sections The sections.
+	 * @return mixed The sections.
+	 */
 	public function payuni_payment_sections( $sections ) {
 
 		unset( $sections[''] );
@@ -49,6 +43,10 @@ class WC_Settings_Tab_Payuni extends WC_Settings_Page {
 		return $sections;
 	}
 
+	/**
+	 * The settings for payment section.
+	 * @return array The settings. 
+	 */
 	public function get_settings_for_payment_section() {
 		$settings = apply_filters(
 			'payuni_payment_settings',
@@ -62,7 +60,8 @@ class WC_Settings_Tab_Payuni extends WC_Settings_Page {
 					'title'   => __( 'Debug Log', 'wpbr-payuni-payment' ),
 					'type'    => 'checkbox',
 					'default' => 'no',
-					'desc'    => sprintf( __( 'Log PAYUNi payment message, inside <code>%s</code>', 'wpbr-payuni-payment' ), wc_get_log_file_path( 'wpbr-payuni-payment' ) ),
+					/* translators:  %s is the order id */
+					'desc'    => sprintf( __( 'Log PAYUNi payment message. You Can find logs with source name <strong>wpbr-payuni-payment</strong> at WooCommerce -> Status -> Logs. %s', 'wpbr-payuni-payment' ), $this->get_log_link() ),
 					'id'      => 'payuni_payment_debug_log_enabled',
 				),
 				array(
@@ -143,6 +142,7 @@ class WC_Settings_Tab_Payuni extends WC_Settings_Page {
 			return;
 		}
 
+		// phpcs:disable WordPress.Security.NonceVerification.Recommended
 		$page    = ( array_key_exists( 'page', $_GET ) ) ? sanitize_text_field( wp_unslash( $_GET['page'] ) ) : '';
 		$tab     = ( array_key_exists( 'tab', $_GET ) ) ? sanitize_text_field( wp_unslash( $_GET['tab'] ) ) : '';
 		$section = ( array_key_exists( 'section', $_GET ) ) ? sanitize_text_field( wp_unslash( $_GET['section'] ) ) : '';
@@ -187,5 +187,12 @@ class WC_Settings_Tab_Payuni extends WC_Settings_Page {
 
 		$settings = $this->get_settings( $current_section );
 		WC_Admin_Settings::save_fields( $settings );
+	}
+
+	/**
+	 * Get debug logs url.
+	 */
+	protected function get_log_link() {
+		return '<a href="' . esc_url( admin_url( 'admin.php?page=wc-status&tab=logs' ) ) . '">' . __( 'View logs', 'wpbr-payuni-pro' ) . '</a>';
 	}
 }

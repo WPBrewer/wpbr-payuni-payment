@@ -78,10 +78,10 @@ abstract class Payuni_Abstract_Payment_Gateway extends WC_Payment_Gateway {
 		$this->hashiv                     = get_option( 'payuni_payment_hashiv' );
 		$this->incomplete_payment_message = $this->get_option( 'incomplete_payment_message' );
 
-		$this->testmode       = wc_string_to_bool( get_option( 'payuni_payment_testmode_enabled' ) );
-		$this->api_url        = ( $this->testmode ) ? 'https://sandbox-api.payuni.com.tw/api/upp' : 'https://api.payuni.com.tw/api/upp';
-		$this->notify_url     = add_query_arg( 'wc-api', 'payuni_payment', home_url( '/' ) );
-		$this->return_url     = add_query_arg( 'wc-api', 'payuni_return', home_url( '/' ) );
+		$this->testmode   = wc_string_to_bool( get_option( 'payuni_payment_testmode_enabled' ) );
+		$this->api_url    = ( $this->testmode ) ? 'https://sandbox-api.payuni.com.tw/api/upp' : 'https://api.payuni.com.tw/api/upp';
+		$this->notify_url = add_query_arg( 'wc-api', 'payuni_payment', home_url( '/' ) );
+		$this->return_url = add_query_arg( 'wc-api', 'payuni_return', home_url( '/' ) );
 
 		add_action( 'woocommerce_order_details_after_order_table', array( $this, 'payuni_payment_detail_after_order_table' ), 10, 1 );
 		add_filter( 'woocommerce_thankyou_order_received_text', array( $this, 'payuni_thankyou_order_unpaid_message' ), 10, 2 );
@@ -91,7 +91,7 @@ abstract class Payuni_Abstract_Payment_Gateway extends WC_Payment_Gateway {
 	/**
 	 * Display payment detail after order table
 	 *
-	 * @param WC_Order $order The order object.
+	 * @param  WC_Order $order The order object.
 	 * @return void
 	 */
 	public function payuni_payment_detail_after_order_table( $order ) {
@@ -125,7 +125,7 @@ abstract class Payuni_Abstract_Payment_Gateway extends WC_Payment_Gateway {
 	public function admin_options() {
 		echo '<h3>' . esc_html( $this->get_method_title() ) . '</h3>';
 		echo '<p>' . sprintf(
-			/* translators: 1: Payment method title 2: PAYUNi URL */
+		/* translators: 1: Payment method title 2: PAYUNi URL */
 			esc_html__( '%1$s is a payment gateway provided by %2$s', 'wpbr-payuni-payment' ),
 			esc_html( $this->get_method_title() ),
 			sprintf(
@@ -142,7 +142,7 @@ abstract class Payuni_Abstract_Payment_Gateway extends WC_Payment_Gateway {
 	/**
 	 * Process payment
 	 *
-	 * @param string $order_id The order id.
+	 * @param  string $order_id The order id.
 	 * @return array
 	 */
 	public function process_payment( $order_id ) {
@@ -159,7 +159,7 @@ abstract class Payuni_Abstract_Payment_Gateway extends WC_Payment_Gateway {
 	/**
 	 * Redirect to payuni payment page
 	 *
-	 * @param WC_Order $order The order object.
+	 * @param  WC_Order $order The order object.
 	 * @return void
 	 */
 	public function receipt_page( $order ) {
@@ -172,8 +172,8 @@ abstract class Payuni_Abstract_Payment_Gateway extends WC_Payment_Gateway {
 	/**
 	 * Display message on order thankyou page.
 	 *
-	 * @param string   $text Message on thankyou page.
-	 * @param WC_Order $order The Order object.
+	 * @param  string   $text  Message on thankyou page.
+	 * @param  WC_Order $order The Order object.
 	 * @return string
 	 */
 	public function payuni_thankyou_order_unpaid_message( $text, $order ) {
@@ -275,7 +275,7 @@ abstract class Payuni_Abstract_Payment_Gateway extends WC_Payment_Gateway {
 	/**
 	 * Build items as string
 	 *
-	 * @param WC_Order $order The order object.
+	 * @param  WC_Order $order The order object.
 	 * @return string
 	 */
 	public function get_items_infos( $order ) {
@@ -290,5 +290,4 @@ abstract class Payuni_Abstract_Payment_Gateway extends WC_Payment_Gateway {
 		$resp = ( mb_strlen( $item_s ) > 200 ) ? mb_substr( $item_s, 0, 200 ) : $item_s;
 		return $resp;
 	}
-
 }

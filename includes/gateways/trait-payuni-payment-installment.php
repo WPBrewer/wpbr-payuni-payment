@@ -23,8 +23,8 @@ trait PayuniInstallmentableTrait {
 	/**
 	 * Setup the installment number and add hook
 	 *
-	 * @param int $installs The number of installments.
-	 * @param int $min_amount Minimum amount to use this installment payment.
+	 * @param  int $installs   The number of installments.
+	 * @param  int $min_amount Minimum amount to use this installment payment.
 	 * @return void
 	 */
 	public function init_installment( $installs, $min_amount ) {
@@ -36,12 +36,11 @@ trait PayuniInstallmentableTrait {
 
 		$this->set_installs( $installs );
 		$this->min_amount = $min_amount;
-
 	}
 	/**
 	 * Set payment installs
 	 *
-	 * @param int $installs The number of installments.
+	 * @param  int $installs The number of installments.
 	 * @return void
 	 */
 	private function set_installs( $installs ) {
@@ -51,7 +50,7 @@ trait PayuniInstallmentableTrait {
 	/**
 	 * Set minimum amount
 	 *
-	 * @param int $amount The minimum amount to use this installment payment.
+	 * @param  int $amount The minimum amount to use this installment payment.
 	 * @return void
 	 */
 	public function set_min_amount( $amount ) {
@@ -89,7 +88,7 @@ trait PayuniInstallmentableTrait {
 	/**
 	 * Set the transaction args for installment payment
 	 *
-	 * @param array    $args The transaction args.
+	 * @param array    $args  The transaction args.
 	 * @param WC_Order $order The order object.
 	 *
 	 * @return array
@@ -112,8 +111,8 @@ trait PayuniInstallmentableTrait {
 	 * @see woocommerce::action - woocommerce_delete_shop_order_transients
 	 *
 	 * @param int    $order_id The order id.
-	 * @param float  $amount The ammount to be refund.
-	 * @param string $reason The reason why the refund is requested.
+	 * @param float  $amount   The ammount to be refund.
+	 * @param string $reason   The reason why the refund is requested.
 	 *
 	 * @return bool|WP_Error
 	 */
@@ -122,19 +121,21 @@ trait PayuniInstallmentableTrait {
 		return $request->refund( $order_id, $amount, $reason );
 	}
 
+	/**
+	 * The order meta for the payment method.
+	 */
 	public static function get_payment_order_metas() {
 		$order_metas =
-			array(
-				'_payuni_credit_authtype' => __( 'Auth Type', 'wpbr-payuni-payment' ),
-				'_payuni_credit_card4no'  => __( 'Card Last 4 No', 'wpbr-payuni-payment' ),
-				'_payuni_credit_cardinst' => __( 'Installments', 'wpbr-payuni-payment' ),
-				'_payuni_credit_firstamt' => __( 'First Amount', 'wpbr-payuni-payment' ),
-				'_payuni_credit_eachamt'  => __( 'Each Amount', 'wpbr-payuni-payment' ),
-				'_payuni_credit_authday'  => __( 'Auth Date', 'wpbr-payuni-payment' ),
-				'_payuni_credit_authtime' => __( 'Auth Time', 'wpbr-payuni-payment' ),
-			);
+		array(
+			'_payuni_credit_authtype' => __( 'Auth Type', 'wpbr-payuni-payment' ),
+			'_payuni_credit_card4no'  => __( 'Card Last 4 No', 'wpbr-payuni-payment' ),
+			'_payuni_credit_cardinst' => __( 'Installments', 'wpbr-payuni-payment' ),
+			'_payuni_credit_firstamt' => __( 'First Amount', 'wpbr-payuni-payment' ),
+			'_payuni_credit_eachamt'  => __( 'Each Amount', 'wpbr-payuni-payment' ),
+			'_payuni_credit_authday'  => __( 'Auth Date', 'wpbr-payuni-payment' ),
+			'_payuni_credit_authtime' => __( 'Auth Time', 'wpbr-payuni-payment' ),
+		);
 
 		return $order_metas;
 	}
-
 }

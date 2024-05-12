@@ -56,7 +56,7 @@ class Payuni_Payment_Response {
 	 * @return void
 	 */
 	public static function payuni_receive_response() {
-		// phpcs:disable WordPress.Security.NonceVerification.Missing
+     // phpcs:disable WordPress.Security.NonceVerification.Missing
 
 		if ( empty( $_POST ) ) {
 			return;
@@ -72,10 +72,9 @@ class Payuni_Payment_Response {
 		}
 
 		$merid        = $posted['MerID'];
-		$status       = array_key_exists( 'Status', $posted )? $posted['Status'] : '';
-		$encrypt_info = array_key_exists( 'EncryptInfo', $posted )? $posted['EncryptInfo']: '';
-		$hash_info    = array_key_exists( 'HashInfo', $posted )? $posted['HashInfo'] : '';
-
+		$status       = array_key_exists( 'Status', $posted ) ? $posted['Status'] : '';
+		$encrypt_info = array_key_exists( 'EncryptInfo', $posted ) ? $posted['EncryptInfo'] : '';
+		$hash_info    = array_key_exists( 'HashInfo', $posted ) ? $posted['HashInfo'] : '';
 
 		$decrypted_info = Payuni_Payment::decrypt( $encrypt_info );
 		Payuni_Payment::log( 'PAYUNi NotifyURL response decrypted:' . wc_print_r( $decrypted_info, true ) );
@@ -105,12 +104,11 @@ class Payuni_Payment_Response {
 			$order->add_order_note( 'PAYUNi payment incompleted (NotifyURL). Pay Type:' . $pay_type . ', Trade Status:' . $trade_status . ', Message:' . $message );
 		}
 
-		// phpcs:enable WordPress.Security.NonceVerification.Missing
-
+     // phpcs:enable WordPress.Security.NonceVerification.Missing
 	}
 
 	public static function payuni_receive_response_frontend() {
-		// phpcs:disable WordPress.Security.NonceVerification.Missing
+     // phpcs:disable WordPress.Security.NonceVerification.Missing
 
 		if ( empty( $_POST ) ) {
 			return;
@@ -126,10 +124,9 @@ class Payuni_Payment_Response {
 		}
 
 		$merid        = $posted['MerID'];
-		$status       = array_key_exists( 'Status', $posted )? $posted['Status'] : '';
-		$encrypt_info = array_key_exists( 'EncryptInfo', $posted )? $posted['EncryptInfo']: '';
-		$hash_info    = array_key_exists( 'HashInfo', $posted )? $posted['HashInfo'] : '';
-
+		$status       = array_key_exists( 'Status', $posted ) ? $posted['Status'] : '';
+		$encrypt_info = array_key_exists( 'EncryptInfo', $posted ) ? $posted['EncryptInfo'] : '';
+		$hash_info    = array_key_exists( 'HashInfo', $posted ) ? $posted['HashInfo'] : '';
 
 		$decrypted_info = Payuni_Payment::decrypt( $encrypt_info );
 		Payuni_Payment::log( 'PAYUNi ReturnURL response decrypted:' . wc_print_r( $decrypted_info, true ) );
@@ -150,7 +147,6 @@ class Payuni_Payment_Response {
 
 		self::save_payuni_order_data( $order, $decrypted_info );
 
-
 		if ( '1' === $trade_status ) {
 			if ( ! $order->is_paid() ) {
 				$order->payment_complete( $decrypted_info['TradeNo'] );
@@ -160,16 +156,15 @@ class Payuni_Payment_Response {
 			$order->add_order_note( 'PAYUNi payment incompleted (ReturnURL). Pay Type:' . $pay_type . ', Trade Status:' . $trade_status . ', Message:' . $message );
 		}
 
-		wp_redirect( $order->get_checkout_order_received_url() );//訂單感謝頁面
+		wp_redirect( $order->get_checkout_order_received_url() );// 訂單感謝頁面
 		exit;
 
-		// phpcs:enable WordPress.Security.NonceVerification.Missing
+     // phpcs:enable WordPress.Security.NonceVerification.Missing
 	}
 
 	private static function save_payuni_order_data( $order, $decrypted_info ) {
 
 		$pay_type = $decrypted_info['PaymentType'];
-
 
 		$order->update_meta_data( '_payuni_order_no', $decrypted_info['MerTradeNo'] );
 		$order->update_meta_data( '_payuni_trade_no', $decrypted_info['TradeNo'] );
@@ -194,7 +189,6 @@ class Payuni_Payment_Response {
 				self::update_order_meta( $order, $decrypted_info, '_payuni_credit_eachamt', 'EachAmt' );
 
 			}
-
 		} elseif ( '2' === $pay_type ) {
 			// ATM虛擬帳號.
 			self::update_order_meta( $order, $decrypted_info, '_payuni_atm_payno', 'PayNo' );
@@ -203,7 +197,6 @@ class Payuni_Payment_Response {
 			self::update_order_meta( $order, $decrypted_info, '_payuni_atm_account5no', 'Account5No' );
 			self::update_order_meta( $order, $decrypted_info, '_payuni_atm_payset', 'PaySet' );
 			self::update_order_meta( $order, $decrypted_info, '_payuni_atm_expiredate', 'ExpireDate' );
-
 
 		} elseif ( '3' === $pay_type ) {
 			// 超商代碼.
@@ -217,12 +210,11 @@ class Payuni_Payment_Response {
 			self::update_order_meta( $order, $decrypted_info, '_payuni_aftee_paytime', 'PayTime' );
 
 		} elseif ( '9' === $pay_type ) {
-			//LINE Pay
+			// LINE Pay
 			self::update_order_meta( $order, $decrypted_info, '_payuni_linepay_payno', 'PayNo' );
 		}
 
 		$order->save();
-
 	}
 
 
@@ -230,8 +222,8 @@ class Payuni_Payment_Response {
 	/**
 	 * A wrapper function to save received post data from PAYUNi
 	 *
-	 * @param WC_Order $order The order object.
-	 * @param array    $data The post data received from PAYUNi.
+	 * @param WC_Order $order    The order object.
+	 * @param array    $data     The post data received from PAYUNi.
 	 * @param string   $meta_key The meta key to save.
 	 * @param string   $data_key The data key to get.
 	 */
@@ -242,5 +234,4 @@ class Payuni_Payment_Response {
 			$order->update_meta_data( $meta_key, $value );
 		}
 	}
-
 }

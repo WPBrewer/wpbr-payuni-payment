@@ -37,7 +37,6 @@ class Payuni_Payment_Credit extends Payuni_Abstract_Payment_Gateway {
 		add_action( 'woocommerce_update_options_payment_gateways_' . $this->id, array( $this, 'process_admin_options' ) );
 		add_action( 'woocommerce_receipt_' . $this->id, array( $this, 'receipt_page' ) );
 		add_filter( 'payuni_transaction_args_' . $this->id, array( $this, 'payuni_payment_credit_transaction_arrgs' ), 10, 2 );
-
 	}
 
 
@@ -53,7 +52,7 @@ class Payuni_Payment_Credit extends Payuni_Abstract_Payment_Gateway {
 	/**
 	 * Add payment parameter for credit card payment.
 	 *
-	 * @param array    $args The payment parameters.
+	 * @param array    $args  The payment parameters.
 	 * @param WC_ORDER $order The order object.
 	 *
 	 * @return array
@@ -76,8 +75,8 @@ class Payuni_Payment_Credit extends Payuni_Abstract_Payment_Gateway {
 	 * @see woocommerce::action - woocommerce_delete_shop_order_transients
 	 *
 	 * @param int    $order_id The order id.
-	 * @param float  $amount The ammount to be refund.
-	 * @param string $reason The reason why the refund is requested.
+	 * @param float  $amount   The ammount to be refund.
+	 * @param string $reason   The reason why the refund is requested.
 	 *
 	 * @return bool|WP_Error
 	 */
@@ -86,17 +85,17 @@ class Payuni_Payment_Credit extends Payuni_Abstract_Payment_Gateway {
 		return $request->refund( $order_id, $amount, $reason );
 	}
 
+	/**
+	 * The order meta for the payment method.
+	 */
 	public static function get_payment_order_metas() {
 		$order_metas =
-			array(
-				'_payuni_credit_authtype' => __( 'Auth Type', 'wpbr-payuni-payment' ),
-				'_payuni_credit_authday'  => __( 'Auth Date', 'wpbr-payuni-payment' ),
-				'_payuni_credit_authtime' => __( 'Auth Time', 'wpbr-payuni-payment' ),
-			);
+		array(
+			'_payuni_credit_authtype' => __( 'Auth Type', 'wpbr-payuni-payment' ),
+			'_payuni_credit_authday'  => __( 'Auth Date', 'wpbr-payuni-payment' ),
+			'_payuni_credit_authtime' => __( 'Auth Time', 'wpbr-payuni-payment' ),
+		);
 
 		return $order_metas;
 	}
-
-
-
 }

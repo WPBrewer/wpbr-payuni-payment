@@ -40,7 +40,5 @@ class Payuni_Payment_Installment_6 extends Payuni_Abstract_Payment_Gateway {
 		add_action( 'woocommerce_update_options_payment_gateways_' . $this->id, array( $this, 'process_admin_options' ) );
 		add_action( 'woocommerce_receipt_' . $this->id, array( $this, 'receipt_page' ) );
 		add_filter( 'payuni_transaction_args_' . $this->id, array( $this, 'payuni_payment_installment_transaction_arrgs' ), 10, 2 );
-
 	}
-
 }//end class

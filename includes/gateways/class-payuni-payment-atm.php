@@ -13,6 +13,13 @@ defined( 'ABSPATH' ) || exit;
 class Payuni_Payment_ATM extends Payuni_Abstract_Payment_Gateway {
 
 	/**
+	 * The expire days for ATM virtual account.
+	 *
+	 * @var string
+	 */
+	public $expire_days;
+
+	/**
 	 * Constructor
 	 */
 	public function __construct() {
@@ -47,35 +54,34 @@ class Payuni_Payment_ATM extends Payuni_Abstract_Payment_Gateway {
 	/**
 	 * Set ATM payment  transaction args
 	 *
-	 * @param array    $args The transaction args.
-	 * @param WC_Order $order The order object.
+	 * @param  array    $args  The transaction args.
+	 * @param  WC_Order $order The order object.
 	 * @return array
 	 */
 	public function payuni_payment_atm_transaction_arrgs( $args, $order ) {
 
-		// set default time zone.
-		date_default_timezone_set( 'Asia/Taipei' );
-
 		return array_merge(
 			$args,
 			array(
-				'ExpireDate' => date( 'Y-m-d H:i:s', strtotime( '+' . $this->expire_days . ' days' ) ),
+				'ExpireDate' => gmdate( 'Y-m-d H:i:s', strtotime( '+' . $this->expire_days . ' days' ) ),
 				'ATM'        => '1',
 			)
 		);
 	}
 
+	/**
+	 * The order meta for the payment method.
+	 */
 	public static function get_payment_order_metas() {
 		$order_metas =
-			array(
-				'_payuni_atm_payno'      => _x( 'Pay No', 'ATM', 'wpbr-payuni-payment' ),
-				'_payuni_atm_banktype'   => __( 'Bank Code', 'wpbr-payuni-payment' ),
-				'_payuni_atm_expiredate' => __( 'Expire Date', 'wpbr-payuni-payment' ),
-				'_payuni_atm_paytime'    => __( 'Pay Time', 'wpbr-payuni-payment' ),
-				'_payuni_atm_account5no' => __( 'Account 5 No', 'wpbr-payuni-payment' ),
-			);
+		array(
+			'_payuni_atm_payno'      => _x( 'Pay No', 'ATM', 'wpbr-payuni-payment' ),
+			'_payuni_atm_banktype'   => __( 'Bank Code', 'wpbr-payuni-payment' ),
+			'_payuni_atm_expiredate' => __( 'Expire Date', 'wpbr-payuni-payment' ),
+			'_payuni_atm_paytime'    => __( 'Pay Time', 'wpbr-payuni-payment' ),
+			'_payuni_atm_account5no' => __( 'Account 5 No', 'wpbr-payuni-payment' ),
+		);
 
 		return $order_metas;
 	}
-
 }

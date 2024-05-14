@@ -1,6 +1,6 @@
 === Pay with PAYUNi ===
 Contributors: wpbrewer, bluestan
-Tags: WooCommerce, payment, PAYUNi, taiwan, payment, payment gateway
+Tags: WooCommerce, PAYUNi, taiwan, payment, payment gateway
 Requires at least: 5.9
 Tested up to: 6.5.3
 Requires PHP: 7.4

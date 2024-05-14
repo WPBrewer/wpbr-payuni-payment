@@ -130,7 +130,7 @@ abstract class Payuni_Abstract_Payment_Gateway extends WC_Payment_Gateway {
 			esc_html( $this->get_method_title() ),
 			sprintf(
 				'<a href="%s">%s</a>',
-				esc_url( 'https://www.tcbbank.com.tw/' ),
+				esc_url( 'https://www.payuni.com.tw/' ),
 				esc_html__( 'PAYUNi', 'wpbr-payuni-payment' )
 			)
 		) . '</p>';

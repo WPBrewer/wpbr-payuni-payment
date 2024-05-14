@@ -47,8 +47,18 @@ class Payuni_Payment {
 	 * */
 	public static $available_installments;
 
+	/**
+	 * Order meta for all payment gateways
+	 *
+	 * @var array
+	 * */
 	public static $order_metas;
 
+	/**
+	 * Notify url
+	 *
+	 * @var string
+	 * */
 	public static $notify_url;
 
 	/**
@@ -120,7 +130,7 @@ class Payuni_Payment {
 		);
 
 		foreach ( self::$available_installments as $key => $installment ) {
-			if ( in_array( $key, $number_of_payments ) ) {
+			if ( in_array( $key, $number_of_payments, true ) ) {
 				self::$allowed_payments[ $key ] = $installment;
 			}
 		}
@@ -142,7 +152,6 @@ class Payuni_Payment {
 		add_action( 'admin_enqueue_scripts', array( self::get_instance(), 'payuni_admin_scripts' ), 9 );
 
 		add_action( 'wp_ajax_payuni_query', array( self::get_instance(), 'payuni_ajax_query_payment' ) );
-
 	}
 
 	/**
@@ -192,8 +201,6 @@ class Payuni_Payment {
 	public function payuni_admin_scripts() {
 
 		wp_enqueue_script( 'payuni-admin', WPBR_PAYUNI_PLUGIN_URL . 'assets/js/payuni-payment-admin.js', array(), '1.0', true );
-		// wp_enqueue_style( 'payuni-admin', WPBR_PAYUNI_PLUGIN_URL . 'assets/css/payuni-payment-admin.css', array(), '1.0' );
-
 		wp_localize_script(
 			'payuni-admin',
 			'payuni_object',
@@ -258,16 +265,20 @@ class Payuni_Payment {
 	/**
 	 * Add settings tab
 	 *
+	 * @param array $settings The settings array.
+	 *
 	 * @return WC_Settings_Tab_Payuni
 	 */
 	public function payuni_add_settings( $settings ) {
 		require_once WPBR_PAYUNI_PLUGIN_DIR . 'includes/settings/class-payuni-payment-settings-tab.php';
-		$settings[] = new WC_Settings_Tab_Payuni();
+		$settings[] = new Payuni_Payment_Settings_Tab();
 		return $settings;
 	}
 
 	/**
-	 * 加密
+	 * Encrypt the data
+	 *
+	 * @param array $encrypt_info The info to be encrypted.
 	 */
 	public static function encrypt( $encrypt_info ) {
 		$tag       = '';
@@ -276,7 +287,9 @@ class Payuni_Payment {
 	}
 
 	/**
-	 * 解密
+	 * Decrypt the data
+	 *
+	 * @param string $encrypt_str The string to be decrypted.
 	 */
 	public static function decrypt( string $encrypt_str = '' ) {
 
@@ -290,13 +303,19 @@ class Payuni_Payment {
 	}
 
 	/**
-	 * hash
+	 * Hash the data
+	 *
+	 * @param string $encrypt_str The string to be hashed.
 	 */
 	public static function hash_info( string $encrypt_str = '' ) {
 		return strtoupper( hash( 'sha256', get_option( 'payuni_payment_hashkey' ) . $encrypt_str . get_option( 'payuni_payment_hashiv' ) ) );
 	}
 
-	// payuni訂單編號 = woo訂單id + 3位數字
+	/**
+	 * Build payuni order no
+	 *
+	 * @param int $order_id The order id.
+	 */
 	public static function build_payuni_order_no( $order_id ) {
 
 		$order = wc_get_order( $order_id );
@@ -319,7 +338,13 @@ class Payuni_Payment {
 		return $payuni_order_no;
 	}
 
-	// 將payuni的訂單編號轉成woo的訂單編號
+	/**
+	 * Parse payuni order no to woo order id
+	 *
+	 * @param string $payuni_order_no The payuni order number.
+	 *
+	 *  @return string
+	 */
 	public static function parse_payuni_order_no_to_woo_order_id( $payuni_order_no ) {
 		$real_woo_order_id = substr( $payuni_order_no, 0, -3 );
 		return $real_woo_order_id;
@@ -327,6 +352,8 @@ class Payuni_Payment {
 
 	/**
 	 * Get refund api url by payment method.
+	 *
+	 * @param string $payment_method The payment method id.
 	 */
 	public static function get_refund_api_url( $payment_method ) {
 

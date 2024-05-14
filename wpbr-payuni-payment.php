@@ -39,14 +39,16 @@ function payuni_payment_needs_woocommerce() {
 	echo '<div id="message" class="error">';
 	echo '  <p>' . esc_html__( 'PAYUNi Payment needs WooCommerce, please intall and activate WooCommerce first!', 'wpbr-payuni-payment' ) . '</p>';
 	echo '</div>';
-
 }
 
-add_action( 'before_woocommerce_init', function() {
-	if ( class_exists( \Automattic\WooCommerce\Utilities\FeaturesUtil::class ) ) {
-		\Automattic\WooCommerce\Utilities\FeaturesUtil::declare_compatibility( 'custom_order_tables', __FILE__, true );
+add_action(
+	'before_woocommerce_init',
+	function () {
+		if ( class_exists( \Automattic\WooCommerce\Utilities\FeaturesUtil::class ) ) {
+			\Automattic\WooCommerce\Utilities\FeaturesUtil::declare_compatibility( 'custom_order_tables', __FILE__, true );
+		}
 	}
-} );
+);
 
 /**
  * Run PAYUNi Payment plugin.
@@ -55,7 +57,12 @@ add_action( 'before_woocommerce_init', function() {
  */
 function run_payuni_payment() {
 
-	if ( ! in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', get_option( 'active_plugins' ) ) ) ) {
+	/**
+	 * Check if WooCommerce is installed and activated.
+	 *
+	 * @since 1.0.0
+	 */
+	if ( ! in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', get_option( 'active_plugins' ) ), true ) ) {
 		require_once ABSPATH . 'wp-admin/includes/plugin.php';
 		if ( is_plugin_active( 'wpbr-payuni-payment/wpbr-payuni-payment.php' ) ) {
 			deactivate_plugins( plugin_basename( __FILE__ ) );

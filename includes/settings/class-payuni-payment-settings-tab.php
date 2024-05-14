@@ -9,7 +9,7 @@ defined( 'ABSPATH' ) || exit;
 /**
  * Settings class.
  */
-class WC_Settings_Tab_Payuni extends WC_Settings_Page {
+class Payuni_Payment_Settings_Tab extends WC_Settings_Page {
 
 	/**
 	 * Setting constructor.
@@ -31,6 +31,7 @@ class WC_Settings_Tab_Payuni extends WC_Settings_Page {
 
 	/**
 	 * Get settings array.
+	 *
 	 * @param mixed $sections The sections.
 	 * @return mixed The sections.
 	 */
@@ -45,9 +46,15 @@ class WC_Settings_Tab_Payuni extends WC_Settings_Page {
 
 	/**
 	 * The settings for payment section.
-	 * @return array The settings. 
+	 *
+	 * @return array The settings.
 	 */
 	public function get_settings_for_payment_section() {
+		/**
+		 * Hooks to filter the settings.
+		 *
+		 * @since 1.0.0
+		 */
 		$settings = apply_filters(
 			'payuni_payment_settings',
 			array(
@@ -150,11 +157,10 @@ class WC_Settings_Tab_Payuni extends WC_Settings_Page {
 		if ( 'wc-settings' === $page && 'payuni' === $tab ) {
 
 			if ( empty( $section ) ) {
-				wp_redirect( admin_url( 'admin.php?page=wc-settings&tab=payuni&section=payment' ) );
+				wp_safe_redirect( admin_url( 'admin.php?page=wc-settings&tab=payuni&section=payment' ) );
 				exit;
 			}
 		}
-
 	}
 
 	/**

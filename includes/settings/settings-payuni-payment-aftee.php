@@ -33,10 +33,10 @@ return array(
 		'description' => __( 'This controls the description which the user sees during checkout.', 'wpbr-payuni-payment' ),
 		'desc_tip'    => true,
 	),
-	'min_amount'      => array(
+	'min_amount'                 => array(
 		'title'       => __( 'Minimum Amount', 'cathaybk-payment' ),
 		'type'        => 'number',
-		'description' => __('Minimum amount to use this payment gateway.', 'wpbr-payuni-payment' ),
+		'description' => __( 'Minimum amount to use this payment gateway.', 'wpbr-payuni-payment' ),
 	),
 	'incomplete_payment_message' => array(
 		'title'       => __( 'Incomplete Payment Message', 'wpbr-payuni-payment' ),

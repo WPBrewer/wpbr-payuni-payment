@@ -74,7 +74,7 @@ class Payuni_Payment_Aftee extends Payuni_Abstract_Payment_Gateway {
 		);
 	}
 
-     /**
+	/**
 	 * The order meta for the payment method.
 	 */
 	public static function get_payment_order_metas() {

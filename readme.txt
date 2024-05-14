@@ -28,6 +28,10 @@ Major features include:
 
 == Changelog ==
 
+= 1.3.0 - 2024/05/15 =
+
+* ADD - Samsung Pay support
+
 = 1.2.0 - 2023/12/08 =
 
 * UPDATE - rename plugin folder

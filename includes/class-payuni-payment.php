@@ -142,7 +142,7 @@ class Payuni_Payment {
 			'_payuni_message'      => __( 'Message', 'wpbr-payuni-payment' ),
 		);
 
-		add_filter( 'woocommerce_get_settings_pages', array( self::get_instance(), 'payuni_add_settings' ), 15 );
+		add_filter( 'woocommerce_get_settings_pages', array( self::get_instance(), 'payuni_add_settings' ) );
 
 		add_filter( 'woocommerce_payment_gateways', array( self::get_instance(), 'add_payuni_payment_gateway' ) );
 

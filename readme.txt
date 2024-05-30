@@ -4,7 +4,7 @@ Tags: WooCommerce, PAYUNi, taiwan, payment, payment gateway
 Requires at least: 5.9
 Tested up to: 6.5.3
 Requires PHP: 7.4
-Stable tag: 1.3.0
+Stable tag: 1.4.0
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -19,14 +19,19 @@ Major features include:
 
 * Credit Card payment
 * Credit Card installment payment
-* Apple Pay、Google Pay
+* Apple Pay、Google Pay、Samsung Pay
 * LINE Pay
 * AFTEE payment
-* ATM Virtual Account
-* CVS
+* ATM Virtual Account payment
+* CVS payment
+* Support Language setting for UNiPaypage
 * Compatible with High-Performance Order Storage (HPOS)
 
 == Changelog ==
+
+= 1.4.0 - 2024/05/30 =
+
+* ADD - Language setting for UNiPaypage
 
 = 1.3.0 - 2024/05/15 =
 

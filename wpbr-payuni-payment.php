@@ -8,7 +8,7 @@
  * Plugin Name:       Pay with PAYUNi
  * Description:       Provides PAYUNi Payment for WooCommerce.
  * Plugin URI:        https://wpbrewer.com/product/wpbr-payuni-payment
- * Version:           1.3.0
+ * Version:           1.4.0
  * Author:            WPBrewer
  * Author URI:        https://wpbrewer.com/
  * License:           GPL-2.0+
@@ -27,7 +27,7 @@ if ( ! defined( 'WPINC' ) ) {
 define( 'WPBR_PAYUNI_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
 define( 'WPBR_PAYUNI_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
 define( 'WPBR_PAYUNI_BASENAME', plugin_basename( __FILE__ ) );
-define( 'WPBR_PAYUNI_PAYMENT_VERSION', '1.3.0' );
+define( 'WPBR_PAYUNI_PAYMENT_VERSION', '1.4.0' );
 
 /**
  * Display warning when WooCommerce is not installed and activated.

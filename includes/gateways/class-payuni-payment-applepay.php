@@ -53,7 +53,7 @@ class Payuni_Payment_ApplePay extends Payuni_Abstract_Payment_Gateway {
 	 * @return void
 	 */
 	public function init_form_fields() {
-		$this->form_fields = include WPBR_PAYUNI_PLUGIN_DIR . 'includes/settings/settings-payuni-payment-credit.php';
+		$this->form_fields = include WPBR_PAYUNI_PLUGIN_DIR . 'includes/settings/settings-payuni-payment-applepay.php';
 	}
 
 	/**

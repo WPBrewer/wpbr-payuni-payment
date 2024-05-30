@@ -50,6 +50,7 @@ class Payuni_Payment_Request {
 				'UsrMail'    => $order->get_billing_email(), // 付款頁帶入 email
 				'UsrMailFix' => '1', // 不可修改 email
 				'Timestamp'  => time(),
+				'Lang'       => get_option( 'payuni_payment_language', 'zh-tw' ),
 			),
 			$order
 		);

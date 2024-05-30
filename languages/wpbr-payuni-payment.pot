@@ -2,7 +2,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PAYUNi Payment for WooCommerce\n"
-"POT-Creation-Date: 2023-12-08 11:25+0800\n"
+"POT-Creation-Date: 2024-05-30 11:31+0800\n"
 "PO-Revision-Date: 2023-03-30 14:52+0800\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -10,7 +10,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
-"X-Generator: Poedit 3.4.1\n"
+"X-Generator: Poedit 3.4.4\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-Flags-xgettext: --add-comments=translators:\n"
 "X-Poedit-WPHeader: wpbr-payuni-payment.php\n"
@@ -31,44 +31,45 @@ msgstr ""
 msgid "PAYUNi Payment Detail"
 msgstr ""
 
-#: includes/class-payuni-payment.php:127
+#: includes/class-payuni-payment.php:139
 msgid "Trade No"
 msgstr ""
 
-#: includes/class-payuni-payment.php:128
+#: includes/class-payuni-payment.php:140
 msgid "Trade Amount"
 msgstr ""
 
-#: includes/class-payuni-payment.php:129
+#: includes/class-payuni-payment.php:141
 msgid "Trade Status"
 msgstr ""
 
-#: includes/class-payuni-payment.php:130
+#: includes/class-payuni-payment.php:142
 msgid "Message"
 msgstr ""
 
-#: includes/class-payuni-payment.php:171
+#: includes/class-payuni-payment.php:176
 msgid "General Settings"
 msgstr ""
 
-#: includes/class-payuni-payment.php:172
-#: includes/settings/class-payuni-payment-settings-tab.php:44
+#: includes/class-payuni-payment.php:177
+#: includes/settings/class-payuni-payment-settings-tab.php:42
+#: includes/settings/class-payuni-payment-settings-tab.php:62
 msgid "Payment Settings"
 msgstr ""
 
-#: includes/class-payuni-payment.php:224
+#: includes/class-payuni-payment.php:226
 msgid "Unsecure AJAX call"
 msgstr ""
 
-#: includes/class-payuni-payment.php:235
+#: includes/class-payuni-payment.php:237
 msgid "No such order id"
 msgstr ""
 
-#: includes/class-payuni-payment.php:247
+#: includes/class-payuni-payment.php:249
 msgid "PAYUNi Query Successfully"
 msgstr ""
 
-#: includes/class-payuni-payment.php:253
+#: includes/class-payuni-payment.php:255
 msgid "PAYUNi Query Failed!"
 msgstr ""
 
@@ -89,7 +90,7 @@ msgid "%1$s is a payment gateway provided by %2$s"
 msgstr ""
 
 #: includes/gateways/abstract-payuni-payment.php:134
-#: includes/settings/class-payuni-payment-settings-tab.php:27
+#: includes/settings/class-payuni-payment-settings-tab.php:20
 msgid "PAYUNi"
 msgstr ""
 
@@ -103,13 +104,13 @@ msgstr ""
 msgid "PAYUNi AFTEE Payment"
 msgstr ""
 
-#: includes/gateways/class-payuni-payment-aftee.php:81
+#: includes/gateways/class-payuni-payment-aftee.php:83
 msgctxt "AFTEE"
 msgid "Pay No"
 msgstr ""
 
-#: includes/gateways/class-payuni-payment-aftee.php:82
-#: includes/gateways/class-payuni-payment-atm.php:74
+#: includes/gateways/class-payuni-payment-aftee.php:84
+#: includes/gateways/class-payuni-payment-atm.php:81
 msgid "Pay Time"
 msgstr ""
 
@@ -119,50 +120,53 @@ msgstr ""
 msgid "PAYUNi Apple Pay Payment"
 msgstr ""
 
-#: includes/gateways/class-payuni-payment-applepay.php:99
-#: includes/gateways/class-payuni-payment-credit.php:92
-#: includes/gateways/class-payuni-payment-googlepay.php:99
-#: includes/gateways/trait-payuni-payment-installment.php:128
+#: includes/gateways/class-payuni-payment-applepay.php:98
+#: includes/gateways/class-payuni-payment-credit.php:94
+#: includes/gateways/class-payuni-payment-googlepay.php:101
+#: includes/gateways/class-payuni-payment-samsungpay.php:99
+#: includes/gateways/trait-payuni-payment-installment.php:130
 msgid "Auth Type"
 msgstr ""
 
-#: includes/gateways/class-payuni-payment-applepay.php:100
-#: includes/gateways/class-payuni-payment-credit.php:93
-#: includes/gateways/class-payuni-payment-googlepay.php:100
-#: includes/gateways/trait-payuni-payment-installment.php:133
+#: includes/gateways/class-payuni-payment-applepay.php:99
+#: includes/gateways/class-payuni-payment-credit.php:95
+#: includes/gateways/class-payuni-payment-googlepay.php:102
+#: includes/gateways/class-payuni-payment-samsungpay.php:100
+#: includes/gateways/trait-payuni-payment-installment.php:135
 msgid "Auth Date"
 msgstr ""
 
-#: includes/gateways/class-payuni-payment-applepay.php:101
-#: includes/gateways/class-payuni-payment-credit.php:94
-#: includes/gateways/class-payuni-payment-googlepay.php:101
-#: includes/gateways/trait-payuni-payment-installment.php:134
+#: includes/gateways/class-payuni-payment-applepay.php:100
+#: includes/gateways/class-payuni-payment-credit.php:96
+#: includes/gateways/class-payuni-payment-googlepay.php:103
+#: includes/gateways/class-payuni-payment-samsungpay.php:101
+#: includes/gateways/trait-payuni-payment-installment.php:136
 msgid "Auth Time"
 msgstr ""
 
-#: includes/gateways/class-payuni-payment-atm.php:23
-#: includes/gateways/class-payuni-payment-atm.php:24
+#: includes/gateways/class-payuni-payment-atm.php:30
+#: includes/gateways/class-payuni-payment-atm.php:31
 #: includes/settings/settings-payuni-payment-atm.php:27
 msgid "PAYUNi ATM Payment"
 msgstr ""
 
-#: includes/gateways/class-payuni-payment-atm.php:71
+#: includes/gateways/class-payuni-payment-atm.php:78
 msgctxt "ATM"
 msgid "Pay No"
 msgstr ""
 
-#: includes/gateways/class-payuni-payment-atm.php:72
+#: includes/gateways/class-payuni-payment-atm.php:79
 msgid "Bank Code"
 msgstr ""
 
-#: includes/gateways/class-payuni-payment-atm.php:73
-#: includes/gateways/class-payuni-payment-cvs.php:76
+#: includes/gateways/class-payuni-payment-atm.php:80
+#: includes/gateways/class-payuni-payment-cvs.php:82
 #: includes/settings/settings-payuni-payment-atm.php:37
 #: includes/settings/settings-payuni-payment-cvs.php:37
 msgid "Expire Date"
 msgstr ""
 
-#: includes/gateways/class-payuni-payment-atm.php:75
+#: includes/gateways/class-payuni-payment-atm.php:82
 msgid "Account 5 No"
 msgstr ""
 
@@ -172,18 +176,18 @@ msgstr ""
 msgid "PAYUNi Credit Card Payment"
 msgstr ""
 
-#: includes/gateways/class-payuni-payment-cvs.php:23
-#: includes/gateways/class-payuni-payment-cvs.php:24
+#: includes/gateways/class-payuni-payment-cvs.php:30
+#: includes/gateways/class-payuni-payment-cvs.php:31
 #: includes/settings/settings-payuni-payment-cvs.php:27
 msgid "PAYUNi CVS Payment"
 msgstr ""
 
-#: includes/gateways/class-payuni-payment-cvs.php:74
+#: includes/gateways/class-payuni-payment-cvs.php:80
 msgctxt "CVS"
 msgid "Pay No"
 msgstr ""
 
-#: includes/gateways/class-payuni-payment-cvs.php:75
+#: includes/gateways/class-payuni-payment-cvs.php:81
 msgid "CVS Store"
 msgstr ""
 
@@ -233,109 +237,145 @@ msgstr ""
 msgid "PAYUNi LINE Pay"
 msgstr ""
 
-#: includes/gateways/class-payuni-payment-linepay.php:79
+#: includes/gateways/class-payuni-payment-linepay.php:81
 msgctxt "LINE Pay"
 msgid "Pay No"
 msgstr ""
 
-#: includes/gateways/class-payuni-payment-request.php:83
+#: includes/gateways/class-payuni-payment-request.php:84
 msgid "Redirecting..."
 msgstr ""
 
-#: includes/gateways/class-payuni-payment-request.php:112
+#. translators:  %s is the order id
+#: includes/gateways/class-payuni-payment-request.php:114
 #, php-format
 msgid "Unable to find order #%s"
 msgstr ""
 
-#: includes/gateways/class-payuni-payment-request.php:126
+#. translators:  %s is the order id
+#: includes/gateways/class-payuni-payment-request.php:129
 #, php-format
 msgid ""
 "The refund amount for order #%s should be the same as the order total for "
 "installment payment."
 msgstr ""
 
-#: includes/gateways/class-payuni-payment-request.php:257
+#. translators:  %s is the decrypted result
+#: includes/gateways/class-payuni-payment-request.php:263
 #, php-format
 msgid "PAYUNi query succeed. Query result: %s"
 msgstr ""
 
-#: includes/gateways/trait-payuni-payment-installment.php:129
-msgid "Card Last 4 No"
-msgstr ""
-
-#: includes/gateways/trait-payuni-payment-installment.php:130
-msgid "Installments"
+#: includes/gateways/class-payuni-payment-samsungpay.php:31
+#: includes/gateways/class-payuni-payment-samsungpay.php:32
+msgid "PAYUNi Samsung Pay"
 msgstr ""
 
 #: includes/gateways/trait-payuni-payment-installment.php:131
-msgid "First Amount"
+msgid "Card Last 4 No"
 msgstr ""
 
 #: includes/gateways/trait-payuni-payment-installment.php:132
+msgid "Installments"
+msgstr ""
+
+#: includes/gateways/trait-payuni-payment-installment.php:133
+msgid "First Amount"
+msgstr ""
+
+#: includes/gateways/trait-payuni-payment-installment.php:134
 msgid "Each Amount"
 msgstr ""
 
-#: includes/settings/class-payuni-payment-settings-tab.php:61
-msgid "General Payment Settings"
-msgstr ""
-
-#: includes/settings/class-payuni-payment-settings-tab.php:66
+#: includes/settings/class-payuni-payment-settings-tab.php:67
 msgid "Debug Log"
 msgstr ""
 
-#: includes/settings/class-payuni-payment-settings-tab.php:69
-#, php-format
-msgid "Log PAYUNi payment message, inside <code>%s</code>"
+#: includes/settings/class-payuni-payment-settings-tab.php:70
+msgid "Log PAYUNi payment message"
 msgstr ""
 
-#: includes/settings/class-payuni-payment-settings-tab.php:73
+#. translators:  %s is the order id
+#: includes/settings/class-payuni-payment-settings-tab.php:72
+#, php-format
+msgid ""
+"You Can find logs with source name <strong>wpbr-payuni-payment</strong> at "
+"<strong>WooCommerce -> Status -> Logs</strong>. %s"
+msgstr ""
+
+#: includes/settings/class-payuni-payment-settings-tab.php:76
 msgid "Number of Payments"
 msgstr ""
 
-#: includes/settings/class-payuni-payment-settings-tab.php:86
+#: includes/settings/class-payuni-payment-settings-tab.php:89
+#, php-format
 msgid ""
-"Please select the number of payment that customer can use, please make sure "
-"the installment you selected is eanbled in PAYUNi."
+"The number of payments display on Payments section, after setting you still "
+"need to eanble each payment in Payments section. %s"
 msgstr ""
 
-#: includes/settings/class-payuni-payment-settings-tab.php:94
-msgid "API Settings"
+#: includes/settings/class-payuni-payment-settings-tab.php:93
+msgid "Language"
 msgstr ""
 
-#: includes/settings/class-payuni-payment-settings-tab.php:96
-msgid "Enter your PAYUNi API credentials"
+#: includes/settings/class-payuni-payment-settings-tab.php:97
+msgid "Traditional Chinese"
 msgstr ""
 
-#: includes/settings/class-payuni-payment-settings-tab.php:100
-msgid "Test Mode"
+#: includes/settings/class-payuni-payment-settings-tab.php:98
+msgid "English"
 msgstr ""
 
-#: includes/settings/class-payuni-payment-settings-tab.php:103
-msgid "When enabled, you need to use the test-only data below."
-msgstr ""
-
-#: includes/settings/class-payuni-payment-settings-tab.php:107
-msgid "MerchantID"
+#: includes/settings/class-payuni-payment-settings-tab.php:101
+msgid "The language of the PAYUNi checkout page."
 msgstr ""
 
 #: includes/settings/class-payuni-payment-settings-tab.php:109
+msgid "API Settings"
+msgstr ""
+
+#: includes/settings/class-payuni-payment-settings-tab.php:111
+msgid "Enter your PAYUNi API credentials"
+msgstr ""
+
+#: includes/settings/class-payuni-payment-settings-tab.php:115
+msgid "Test Mode"
+msgstr ""
+
+#: includes/settings/class-payuni-payment-settings-tab.php:118
+msgid "When enabled, you need to use the test-only data below."
+msgstr ""
+
+#: includes/settings/class-payuni-payment-settings-tab.php:122
+msgid "MerchantID"
+msgstr ""
+
+#: includes/settings/class-payuni-payment-settings-tab.php:124
 msgid "This is the MerchantID when you apply PAYUNi API"
 msgstr ""
 
-#: includes/settings/class-payuni-payment-settings-tab.php:114
+#: includes/settings/class-payuni-payment-settings-tab.php:129
 msgid "HashKey"
 msgstr ""
 
-#: includes/settings/class-payuni-payment-settings-tab.php:116
+#: includes/settings/class-payuni-payment-settings-tab.php:131
 msgid "This is the HashKey when you apply PAYUNi API"
 msgstr ""
 
-#: includes/settings/class-payuni-payment-settings-tab.php:121
+#: includes/settings/class-payuni-payment-settings-tab.php:136
 msgid "HashIV"
 msgstr ""
 
-#: includes/settings/class-payuni-payment-settings-tab.php:123
+#: includes/settings/class-payuni-payment-settings-tab.php:138
 msgid "This is the HashIV when you apply PAYUNi API"
+msgstr ""
+
+#: includes/settings/class-payuni-payment-settings-tab.php:215
+msgid "View logs"
+msgstr ""
+
+#: includes/settings/class-payuni-payment-settings-tab.php:222
+msgid "Go to Payment Settings"
 msgstr ""
 
 #: includes/settings/settings-payuni-payment-aftee.php:18
@@ -346,6 +386,7 @@ msgstr ""
 #: includes/settings/settings-payuni-payment-googlepay.php:18
 #: includes/settings/settings-payuni-payment-installment.php:18
 #: includes/settings/settings-payuni-payment-linepay.php:18
+#: includes/settings/settings-payuni-payment-samsungpay.php:18
 msgid "Enable/Disable"
 msgstr ""
 
@@ -357,6 +398,7 @@ msgstr ""
 #: includes/settings/settings-payuni-payment-googlepay.php:20
 #: includes/settings/settings-payuni-payment-installment.php:20
 #: includes/settings/settings-payuni-payment-linepay.php:20
+#: includes/settings/settings-payuni-payment-samsungpay.php:20
 msgid "Enable"
 msgstr ""
 
@@ -368,6 +410,7 @@ msgstr ""
 #: includes/settings/settings-payuni-payment-googlepay.php:24
 #: includes/settings/settings-payuni-payment-installment.php:24
 #: includes/settings/settings-payuni-payment-linepay.php:24
+#: includes/settings/settings-payuni-payment-samsungpay.php:24
 msgid "Title"
 msgstr ""
 
@@ -379,6 +422,7 @@ msgstr ""
 #: includes/settings/settings-payuni-payment-googlepay.php:26
 #: includes/settings/settings-payuni-payment-installment.php:26
 #: includes/settings/settings-payuni-payment-linepay.php:26
+#: includes/settings/settings-payuni-payment-samsungpay.php:26
 msgid "This controls the title which the user sees during checkout."
 msgstr ""
 
@@ -390,6 +434,7 @@ msgstr ""
 #: includes/settings/settings-payuni-payment-googlepay.php:31
 #: includes/settings/settings-payuni-payment-installment.php:31
 #: includes/settings/settings-payuni-payment-linepay.php:31
+#: includes/settings/settings-payuni-payment-samsungpay.php:31
 msgid "Description"
 msgstr ""
 
@@ -401,6 +446,7 @@ msgstr ""
 #: includes/settings/settings-payuni-payment-googlepay.php:33
 #: includes/settings/settings-payuni-payment-installment.php:33
 #: includes/settings/settings-payuni-payment-linepay.php:33
+#: includes/settings/settings-payuni-payment-samsungpay.php:33
 msgid "This controls the description which the user sees during checkout."
 msgstr ""
 
@@ -422,6 +468,7 @@ msgstr ""
 #: includes/settings/settings-payuni-payment-googlepay.php:37
 #: includes/settings/settings-payuni-payment-installment.php:42
 #: includes/settings/settings-payuni-payment-linepay.php:37
+#: includes/settings/settings-payuni-payment-samsungpay.php:37
 msgid "Incomplete Payment Message"
 msgstr ""
 
@@ -433,6 +480,7 @@ msgstr ""
 #: includes/settings/settings-payuni-payment-googlepay.php:39
 #: includes/settings/settings-payuni-payment-installment.php:44
 #: includes/settings/settings-payuni-payment-linepay.php:39
+#: includes/settings/settings-payuni-payment-samsungpay.php:39
 msgid ""
 "This controls the message displayed on thank you page when the payment is "
 "incomplated."
@@ -451,21 +499,36 @@ msgstr ""
 msgid "PAYUNi LINE Pay Payment"
 msgstr ""
 
+#: includes/settings/settings-payuni-payment-samsungpay.php:27
+msgid "PAYUNi  Samsung Pay Payment"
+msgstr ""
+
 #: includes/templates/checkout/order-received.php:35
 msgid "Thank you. Your order has been received."
 msgstr ""
 
-#: woo-payuni-payment.php:37
+#: wpbr-payuni-payment.php:40
 msgid ""
 "PAYUNi Payment needs WooCommerce, please intall and activate WooCommerce "
 "first!"
 msgstr ""
 
 #. Plugin Name of the plugin/theme
+msgid "Pay with PAYUNi"
+msgstr ""
+
+#. Plugin URI of the plugin/theme
+msgid "https://wpbrewer.com/product/wpbr-payuni-payment"
+msgstr ""
+
 #. Description of the plugin/theme
-msgid "PAYUNi Payment for WooCommerce"
+msgid "Provides PAYUNi Payment for WooCommerce."
 msgstr ""
 
 #. Author of the plugin/theme
-msgid "<a href=\"https://wpbrewer.com\">WPBrewer</a>"
+msgid "WPBrewer"
+msgstr ""
+
+#. Author URI of the plugin/theme
+msgid "https://wpbrewer.com/"
 msgstr ""

@@ -64,12 +64,13 @@ class Payuni_Payment_Settings_Tab extends WC_Settings_Page {
 					'id'    => 'payment_general_setting',
 				),
 				array(
-					'title'   => __( 'Debug Log', 'wpbr-payuni-payment' ),
-					'type'    => 'checkbox',
-					'default' => 'no',
+					'title'    => __( 'Debug Log', 'wpbr-payuni-payment' ),
+					'type'     => 'checkbox',
+					'default'  => 'yes',
+					'desc'     => __( 'Log PAYUNi payment message', 'wpbr-payuni-payment' ),
 					/* translators:  %s is the order id */
-					'desc'    => sprintf( __( 'Log PAYUNi payment message. You Can find logs with source name <strong>wpbr-payuni-payment</strong> at WooCommerce -> Status -> Logs. %s', 'wpbr-payuni-payment' ), $this->get_log_link() ),
-					'id'      => 'payuni_payment_debug_log_enabled',
+					'desc_tip' => sprintf( __( 'You Can find logs with source name <strong>wpbr-payuni-payment</strong> at <strong>WooCommerce -> Status -> Logs</strong>. %s', 'wpbr-payuni-payment' ), $this->get_log_link() ),
+					'id'       => 'payuni_payment_debug_log_enabled',
 				),
 				array(
 					'title'   => __( 'Number of Payments', 'wpbr-payuni-payment' ),
@@ -85,8 +86,20 @@ class Payuni_Payment_Settings_Tab extends WC_Settings_Page {
 						'payuni-installment-24' => 24,
 						'payuni-installment-30' => 30,
 					),
-					'desc'    => __( 'Please select the number of payment that customer can use, please make sure the installment you selected is eanbled in PAYUNi.', 'wpbr-payuni-payment' ),
+					'desc'    => sprintf( __( 'The number of payments display on Payments section, after setting you still need to eanble each payment in Payments section. %s', 'wpbr-payuni-payment' ), $this->get_woo_payment_settings_url() ),
 					'id'      => 'payuni_payment_installment_number_of_payments',
+				),
+				array(
+					'title'   => __( 'Language', 'wpbr-payuni-payment' ),
+					'type'    => 'select',
+					'css'     => 'width: 400px;',
+					'options' => array(
+						'zh-tw' => __( 'Traditional Chinese', 'wpbr-payuni-payment' ),
+						'en'    => __( 'English', 'wpbr-payuni-payment' ),
+					),
+					'default' => 'zh-tw',
+					'desc'    => __( 'The language of the PAYUNi checkout page.', 'wpbr-payuni-payment' ),
+					'id'      => 'payuni_payment_language',
 				),
 				array(
 					'type' => 'sectionend',
@@ -198,7 +211,14 @@ class Payuni_Payment_Settings_Tab extends WC_Settings_Page {
 	/**
 	 * Get debug logs url.
 	 */
-	protected function get_log_link() {
-		return '<a href="' . esc_url( admin_url( 'admin.php?page=wc-status&tab=logs' ) ) . '">' . __( 'View logs', 'wpbr-payuni-pro' ) . '</a>';
+	private function get_log_link() {
+		return '<a href="' . esc_url( admin_url( 'admin.php?page=wc-status&tab=logs' ) ) . '" target="_blank">' . __( 'View logs', 'wpbr-payuni-payment' ) . '</a>';
+	}
+
+	/**
+	 * Get woo Payment sections url.
+	 */
+	private function get_woo_payment_settings_url() {
+		return '<a href="' . esc_url( admin_url( 'admin.php?page=wc-settings&tab=checkout' ) ) . '" target="_blank">' . __( 'Go to Payment Settings', 'wpbr-payuni-payment' ) . '</a>';
 	}
 }

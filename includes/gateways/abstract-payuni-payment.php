@@ -73,12 +73,12 @@ abstract class Payuni_Abstract_Payment_Gateway extends WC_Payment_Gateway {
 			'products',
 		);
 
-		$this->merchant_id                = strtoupper( get_option( 'payuni_payment_merchant_id' ) );
-		$this->hashkey                    = get_option( 'payuni_payment_hashkey' );
-		$this->hashiv                     = get_option( 'payuni_payment_hashiv' );
+		$this->testmode                   = wc_string_to_bool( get_option( 'payuni_payment_testmode_enabled' ) );
+		$this->merchant_id                = ( $this->testmode ) ? strtoupper( get_option( 'payuni_payment_merchant_id_test' ) ) : strtoupper( get_option( 'payuni_payment_merchant_id' ) );
+		$this->hashkey                    = ( $this->testmode ) ? get_option( 'payuni_payment_hashkey_test' ) : get_option( 'payuni_payment_hashkey' );
+		$this->hashiv                     = ( $this->testmode ) ? get_option( 'payuni_payment_hashiv_test' ) : get_option( 'payuni_payment_hashiv' );
 		$this->incomplete_payment_message = $this->get_option( 'incomplete_payment_message' );
 
-		$this->testmode   = wc_string_to_bool( get_option( 'payuni_payment_testmode_enabled' ) );
 		$this->api_url    = ( $this->testmode ) ? 'https://sandbox-api.payuni.com.tw/api/upp' : 'https://api.payuni.com.tw/api/upp';
 		$this->notify_url = add_query_arg( 'wc-api', 'payuni_payment', home_url( '/' ) );
 		$this->return_url = add_query_arg( 'wc-api', 'payuni_return', home_url( '/' ) );

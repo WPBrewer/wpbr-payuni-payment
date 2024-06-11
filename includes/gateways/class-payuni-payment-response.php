@@ -117,7 +117,9 @@ class Payuni_Payment_Response {
 		$posted = wc_clean( wp_unslash( $_POST ) );
 		Payuni_Payment::log( 'payuni_receive_response from ' . current_action() . '. raw post data ' . wc_print_r( $posted, true ) );
 
-		$mer_id = get_option( 'payuni_payment_merchant_id' );
+		$test_mode = wc_string_to_bool( get_option( 'payuni_payment_testmode_enabled' ) );
+		$mer_id    = $test_mode ? get_option( 'payuni_payment_merchant_id_test' ) : get_option( 'payuni_payment_merchant_id' );
+
 		if ( ! array_key_exists( 'MerID', $posted ) || $mer_id !== $posted['MerID'] ) {
 			Payuni_Payment::log( 'PAYUNi received response MerID not found or not match. ' );
 			return;

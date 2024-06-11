@@ -281,8 +281,13 @@ class Payuni_Payment {
 	 * @param array $encrypt_info The info to be encrypted.
 	 */
 	public static function encrypt( $encrypt_info ) {
+
+		$test_mode = wc_string_to_bool( get_option( 'payuni_payment_testmode_enabled' ) );
+		$hashkey   = $test_mode ? get_option( 'payuni_payment_hashkey_test' ) : get_option( 'payuni_payment_hashkey' );
+		$hashiv    = $test_mode ? get_option( 'payuni_payment_hashiv_test' ) : get_option( 'payuni_payment_hashiv' );
+
 		$tag       = '';
-		$encrypted = openssl_encrypt( http_build_query( $encrypt_info ), 'aes-256-gcm', trim( get_option( 'payuni_payment_hashkey' ) ), 0, trim( get_option( 'payuni_payment_hashiv' ) ), $tag );
+		$encrypted = openssl_encrypt( http_build_query( $encrypt_info ), 'aes-256-gcm', trim( $hashkey ), 0, trim( $hashiv ), $tag );
 		return trim( bin2hex( $encrypted . ':::' . base64_encode( $tag ) ) );
 	}
 
@@ -293,8 +298,9 @@ class Payuni_Payment {
 	 */
 	public static function decrypt( string $encrypt_str = '' ) {
 
-		$hashkey = get_option( 'payuni_payment_hashkey' );
-		$hashiv  = get_option( 'payuni_payment_hashiv' );
+		$test_mode = wc_string_to_bool( get_option( 'payuni_payment_testmode_enabled' ) );
+		$hashkey   = $test_mode ? get_option( 'payuni_payment_hashkey_test' ) : get_option( 'payuni_payment_hashkey' );
+		$hashiv    = $test_mode ? get_option( 'payuni_payment_hashiv_test' ) : get_option( 'payuni_payment_hashiv' );
 
 		list($encrypt_data, $tag) = explode( ':::', hex2bin( $encrypt_str ), 2 );
 		$encrypt_info             = openssl_decrypt( $encrypt_data, 'aes-256-gcm', trim( $hashkey ), 0, trim( $hashiv ), base64_decode( $tag ) );
@@ -308,7 +314,11 @@ class Payuni_Payment {
 	 * @param string $encrypt_str The string to be hashed.
 	 */
 	public static function hash_info( string $encrypt_str = '' ) {
-		return strtoupper( hash( 'sha256', get_option( 'payuni_payment_hashkey' ) . $encrypt_str . get_option( 'payuni_payment_hashiv' ) ) );
+		$test_mode = wc_string_to_bool( get_option( 'payuni_payment_testmode_enabled' ) );
+		$hashkey   = $test_mode ? get_option( 'payuni_payment_hashkey_test' ) : get_option( 'payuni_payment_hashkey' );
+		$hashiv    = $test_mode ? get_option( 'payuni_payment_hashiv_test' ) : get_option( 'payuni_payment_hashiv' );
+
+		return strtoupper( hash( 'sha256', $hashkey . $encrypt_str . $hashiv ) );
 	}
 
 	/**

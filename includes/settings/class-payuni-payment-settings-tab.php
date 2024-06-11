@@ -119,6 +119,27 @@ class Payuni_Payment_Settings_Tab extends WC_Settings_Page {
 					'id'      => 'payuni_payment_testmode_enabled',
 				),
 				array(
+					'title'    => __( 'Test MerchantID', 'wpbr-payuni-payment' ),
+					'type'     => 'text',
+					'desc'     => __( 'This is the MerchantID when you apply PAYUNi API', 'wpbr-payuni-payment' ),
+					'desc_tip' => true,
+					'id'       => 'payuni_payment_merchant_id_test',
+				),
+				array(
+					'title'    => __( 'Test HashKey', 'wpbr-payuni-payment' ),
+					'type'     => 'text',
+					'desc'     => __( 'This is the HashKey when you apply PAYUNi API', 'wpbr-payuni-payment' ),
+					'desc_tip' => true,
+					'id'       => 'payuni_payment_hashkey_test',
+				),
+				array(
+					'title'    => __( 'Test HashIV', 'wpbr-payuni-payment' ),
+					'type'     => 'text',
+					'desc'     => __( 'This is the HashIV when you apply PAYUNi API', 'wpbr-payuni-payment' ),
+					'desc_tip' => true,
+					'id'       => 'payuni_payment_hashiv_test',
+				),
+				array(
 					'title'    => __( 'MerchantID', 'wpbr-payuni-payment' ),
 					'type'     => 'text',
 					'desc'     => __( 'This is the MerchantID when you apply PAYUNi API', 'wpbr-payuni-payment' ),

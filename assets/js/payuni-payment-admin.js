@@ -3,7 +3,7 @@ jQuery(function ($) {
 
 	const { __, _x, _n, _nx } = wp.i18n;
 	/**
-	 * Object to handle LINE Pay admin functions.
+	 * Object to handle PAYUNi admin functions.
 	 */
 	var wpbr_payuni_upp_admin = {
 		/**
@@ -47,7 +47,6 @@ jQuery(function ($) {
 			$( document ).on( 'click', '#payuni-query-btn', function( event ){
 				event.preventDefault();
 				var order_id = $(this).data('id');
-				// $('.linepay-notice').remove();
 				if ($.blockUI) {
 					$('#payuni-order-meta-boxes').block({
 						message: null,

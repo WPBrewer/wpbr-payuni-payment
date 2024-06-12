@@ -243,7 +243,7 @@ class Payuni_Payment {
 		$request                 = new Payuni_Payment_Request();
 		try {
 
-			if ( $request->query( $order->get_id() ) ) {
+			if ( $request->query( $order->get_id() ) !== false ) {
 				$return = array(
 					'success' => true,
 					'message' => __( 'PAYUNi Query Successfully', 'wpbr-payuni-payment' ),
@@ -336,10 +336,10 @@ class Payuni_Payment {
 
 		if ( $order_serial_no && $order_serial_no < 999 ) {
 			$order_serial_no += 1;
-			$payuni_order_no  = $payuni_order_no . str_pad( $order_serial_no, 3, '0', STR_PAD_LEFT );
+			$payuni_order_no = $payuni_order_no . '-' . $order_serial_no;
 		} else {
 			$order_serial_no = 1;
-			$payuni_order_no = $payuni_order_no . str_pad( $order_serial_no, 3, '0', STR_PAD_LEFT );
+			$payuni_order_no = $payuni_order_no . '-' . $order_serial_no;
 		}
 
 		$order->update_meta_data( '_payuni_order_serial_no', $order_serial_no );
@@ -356,7 +356,13 @@ class Payuni_Payment {
 	 *  @return string
 	 */
 	public static function parse_payuni_order_no_to_woo_order_id( $payuni_order_no ) {
-		$real_woo_order_id = substr( $payuni_order_no, 0, -3 );
+
+		if ( strpos( $payuni_order_no, '-' ) !== false ) {
+			$real_woo_order_id = explode( '-', $payuni_order_no )[0];
+		} else {
+			$real_woo_order_id = substr( $payuni_order_no, 0, -3 );
+		}
+
 		return $real_woo_order_id;
 	}
 

@@ -44,7 +44,47 @@ jQuery(function ($) {
 
 			$('#payuni_payment_testmode_enabled').trigger('change');
 
-        }
+			$( document ).on( 'click', '#payuni-query-btn', function( event ){
+				event.preventDefault();
+				var order_id = $(this).data('id');
+				// $('.linepay-notice').remove();
+				if ($.blockUI) {
+					$('#payuni-order-meta-boxes').block({
+						message: null,
+					});
+				}
+				$.ajax({
+					url: payuni_object.ajax_url,
+					data: {
+						action: 'payuni_query',
+						order_id: order_id,
+						security: payuni_object.query_nonce,
+					},
+					dataType: "json",
+					type: 'post',
+					success: function (data) {
+						console.log(data);
+
+						if (data.success) {
+							alert(data.message);
+							window.location.reload();
+						} else {
+							alert(data.message);
+						}
+						if ($.blockUI) {
+							$('#payuni-order-meta-boxes').unblock();
+						}
+					},
+					always: function () {
+						if ($.blockUI) {
+							$('#payuni-order-meta-boxes').unblock();
+						}
+					}
+				});//ajax
+
+			});
+
+        }//init
     };
 
 	wpbr_payuni_upp_admin.init();

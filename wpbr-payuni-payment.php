@@ -8,7 +8,7 @@
  * Plugin Name:       Pay with PAYUNi
  * Description:       Provides PAYUNi Payment for WooCommerce.
  * Plugin URI:        https://wpbrewer.com/product/wpbr-payuni-payment
- * Version:           1.4.0
+ * Version:           1.5.0
  * Author:            WPBrewer
  * Author URI:        https://wpbrewer.com/
  * License:           GPL-2.0+
@@ -27,7 +27,9 @@ if ( ! defined( 'WPINC' ) ) {
 define( 'WPBR_PAYUNI_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
 define( 'WPBR_PAYUNI_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
 define( 'WPBR_PAYUNI_BASENAME', plugin_basename( __FILE__ ) );
-define( 'WPBR_PAYUNI_PAYMENT_VERSION', '1.4.0' );
+define( 'WPBR_PAYUNI_PAYMENT_VERSION', '1.5.0' );
+
+require_once WPBR_PAYUNI_PLUGIN_DIR . "vendor/autoload.php";
 
 /**
  * Display warning when WooCommerce is not installed and activated.
@@ -66,13 +68,12 @@ function run_payuni_payment() {
 		require_once ABSPATH . 'wp-admin/includes/plugin.php';
 		if ( is_plugin_active( 'wpbr-payuni-payment/wpbr-payuni-payment.php' ) ) {
 			deactivate_plugins( plugin_basename( __FILE__ ) );
-			add_action( 'admin_notices', 'payuni_payment_needs_woocommerce' );
+			add_action( 'admin_notices',  __NAMESPACE__ .'\\payuni_payment_needs_woocommerce' );
 			return;
 		}
 	}
 
-	require_once WPBR_PAYUNI_PLUGIN_DIR . 'includes/class-payuni-payment.php';
-	Payuni_Payment::init();
+	WPBrewer\Payuni\Payment\PayuniPayment::init();
 }
 
-add_action( 'plugins_loaded', 'run_payuni_payment' );
+add_action( 'plugins_loaded', __NAMESPACE__ . '\\run_payuni_payment' );

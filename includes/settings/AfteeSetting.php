@@ -32,7 +32,7 @@ return array(
 		'desc_tip'    => true,
 	),
 	'min_amount'                 => array(
-		'title'       => __( 'Minimum Amount', 'cathaybk-payment' ),
+		'title'       => __( 'Minimum Amount', 'wpbr-payuni-payment' ),
 		'type'        => 'number',
 		'description' => __( 'Minimum amount to use this payment gateway.', 'wpbr-payuni-payment' ),
 	),

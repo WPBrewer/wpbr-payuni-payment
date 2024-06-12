@@ -5,8 +5,8 @@ Requires at least: 5.9
 Tested up to: 6.5.3
 Requires PHP: 7.4
 Stable tag: 1.4.0
-License: GPLv3
-License URI: https://www.gnu.org/licenses/gpl-3.0.html
+License: GPLv2 or later.
+License URI: http://www.gnu.org/licenses/gpl-2.0.txt
 
 Accept payments via PAYUNi payment for your ecommerce store.
 

@@ -129,9 +129,9 @@ class PaymentRequest {
 			);
 		}
 
-		$payment_method   = $order->get_payment_method();
-		$allowed_payments = PayuniPayment::get_allowed_payments( $order );
-		if ( array_key_exists( $payment_method, $allowed_payments ) ) {
+		$payment_method           = $order->get_payment_method();
+		$allowed_install_payments = PayuniPayment::get_allowed_install_payments( $order );
+		if ( array_key_exists( $payment_method, $allowed_install_payments ) ) {
 			if ( $order->get_total() !== $amount ) {
 				return new \WP_Error(
 					'process_refund_request',
@@ -160,7 +160,7 @@ class PaymentRequest {
 			);
 		}
 
-		$query_result = self::query( $order_id );
+		$query_result = self::query( $order_id, false );
 		if ( false === $query_result ) {
 			return new \WP_Error(
 				'process_refund_request',
@@ -226,9 +226,7 @@ class PaymentRequest {
 		PayuniPayment::log( 'encrypt_info:' . wc_print_r( $encrypt_info, true ) );
 
 		$encrypted_info = PayuniPayment::encrypt( $encrypt_info );
-
-		// Set the form data as an array
-		$form_data = array(
+		$form_data      = array(
 			'MerID'       => $mer_id,
 			'Version'     => '1.0',
 			'EncryptInfo' => $encrypted_info,
@@ -254,7 +252,8 @@ class PaymentRequest {
 		$result    = json_decode( $response_body, true );
 		$decrypted = PayuniPayment::decrypt( $result['EncryptInfo'] );
 		if ( 'SUCCESS' === $result['Status'] ) {
-			$order->add_order_note( 'PAYUNi payment refund success. Status:' . $result['Status'] . ', Message:' . $decrypted['Message'] );
+			/* translators: %1$s is the status, %2$s is the message, %3$s is the refund amount */
+			$order->add_order_note( sprintf( __( 'PAYUNi payment refund success. Status: %1$s, Message: %2$s, Refund Amount: %3$s', 'wpbr-payuni-payment' ), $result['Status'], $decrypted['Message'], $amount ) );
 			return true;
 		} else {
 			$order->add_order_note( 'PAYUNi payment refund failed. Status:' . $result['Status'] . ', Message:' . $decrypted['Message'] );
@@ -264,8 +263,11 @@ class PaymentRequest {
 
 	/**
 	 * Query payment status and result
+	 *
+	 * @param int  $order_id The order id.
+	 * @param bool $add_note Add order note.
 	 */
-	public static function query( $order_id ) {
+	public static function query( $order_id, $add_note = true ) {
 
 		$order = wc_get_order( $order_id );
 		if ( ! $order ) {
@@ -332,9 +334,11 @@ class PaymentRequest {
 
 		if ( 'SUCCESS' === $result['Status'] ) {
 
-			$order = wc_get_order( $woo_order_id );
-			/* translators:  %s is the decrypted result */
-			$order->add_order_note( sprintf( __( 'PAYUNi query succeed. Query result: %s', 'wpbr-payuni-payment' ), wc_print_r( $decrypted, true ) ) );
+			if ( $add_note ) {
+				$order = wc_get_order( $woo_order_id );
+				/* translators:  %s is the decrypted result */
+				$order->add_order_note( sprintf( __( 'PAYUNi query succeed. Query result: %s', 'wpbr-payuni-payment' ), wc_print_r( $decrypted, true ) ) );
+			}
 			PayuniPayment::log( 'PAYUNi query success. Status:' . $result['Status'] . ', Message:' . $decrypted['Message'] . ', Trade Status:' . $query_result['TradeStatus'] );
 			return $query_result;
 		} else {

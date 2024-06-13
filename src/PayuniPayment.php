@@ -404,6 +404,32 @@ class PayuniPayment {
 	}
 
 	/**
+	 * Get allowed installments
+	 *
+	 * @param \WC_Order $order The order object.
+	 *
+	 * @return array
+	 */
+	public static function get_allowed_install_payments( $order = null ) {
+		if ( ! $order ) {
+			return self::$available_installments;
+		}
+
+		$plugin_version = $order->get_meta( '_wpbr_payuni_upp_plugin_version' );
+		if ( \version_compare( $plugin_version, '1.5.0' ) >= 0 ) {
+			return self::$available_installments;
+		} else {
+			// for backward-compatibility.
+			$old_available_payments = array();
+			foreach ( self::$available_installments as $key => $value ) {
+				$old_payment_id                            = str_replace( 'upp-', '', $key );
+				$old_available_payments[ $old_payment_id ] = $value;
+			}
+			return $old_available_payments;
+		}
+	}
+
+	/**
 	 * Log method.
 	 *
 	 * @param  string $message The message to be logged.

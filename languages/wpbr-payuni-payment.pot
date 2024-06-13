@@ -2,7 +2,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PAYUNi Payment for WooCommerce\n"
-"POT-Creation-Date: 2024-05-30 11:31+0800\n"
+"POT-Creation-Date: 2024-06-14 06:17+0800\n"
 "PO-Revision-Date: 2023-03-30 14:52+0800\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -26,488 +26,545 @@ msgstr ""
 "X-Poedit-SearchPathExcluded-3: includes/core/class-slswc-client.php\n"
 "X-Poedit-SearchPathExcluded-4: includes/core/class-slswc.php\n"
 
-#: includes/admin/meta-boxes/class-payuni-payment-order-meta-boxes.php:66
-#: includes/gateways/abstract-payuni-payment.php:101
-msgid "PAYUNi Payment Detail"
+#: includes/settings/AfteeSetting.php:16
+#: includes/settings/ApplePaySetting.php:16
+#: includes/settings/AtmSetting.php:16
+#: includes/settings/CreditInstallmentSetting.php:16
+#: includes/settings/CreditSetting.php:16 includes/settings/CvsSetting.php:16
+#: includes/settings/GooglePaySetting.php:16
+#: includes/settings/LinePaySetting.php:16
+#: includes/settings/SamsungPaySetting.php:16
+msgid "Enable/Disable"
 msgstr ""
 
-#: includes/class-payuni-payment.php:139
-msgid "Trade No"
+#: includes/settings/AfteeSetting.php:18
+#: includes/settings/ApplePaySetting.php:18
+#: includes/settings/AtmSetting.php:18
+#: includes/settings/CreditInstallmentSetting.php:18
+#: includes/settings/CreditSetting.php:18 includes/settings/CvsSetting.php:18
+#: includes/settings/GooglePaySetting.php:18
+#: includes/settings/LinePaySetting.php:18
+#: includes/settings/SamsungPaySetting.php:18
+msgid "Enable"
 msgstr ""
 
-#: includes/class-payuni-payment.php:140
-msgid "Trade Amount"
+#: includes/settings/AfteeSetting.php:22
+#: includes/settings/ApplePaySetting.php:22
+#: includes/settings/AtmSetting.php:22
+#: includes/settings/CreditInstallmentSetting.php:22
+#: includes/settings/CreditSetting.php:22 includes/settings/CvsSetting.php:22
+#: includes/settings/GooglePaySetting.php:22
+#: includes/settings/LinePaySetting.php:22
+#: includes/settings/SamsungPaySetting.php:22
+msgid "Title"
 msgstr ""
 
-#: includes/class-payuni-payment.php:141
-msgid "Trade Status"
+#: includes/settings/AfteeSetting.php:24
+#: includes/settings/ApplePaySetting.php:24
+#: includes/settings/AtmSetting.php:24
+#: includes/settings/CreditInstallmentSetting.php:24
+#: includes/settings/CreditSetting.php:24 includes/settings/CvsSetting.php:24
+#: includes/settings/GooglePaySetting.php:24
+#: includes/settings/LinePaySetting.php:24
+#: includes/settings/SamsungPaySetting.php:24
+msgid "This controls the title which the user sees during checkout."
 msgstr ""
 
-#: includes/class-payuni-payment.php:142
-msgid "Message"
-msgstr ""
-
-#: includes/class-payuni-payment.php:176
-msgid "General Settings"
-msgstr ""
-
-#: includes/class-payuni-payment.php:177
-#: includes/settings/class-payuni-payment-settings-tab.php:42
-#: includes/settings/class-payuni-payment-settings-tab.php:62
-msgid "Payment Settings"
-msgstr ""
-
-#: includes/class-payuni-payment.php:226
-msgid "Unsecure AJAX call"
-msgstr ""
-
-#: includes/class-payuni-payment.php:237
-msgid "No such order id"
-msgstr ""
-
-#: includes/class-payuni-payment.php:249
-msgid "PAYUNi Query Successfully"
-msgstr ""
-
-#: includes/class-payuni-payment.php:255
-msgid "PAYUNi Query Failed!"
-msgstr ""
-
-#: includes/gateways/abstract-payuni-payment.php:71
-msgid "Proceed to PAYUNi"
-msgstr ""
-
-#: includes/gateways/abstract-payuni-payment.php:104
-msgid ""
-"If the payment detail is not displayed. Please wait for a moment and reload "
-"the page."
-msgstr ""
-
-#. translators: 1: Payment method title 2: PAYUNi URL
-#: includes/gateways/abstract-payuni-payment.php:129
-#, php-format
-msgid "%1$s is a payment gateway provided by %2$s"
-msgstr ""
-
-#: includes/gateways/abstract-payuni-payment.php:134
-#: includes/settings/class-payuni-payment-settings-tab.php:20
-msgid "PAYUNi"
-msgstr ""
-
-#: includes/gateways/abstract-payuni-payment.php:189
-msgid "We have received your order, but the payment is incompleted."
-msgstr ""
-
-#: includes/gateways/class-payuni-payment-aftee.php:30
-#: includes/gateways/class-payuni-payment-aftee.php:31
-#: includes/settings/settings-payuni-payment-aftee.php:27
+#: includes/settings/AfteeSetting.php:25 src/Gateways/Aftee.php:36
+#: src/Gateways/Aftee.php:37
 msgid "PAYUNi AFTEE Payment"
 msgstr ""
 
-#: includes/gateways/class-payuni-payment-aftee.php:83
-msgctxt "AFTEE"
-msgid "Pay No"
+#: includes/settings/AfteeSetting.php:29
+#: includes/settings/ApplePaySetting.php:29
+#: includes/settings/AtmSetting.php:29
+#: includes/settings/CreditInstallmentSetting.php:29
+#: includes/settings/CreditSetting.php:29 includes/settings/CvsSetting.php:29
+#: includes/settings/GooglePaySetting.php:29
+#: includes/settings/LinePaySetting.php:29
+#: includes/settings/SamsungPaySetting.php:29
+msgid "Description"
 msgstr ""
 
-#: includes/gateways/class-payuni-payment-aftee.php:84
-#: includes/gateways/class-payuni-payment-atm.php:81
-msgid "Pay Time"
+#: includes/settings/AfteeSetting.php:31
+#: includes/settings/ApplePaySetting.php:31
+#: includes/settings/AtmSetting.php:31
+#: includes/settings/CreditInstallmentSetting.php:31
+#: includes/settings/CreditSetting.php:31 includes/settings/CvsSetting.php:31
+#: includes/settings/GooglePaySetting.php:31
+#: includes/settings/LinePaySetting.php:31
+#: includes/settings/SamsungPaySetting.php:31
+msgid "This controls the description which the user sees during checkout."
 msgstr ""
 
-#: includes/gateways/class-payuni-payment-applepay.php:30
-#: includes/gateways/class-payuni-payment-applepay.php:31
-#: includes/settings/settings-payuni-payment-applepay.php:27
+#: includes/settings/AfteeSetting.php:35
+#: includes/settings/CreditInstallmentSetting.php:35
+msgid "Minimum Amount"
+msgstr ""
+
+#: includes/settings/AfteeSetting.php:37
+#: includes/settings/CreditInstallmentSetting.php:37
+msgid "Minimum amount to use this payment gateway."
+msgstr ""
+
+#: includes/settings/AfteeSetting.php:40
+#: includes/settings/ApplePaySetting.php:35
+#: includes/settings/AtmSetting.php:47
+#: includes/settings/CreditInstallmentSetting.php:40
+#: includes/settings/CreditSetting.php:35 includes/settings/CvsSetting.php:47
+#: includes/settings/GooglePaySetting.php:35
+#: includes/settings/LinePaySetting.php:35
+#: includes/settings/SamsungPaySetting.php:35
+msgid "Incomplete Payment Message"
+msgstr ""
+
+#: includes/settings/AfteeSetting.php:42
+#: includes/settings/ApplePaySetting.php:37
+#: includes/settings/AtmSetting.php:49
+#: includes/settings/CreditInstallmentSetting.php:42
+#: includes/settings/CreditSetting.php:37 includes/settings/CvsSetting.php:49
+#: includes/settings/GooglePaySetting.php:37
+#: includes/settings/LinePaySetting.php:37
+#: includes/settings/SamsungPaySetting.php:37
+msgid ""
+"This controls the message displayed on thank you page when the payment is "
+"incomplated."
+msgstr ""
+
+#: includes/settings/ApplePaySetting.php:25 src/Gateways/ApplePay.php:37
+#: src/Gateways/ApplePay.php:38
 msgid "PAYUNi Apple Pay Payment"
 msgstr ""
 
-#: includes/gateways/class-payuni-payment-applepay.php:98
-#: includes/gateways/class-payuni-payment-credit.php:94
-#: includes/gateways/class-payuni-payment-googlepay.php:101
-#: includes/gateways/class-payuni-payment-samsungpay.php:99
-#: includes/gateways/trait-payuni-payment-installment.php:130
-msgid "Auth Type"
-msgstr ""
-
-#: includes/gateways/class-payuni-payment-applepay.php:99
-#: includes/gateways/class-payuni-payment-credit.php:95
-#: includes/gateways/class-payuni-payment-googlepay.php:102
-#: includes/gateways/class-payuni-payment-samsungpay.php:100
-#: includes/gateways/trait-payuni-payment-installment.php:135
-msgid "Auth Date"
-msgstr ""
-
-#: includes/gateways/class-payuni-payment-applepay.php:100
-#: includes/gateways/class-payuni-payment-credit.php:96
-#: includes/gateways/class-payuni-payment-googlepay.php:103
-#: includes/gateways/class-payuni-payment-samsungpay.php:101
-#: includes/gateways/trait-payuni-payment-installment.php:136
-msgid "Auth Time"
-msgstr ""
-
-#: includes/gateways/class-payuni-payment-atm.php:30
-#: includes/gateways/class-payuni-payment-atm.php:31
-#: includes/settings/settings-payuni-payment-atm.php:27
+#: includes/settings/AtmSetting.php:25 src/Gateways/Atm.php:36
+#: src/Gateways/Atm.php:37
 msgid "PAYUNi ATM Payment"
 msgstr ""
 
-#: includes/gateways/class-payuni-payment-atm.php:78
-msgctxt "ATM"
-msgid "Pay No"
-msgstr ""
-
-#: includes/gateways/class-payuni-payment-atm.php:79
-msgid "Bank Code"
-msgstr ""
-
-#: includes/gateways/class-payuni-payment-atm.php:80
-#: includes/gateways/class-payuni-payment-cvs.php:82
-#: includes/settings/settings-payuni-payment-atm.php:37
-#: includes/settings/settings-payuni-payment-cvs.php:37
+#: includes/settings/AtmSetting.php:35 includes/settings/CvsSetting.php:35
+#: src/Gateways/Atm.php:86 src/Gateways/Cvs.php:88
 msgid "Expire Date"
 msgstr ""
 
-#: includes/gateways/class-payuni-payment-atm.php:82
-msgid "Account 5 No"
+#: includes/settings/AtmSetting.php:37 includes/settings/CvsSetting.php:37
+msgid "This controls the expire date of the payment."
 msgstr ""
 
-#: includes/gateways/class-payuni-payment-credit.php:23
-#: includes/gateways/class-payuni-payment-credit.php:24
-#: includes/settings/settings-payuni-payment-credit.php:27
+#: includes/settings/CreditInstallmentSetting.php:25
+msgid "PAYUNi Installment Payment"
+msgstr ""
+
+#: includes/settings/CreditSetting.php:25 src/Gateways/Credit.php:30
+#: src/Gateways/Credit.php:31
 msgid "PAYUNi Credit Card Payment"
 msgstr ""
 
-#: includes/gateways/class-payuni-payment-cvs.php:30
-#: includes/gateways/class-payuni-payment-cvs.php:31
-#: includes/settings/settings-payuni-payment-cvs.php:27
+#: includes/settings/CvsSetting.php:25 src/Gateways/Cvs.php:36
+#: src/Gateways/Cvs.php:37
 msgid "PAYUNi CVS Payment"
 msgstr ""
 
-#: includes/gateways/class-payuni-payment-cvs.php:80
-msgctxt "CVS"
-msgid "Pay No"
-msgstr ""
-
-#: includes/gateways/class-payuni-payment-cvs.php:81
-msgid "CVS Store"
-msgstr ""
-
-#: includes/gateways/class-payuni-payment-googlepay.php:30
-#: includes/gateways/class-payuni-payment-googlepay.php:31
-#: includes/settings/settings-payuni-payment-googlepay.php:27
+#: includes/settings/GooglePaySetting.php:25 src/Gateways/GooglePay.php:37
+#: src/Gateways/GooglePay.php:38
 msgid "PAYUNi Google Pay Payment"
 msgstr ""
 
-#: includes/gateways/class-payuni-payment-installment-12.php:27
-#: includes/gateways/class-payuni-payment-installment-12.php:28
-msgid "PAYUNi Installment Payment (12 Installments)"
+#: includes/settings/LinePaySetting.php:25
+msgid "PAYUNi LINE Pay Payment"
 msgstr ""
 
-#: includes/gateways/class-payuni-payment-installment-18.php:27
-#: includes/gateways/class-payuni-payment-installment-18.php:28
-msgid "PAYUNi Installment Payment (18 Installments)"
+#: includes/settings/SamsungPaySetting.php:25
+msgid "PAYUNi  Samsung Pay Payment"
 msgstr ""
 
-#: includes/gateways/class-payuni-payment-installment-24.php:27
-#: includes/gateways/class-payuni-payment-installment-24.php:28
-msgid "PAYUNi Installment Payment (24 Installments)"
+#: src/Admin/OrderMetaBoxes.php:61 src/Gateways/GatewayBase.php:121
+msgid "PAYUNi Payment Detail"
 msgstr ""
 
-#: includes/gateways/class-payuni-payment-installment-3.php:27
-#: includes/gateways/class-payuni-payment-installment-3.php:28
-msgid "PAYUNi Installment Payment (3 Installments)"
-msgstr ""
-
-#: includes/gateways/class-payuni-payment-installment-30.php:27
-#: includes/gateways/class-payuni-payment-installment-30.php:28
-msgid "PAYUNi Installment Payment (30 Installments)"
-msgstr ""
-
-#: includes/gateways/class-payuni-payment-installment-6.php:27
-#: includes/gateways/class-payuni-payment-installment-6.php:28
-msgid "PAYUNi Installment Payment (6 Installments)"
-msgstr ""
-
-#: includes/gateways/class-payuni-payment-installment-9.php:27
-#: includes/gateways/class-payuni-payment-installment-9.php:28
-msgid "PAYUNi Installment Payment (9 Installments)"
-msgstr ""
-
-#: includes/gateways/class-payuni-payment-linepay.php:30
-#: includes/gateways/class-payuni-payment-linepay.php:31
-msgid "PAYUNi LINE Pay"
-msgstr ""
-
-#: includes/gateways/class-payuni-payment-linepay.php:81
-msgctxt "LINE Pay"
-msgid "Pay No"
-msgstr ""
-
-#: includes/gateways/class-payuni-payment-request.php:84
+#: src/Api/PaymentRequest.php:86
 msgid "Redirecting..."
 msgstr ""
 
 #. translators:  %s is the order id
-#: includes/gateways/class-payuni-payment-request.php:114
+#: src/Api/PaymentRequest.php:125
 #, php-format
 msgid "Unable to find order #%s"
 msgstr ""
 
 #. translators:  %s is the order id
-#: includes/gateways/class-payuni-payment-request.php:129
+#: src/Api/PaymentRequest.php:140
 #, php-format
 msgid ""
 "The refund amount for order #%s should be the same as the order total for "
 "installment payment."
 msgstr ""
 
+#. translators:  %s is the order id
+#: src/Api/PaymentRequest.php:156
+#, php-format
+msgid "Unable to find transaction id for order #%s"
+msgstr ""
+
+#. translators:  %s is the order id
+#: src/Api/PaymentRequest.php:169
+msgid "Unable to Query Order status before refund"
+msgstr ""
+
+#. translators:  %s is the TradeStatus of the order
+#: src/Api/PaymentRequest.php:206
+#, php-format
+msgid "Unable to Refund this Order. TradeStatus: %1$s, CloseStatus: %2$s"
+msgstr ""
+
+#. translators:  %s is the TradeStatus of the order
+#: src/Api/PaymentRequest.php:219
+#, php-format
+msgid "Unable to Refund this Order. TradeStatus:%s"
+msgstr ""
+
+#. translators: %1$s is the status, %2$s is the message, %3$s is the refund amount
+#: src/Api/PaymentRequest.php:257
+#, php-format
+msgid ""
+"PAYUNi payment refund success. Status: %1$s, Message: %2$s, Refund Amount: "
+"%3$s"
+msgstr ""
+
 #. translators:  %s is the decrypted result
-#: includes/gateways/class-payuni-payment-request.php:263
+#: src/Api/PaymentRequest.php:343
 #, php-format
 msgid "PAYUNi query succeed. Query result: %s"
 msgstr ""
 
-#: includes/gateways/class-payuni-payment-samsungpay.php:31
-#: includes/gateways/class-payuni-payment-samsungpay.php:32
+#: src/Gateways/Aftee.php:87
+msgctxt "AFTEE"
+msgid "Pay No"
+msgstr ""
+
+#: src/Gateways/Aftee.php:88 src/Gateways/Atm.php:87
+msgid "Pay Time"
+msgstr ""
+
+#: src/Gateways/ApplePay.php:108 src/Gateways/Credit.php:101
+#: src/Gateways/GooglePay.php:108 src/Gateways/SamsungPay.php:108
+#: src/Gateways/TraitCreditInstallment.php:136
+msgid "Auth Type"
+msgstr ""
+
+#: src/Gateways/ApplePay.php:109 src/Gateways/Credit.php:102
+#: src/Gateways/GooglePay.php:109 src/Gateways/SamsungPay.php:109
+#: src/Gateways/TraitCreditInstallment.php:141
+msgid "Auth Date"
+msgstr ""
+
+#: src/Gateways/ApplePay.php:110 src/Gateways/Credit.php:103
+#: src/Gateways/GooglePay.php:110 src/Gateways/SamsungPay.php:110
+#: src/Gateways/TraitCreditInstallment.php:142
+msgid "Auth Time"
+msgstr ""
+
+#: src/Gateways/Atm.php:84
+msgctxt "ATM"
+msgid "Pay No"
+msgstr ""
+
+#: src/Gateways/Atm.php:85
+msgid "Bank Code"
+msgstr ""
+
+#: src/Gateways/Atm.php:88
+msgid "Account 5 No"
+msgstr ""
+
+#: src/Gateways/CreditInstallment12.php:29
+#: src/Gateways/CreditInstallment12.php:30
+msgid "PAYUNi Installment Payment (12 Installments)"
+msgstr ""
+
+#: src/Gateways/CreditInstallment18.php:29
+#: src/Gateways/CreditInstallment18.php:30
+msgid "PAYUNi Installment Payment (18 Installments)"
+msgstr ""
+
+#: src/Gateways/CreditInstallment24.php:29
+#: src/Gateways/CreditInstallment24.php:30
+msgid "PAYUNi Installment Payment (24 Installments)"
+msgstr ""
+
+#: src/Gateways/CreditInstallment3.php:29
+#: src/Gateways/CreditInstallment3.php:30
+msgid "PAYUNi Installment Payment (3 Installments)"
+msgstr ""
+
+#: src/Gateways/CreditInstallment30.php:29
+#: src/Gateways/CreditInstallment30.php:30
+msgid "PAYUNi Installment Payment (30 Installments)"
+msgstr ""
+
+#: src/Gateways/CreditInstallment6.php:29
+#: src/Gateways/CreditInstallment6.php:30
+msgid "PAYUNi Installment Payment (6 Installments)"
+msgstr ""
+
+#: src/Gateways/CreditInstallment9.php:29
+#: src/Gateways/CreditInstallment9.php:30
+msgid "PAYUNi Installment Payment (9 Installments)"
+msgstr ""
+
+#: src/Gateways/Cvs.php:86
+msgctxt "CVS"
+msgid "Pay No"
+msgstr ""
+
+#: src/Gateways/Cvs.php:87
+msgid "CVS Store"
+msgstr ""
+
+#: src/Gateways/GatewayBase.php:91
+msgid "Proceed to PAYUNi"
+msgstr ""
+
+#: src/Gateways/GatewayBase.php:125
+msgid ""
+"If the payment detail is not displayed. Please wait for a moment and reload "
+"the page."
+msgstr ""
+
+#. translators: 1: Payment method title 2: PAYUNi URL
+#: src/Gateways/GatewayBase.php:151
+#, php-format
+msgid "%1$s is a payment gateway provided by %2$s"
+msgstr ""
+
+#: src/Gateways/GatewayBase.php:156 src/Settings/SettingsTab.php:31
+msgid "PAYUNi"
+msgstr ""
+
+#: src/Gateways/GatewayBase.php:211
+msgid "We have received your order, but the payment is incompleted."
+msgstr ""
+
+#: src/Gateways/LinePay.php:37 src/Gateways/LinePay.php:38
+msgid "PAYUNi LINE Pay"
+msgstr ""
+
+#: src/Gateways/LinePay.php:107
+msgctxt "LINE Pay"
+msgid "Pay No"
+msgstr ""
+
+#: src/Gateways/SamsungPay.php:37 src/Gateways/SamsungPay.php:38
 msgid "PAYUNi Samsung Pay"
 msgstr ""
 
-#: includes/gateways/trait-payuni-payment-installment.php:131
+#. translators: %s: number of installments
+#: src/Gateways/TraitCreditInstallment.php:72
+#, php-format
+msgid "PAYUNi Installment Payment (%s Installments)"
+msgstr ""
+
+#: src/Gateways/TraitCreditInstallment.php:137
 msgid "Card Last 4 No"
 msgstr ""
 
-#: includes/gateways/trait-payuni-payment-installment.php:132
+#: src/Gateways/TraitCreditInstallment.php:138
 msgid "Installments"
 msgstr ""
 
-#: includes/gateways/trait-payuni-payment-installment.php:133
+#: src/Gateways/TraitCreditInstallment.php:139
 msgid "First Amount"
 msgstr ""
 
-#: includes/gateways/trait-payuni-payment-installment.php:134
+#: src/Gateways/TraitCreditInstallment.php:140
 msgid "Each Amount"
 msgstr ""
 
-#: includes/settings/class-payuni-payment-settings-tab.php:67
+#: src/PayuniPayment.php:142
+msgid "Trade No"
+msgstr ""
+
+#: src/PayuniPayment.php:143
+msgid "Trade Amount"
+msgstr ""
+
+#: src/PayuniPayment.php:144
+msgid "Trade Status"
+msgstr ""
+
+#: src/PayuniPayment.php:145
+msgid "Message"
+msgstr ""
+
+#: src/PayuniPayment.php:179
+msgid "General Settings"
+msgstr ""
+
+#: src/PayuniPayment.php:180 src/Settings/SettingsTab.php:53
+#: src/Settings/SettingsTab.php:73
+msgid "Payment Settings"
+msgstr ""
+
+#: src/PayuniPayment.php:229
+msgid "Unsecure AJAX call"
+msgstr ""
+
+#: src/PayuniPayment.php:240
+msgid "No such order id"
+msgstr ""
+
+#: src/PayuniPayment.php:252
+msgid "PAYUNi Query Successfully"
+msgstr ""
+
+#: src/PayuniPayment.php:258
+msgid "PAYUNi Query Failed!"
+msgstr ""
+
+#: src/Settings/SettingsTab.php:78
 msgid "Debug Log"
 msgstr ""
 
-#: includes/settings/class-payuni-payment-settings-tab.php:70
+#: src/Settings/SettingsTab.php:81
 msgid "Log PAYUNi payment message"
 msgstr ""
 
-#. translators:  %s is the order id
-#: includes/settings/class-payuni-payment-settings-tab.php:72
+#. translators:  %s is the WooCommerce log page url
+#: src/Settings/SettingsTab.php:83
 #, php-format
 msgid ""
 "You Can find logs with source name <strong>wpbr-payuni-payment</strong> at "
 "<strong>WooCommerce -> Status -> Logs</strong>. %s"
 msgstr ""
 
-#: includes/settings/class-payuni-payment-settings-tab.php:76
+#: src/Settings/SettingsTab.php:87
 msgid "Number of Payments"
 msgstr ""
 
-#: includes/settings/class-payuni-payment-settings-tab.php:89
+#. translators:  %s is the WooCommerce payment setting page url
+#: src/Settings/SettingsTab.php:101
 #, php-format
 msgid ""
 "The number of payments display on Payments section, after setting you still "
 "need to eanble each payment in Payments section. %s"
 msgstr ""
 
-#: includes/settings/class-payuni-payment-settings-tab.php:93
+#: src/Settings/SettingsTab.php:105
 msgid "Language"
 msgstr ""
 
-#: includes/settings/class-payuni-payment-settings-tab.php:97
+#: src/Settings/SettingsTab.php:109
 msgid "Traditional Chinese"
 msgstr ""
 
-#: includes/settings/class-payuni-payment-settings-tab.php:98
+#: src/Settings/SettingsTab.php:110
 msgid "English"
 msgstr ""
 
-#: includes/settings/class-payuni-payment-settings-tab.php:101
+#: src/Settings/SettingsTab.php:113
 msgid "The language of the PAYUNi checkout page."
 msgstr ""
 
-#: includes/settings/class-payuni-payment-settings-tab.php:109
+#: src/Settings/SettingsTab.php:121
 msgid "API Settings"
 msgstr ""
 
-#: includes/settings/class-payuni-payment-settings-tab.php:111
+#: src/Settings/SettingsTab.php:123
 msgid "Enter your PAYUNi API credentials"
 msgstr ""
 
-#: includes/settings/class-payuni-payment-settings-tab.php:115
+#: src/Settings/SettingsTab.php:127
 msgid "Test Mode"
 msgstr ""
 
-#: includes/settings/class-payuni-payment-settings-tab.php:118
+#: src/Settings/SettingsTab.php:130
 msgid "When enabled, you need to use the test-only data below."
 msgstr ""
 
-#: includes/settings/class-payuni-payment-settings-tab.php:122
+#: src/Settings/SettingsTab.php:134
+msgid "Test MerchantID"
+msgstr ""
+
+#: src/Settings/SettingsTab.php:136
+msgid "This is the test MerchantID when you apply PAYUNi API"
+msgstr ""
+
+#: src/Settings/SettingsTab.php:141
+msgid "Test Hash Key"
+msgstr ""
+
+#: src/Settings/SettingsTab.php:143
+msgid "This is the test Hash Key when you apply PAYUNi API"
+msgstr ""
+
+#: src/Settings/SettingsTab.php:148
+msgid "Test Hash IV"
+msgstr ""
+
+#: src/Settings/SettingsTab.php:150
+msgid "This is the test Hash IV when you apply PAYUNi API"
+msgstr ""
+
+#: src/Settings/SettingsTab.php:155
 msgid "MerchantID"
 msgstr ""
 
-#: includes/settings/class-payuni-payment-settings-tab.php:124
+#: src/Settings/SettingsTab.php:157
 msgid "This is the MerchantID when you apply PAYUNi API"
 msgstr ""
 
-#: includes/settings/class-payuni-payment-settings-tab.php:129
-msgid "HashKey"
+#: src/Settings/SettingsTab.php:162
+msgid "Hash Key"
 msgstr ""
 
-#: includes/settings/class-payuni-payment-settings-tab.php:131
-msgid "This is the HashKey when you apply PAYUNi API"
+#: src/Settings/SettingsTab.php:164
+msgid "This is the Hash Key when you apply PAYUNi API"
 msgstr ""
 
-#: includes/settings/class-payuni-payment-settings-tab.php:136
-msgid "HashIV"
+#: src/Settings/SettingsTab.php:169
+msgid "Hash IV"
 msgstr ""
 
-#: includes/settings/class-payuni-payment-settings-tab.php:138
-msgid "This is the HashIV when you apply PAYUNi API"
+#: src/Settings/SettingsTab.php:171
+msgid "This is the Hash IV when you apply PAYUNi API"
 msgstr ""
 
-#: includes/settings/class-payuni-payment-settings-tab.php:215
+#: src/Settings/SettingsTab.php:248
 msgid "View logs"
 msgstr ""
 
-#: includes/settings/class-payuni-payment-settings-tab.php:222
+#: src/Settings/SettingsTab.php:255
 msgid "Go to Payment Settings"
 msgstr ""
 
-#: includes/settings/settings-payuni-payment-aftee.php:18
-#: includes/settings/settings-payuni-payment-applepay.php:18
-#: includes/settings/settings-payuni-payment-atm.php:18
-#: includes/settings/settings-payuni-payment-credit.php:18
-#: includes/settings/settings-payuni-payment-cvs.php:18
-#: includes/settings/settings-payuni-payment-googlepay.php:18
-#: includes/settings/settings-payuni-payment-installment.php:18
-#: includes/settings/settings-payuni-payment-linepay.php:18
-#: includes/settings/settings-payuni-payment-samsungpay.php:18
-msgid "Enable/Disable"
+#: src/Utils/TradeStatus.php:30
+msgid "OK"
 msgstr ""
 
-#: includes/settings/settings-payuni-payment-aftee.php:20
-#: includes/settings/settings-payuni-payment-applepay.php:20
-#: includes/settings/settings-payuni-payment-atm.php:20
-#: includes/settings/settings-payuni-payment-credit.php:20
-#: includes/settings/settings-payuni-payment-cvs.php:20
-#: includes/settings/settings-payuni-payment-googlepay.php:20
-#: includes/settings/settings-payuni-payment-installment.php:20
-#: includes/settings/settings-payuni-payment-linepay.php:20
-#: includes/settings/settings-payuni-payment-samsungpay.php:20
-msgid "Enable"
+#: src/Utils/TradeStatus.php:32
+msgid "Paid"
 msgstr ""
 
-#: includes/settings/settings-payuni-payment-aftee.php:24
-#: includes/settings/settings-payuni-payment-applepay.php:24
-#: includes/settings/settings-payuni-payment-atm.php:24
-#: includes/settings/settings-payuni-payment-credit.php:24
-#: includes/settings/settings-payuni-payment-cvs.php:24
-#: includes/settings/settings-payuni-payment-googlepay.php:24
-#: includes/settings/settings-payuni-payment-installment.php:24
-#: includes/settings/settings-payuni-payment-linepay.php:24
-#: includes/settings/settings-payuni-payment-samsungpay.php:24
-msgid "Title"
+#: src/Utils/TradeStatus.php:34
+msgid "Payment Fail"
 msgstr ""
 
-#: includes/settings/settings-payuni-payment-aftee.php:26
-#: includes/settings/settings-payuni-payment-applepay.php:26
-#: includes/settings/settings-payuni-payment-atm.php:26
-#: includes/settings/settings-payuni-payment-credit.php:26
-#: includes/settings/settings-payuni-payment-cvs.php:26
-#: includes/settings/settings-payuni-payment-googlepay.php:26
-#: includes/settings/settings-payuni-payment-installment.php:26
-#: includes/settings/settings-payuni-payment-linepay.php:26
-#: includes/settings/settings-payuni-payment-samsungpay.php:26
-msgid "This controls the title which the user sees during checkout."
+#: src/Utils/TradeStatus.php:36
+msgid "Payment Cancel"
 msgstr ""
 
-#: includes/settings/settings-payuni-payment-aftee.php:31
-#: includes/settings/settings-payuni-payment-applepay.php:31
-#: includes/settings/settings-payuni-payment-atm.php:31
-#: includes/settings/settings-payuni-payment-credit.php:31
-#: includes/settings/settings-payuni-payment-cvs.php:31
-#: includes/settings/settings-payuni-payment-googlepay.php:31
-#: includes/settings/settings-payuni-payment-installment.php:31
-#: includes/settings/settings-payuni-payment-linepay.php:31
-#: includes/settings/settings-payuni-payment-samsungpay.php:31
-msgid "Description"
+#: src/Utils/TradeStatus.php:38
+msgid "Transaction Expired"
 msgstr ""
 
-#: includes/settings/settings-payuni-payment-aftee.php:33
-#: includes/settings/settings-payuni-payment-applepay.php:33
-#: includes/settings/settings-payuni-payment-atm.php:33
-#: includes/settings/settings-payuni-payment-credit.php:33
-#: includes/settings/settings-payuni-payment-cvs.php:33
-#: includes/settings/settings-payuni-payment-googlepay.php:33
-#: includes/settings/settings-payuni-payment-installment.php:33
-#: includes/settings/settings-payuni-payment-linepay.php:33
-#: includes/settings/settings-payuni-payment-samsungpay.php:33
-msgid "This controls the description which the user sees during checkout."
+#: src/Utils/TradeStatus.php:40
+msgid "Unpaid"
 msgstr ""
 
-#: includes/settings/settings-payuni-payment-aftee.php:37
-#: includes/settings/settings-payuni-payment-installment.php:37
-msgid "Minimum Amount"
+#: src/Utils/TradeStatus.php:42
+msgid "Unknown Trade Status"
 msgstr ""
 
-#: includes/settings/settings-payuni-payment-aftee.php:39
-#: includes/settings/settings-payuni-payment-installment.php:39
-msgid "Minimum amount to use this payment gateway."
-msgstr ""
-
-#: includes/settings/settings-payuni-payment-aftee.php:42
-#: includes/settings/settings-payuni-payment-applepay.php:37
-#: includes/settings/settings-payuni-payment-atm.php:49
-#: includes/settings/settings-payuni-payment-credit.php:37
-#: includes/settings/settings-payuni-payment-cvs.php:49
-#: includes/settings/settings-payuni-payment-googlepay.php:37
-#: includes/settings/settings-payuni-payment-installment.php:42
-#: includes/settings/settings-payuni-payment-linepay.php:37
-#: includes/settings/settings-payuni-payment-samsungpay.php:37
-msgid "Incomplete Payment Message"
-msgstr ""
-
-#: includes/settings/settings-payuni-payment-aftee.php:44
-#: includes/settings/settings-payuni-payment-applepay.php:39
-#: includes/settings/settings-payuni-payment-atm.php:51
-#: includes/settings/settings-payuni-payment-credit.php:39
-#: includes/settings/settings-payuni-payment-cvs.php:51
-#: includes/settings/settings-payuni-payment-googlepay.php:39
-#: includes/settings/settings-payuni-payment-installment.php:44
-#: includes/settings/settings-payuni-payment-linepay.php:39
-#: includes/settings/settings-payuni-payment-samsungpay.php:39
-msgid ""
-"This controls the message displayed on thank you page when the payment is "
-"incomplated."
-msgstr ""
-
-#: includes/settings/settings-payuni-payment-atm.php:39
-#: includes/settings/settings-payuni-payment-cvs.php:39
-msgid "This controls the expire date of the payment."
-msgstr ""
-
-#: includes/settings/settings-payuni-payment-installment.php:27
-msgid "PAYUNi Installment Payment"
-msgstr ""
-
-#: includes/settings/settings-payuni-payment-linepay.php:27
-msgid "PAYUNi LINE Pay Payment"
-msgstr ""
-
-#: includes/settings/settings-payuni-payment-samsungpay.php:27
-msgid "PAYUNi  Samsung Pay Payment"
-msgstr ""
-
-#: includes/templates/checkout/order-received.php:35
-msgid "Thank you. Your order has been received."
-msgstr ""
-
-#: wpbr-payuni-payment.php:40
+#: wpbr-payuni-payment.php:42
 msgid ""
 "PAYUNi Payment needs WooCommerce, please intall and activate WooCommerce "
 "first!"
@@ -522,7 +579,7 @@ msgid "https://wpbrewer.com/product/wpbr-payuni-payment"
 msgstr ""
 
 #. Description of the plugin/theme
-msgid "Provides PAYUNi Payment for WooCommerce."
+msgid "Provides PAYUNi UPP(UNiPaypage) Payment for WooCommerce."
 msgstr ""
 
 #. Author of the plugin/theme

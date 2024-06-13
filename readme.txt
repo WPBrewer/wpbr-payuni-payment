@@ -4,7 +4,7 @@ Tags: WooCommerce, PAYUNi, taiwan, payment, payment gateway
 Requires at least: 5.9
 Tested up to: 6.5.3
 Requires PHP: 7.4
-Stable tag: 1.4.0
+Stable tag: 1.5.0
 License: GPLv2 or later.
 License URI: http://www.gnu.org/licenses/gpl-2.0.txt
 
@@ -18,16 +18,25 @@ For more information, please refer to PAYUNi website https://www.payuni.com.tw/.
 Major features include:
 
 * Credit Card payment
-* Credit Card installment payment
+* Credit Card installment payment (Cound enable/disable for different installments)
 * Apple Pay、Google Pay、Samsung Pay
 * LINE Pay
 * AFTEE payment
 * ATM Virtual Account payment
 * CVS payment
 * Support Language setting for UNiPaypage
+× Support refund on backend (Credit Payment、Installment payment、Apple Pay、Google Pay、Samsung Pay)
 * Compatible with High-Performance Order Storage (HPOS)
 
 == Changelog ==
+
+= 1.5.0 - 2024/06/14 =
+
+* ADD    - Allow to switch production and test API credentials 
+* UPDATE - Refactor code and some minor update for better maintenance
+* FIX    - Fix conflicts with WOOMP Credit card payment
+* FIX    - Allow to refund order on different CloseStatus
+
 
 = 1.4.0 - 2024/05/30 =
 

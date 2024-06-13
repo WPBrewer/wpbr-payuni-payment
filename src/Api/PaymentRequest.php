@@ -45,11 +45,10 @@ class PaymentRequest {
 				'MerTradeNo' => PayuniPayment::build_payuni_order_no( $order->get_id() ),
 				'TradeAmt'   => (int) $order->get_total(),
 				'ProdDesc'   => implode( ';', $prod_desc ),
-				// 'BackURL'    => $order->get_checkout_payment_url( true ),
-				'ReturnURL'  => $this->gateway->return_url, // 前景通知網址付款完成返回指定網址 (感謝頁面)
+				'ReturnURL'  => $this->gateway->return_url, // 前景通知網址付款完成返回指定網址 (感謝頁面).
 				'NotifyURL'  => $this->gateway->notify_url, // 幕後.
-				'UsrMail'    => $order->get_billing_email(), // 付款頁帶入 email
-				'UsrMailFix' => '1', // 不可修改 email
+				'UsrMail'    => $order->get_billing_email(), // 付款頁帶入 email.
+				'UsrMailFix' => '1', // 不可修改 email.
 				'Timestamp'  => time(),
 				'Lang'       => get_option( 'payuni_payment_language', 'zh-tw' ),
 			),

@@ -113,8 +113,7 @@ class PaymentResponse {
 	}
 
 	public static function payuni_receive_response_frontend() {
-     // phpcs:disable WordPress.Security.NonceVerification.Missing
-
+	 // phpcs:disable WordPress.Security.NonceVerification.Missing	
 		if ( empty( $_POST ) ) {
 			return;
 		}

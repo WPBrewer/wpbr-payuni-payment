@@ -7,6 +7,8 @@
 
 namespace WPBrewer\Payuni\Payment\Gateways;
 
+use WPBrewer\Payuni\Payment\Utils\OrderMeta;
+
 defined( 'ABSPATH' ) || exit;
 
 /**
@@ -43,7 +45,7 @@ class Atm extends GatewayBase {
 
 		add_action( 'woocommerce_update_options_payment_gateways_' . $this->id, array( $this, 'process_admin_options' ) );
 		add_action( 'woocommerce_receipt_' . $this->id, array( $this, 'receipt_page' ) );
-		add_filter( 'payuni_transaction_args_' . $this->id, array( $this, 'payuni_payment_atm_transaction_arrgs' ), 10, 2 );
+		add_filter( 'payuni_upp_transaction_args_' . $this->id, array( $this, 'payuni_payment_atm_transaction_arrgs' ), 10, 2 );
 	}
 
 	/**
@@ -79,11 +81,11 @@ class Atm extends GatewayBase {
 	public static function get_payment_order_metas() {
 		$order_metas =
 		array(
-			'_payuni_atm_payno'      => _x( 'Pay No', 'ATM', 'wpbr-payuni-payment' ),
-			'_payuni_atm_banktype'   => __( 'Bank Code', 'wpbr-payuni-payment' ),
-			'_payuni_atm_expiredate' => __( 'Expire Date', 'wpbr-payuni-payment' ),
-			'_payuni_atm_paytime'    => __( 'Pay Time', 'wpbr-payuni-payment' ),
-			'_payuni_atm_account5no' => __( 'Account 5 No', 'wpbr-payuni-payment' ),
+			OrderMeta::AMT_PAY_NO      => _x( 'Pay No', 'ATM', 'wpbr-payuni-payment' ),
+			OrderMeta::AMT_BANK_TYPE   => __( 'Bank Code', 'wpbr-payuni-payment' ),
+			OrderMeta::AMT_EXPIRE_DATE => __( 'Expire Date', 'wpbr-payuni-payment' ),
+			OrderMeta::AMT_PAY_TIME    => __( 'Pay Time', 'wpbr-payuni-payment' ),
+			OrderMeta::AMT_ACCOUNT_5NO => __( 'Account 5 No', 'wpbr-payuni-payment' ),
 		);
 
 		return $order_metas;

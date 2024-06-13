@@ -9,6 +9,7 @@ namespace WPBrewer\Payuni\Payment\Api;
 
 use WPBrewer\Payuni\Payment\PayuniPayment;
 use WPBrewer\Payuni\Payment\Utils\CloseStatus;
+use WPBrewer\Payuni\Payment\Utils\OrderMeta;
 use WPBrewer\Payuni\Payment\Utils\TradeStatus;
 
 defined( 'ABSPATH' ) || exit;
@@ -40,7 +41,7 @@ class PaymentRequest {
 		}
 
 		$encrypt_info = apply_filters(
-			'payuni_transaction_args_' . $this->gateway->id,
+			'payuni_upp_transaction_args_' . $this->gateway->id,
 			array(
 				'MerID'      => $this->gateway->get_merchant_id(),
 				'MerTradeNo' => PayuniPayment::build_payuni_order_no( $order->get_id() ),
@@ -278,7 +279,9 @@ class PaymentRequest {
 		$test_mode = wc_string_to_bool( get_option( 'payuni_payment_testmode_enabled' ) );
 		$mer_id    = $test_mode ? get_option( 'payuni_payment_merchant_id_test' ) : get_option( 'payuni_payment_merchant_id' );
 
-		$payuni_order_no = $order->get_meta( '_payuni_order_no' );
+		$payuni_order_no_key = PayuniPayment::get_order_meta_key( $order, OrderMeta::PAYUNI_ORDER_NO );
+		$payuni_order_no     = $order->get_meta( $payuni_order_no_key );
+
 		$encrypt_info    = array(
 			'MerID'      => $mer_id,
 			'MerTradeNo' => $payuni_order_no,

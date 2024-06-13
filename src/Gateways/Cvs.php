@@ -7,6 +7,8 @@
 
 namespace WPBrewer\Payuni\Payment\Gateways;
 
+use WPBrewer\Payuni\Payment\Utils\OrderMeta;
+
 defined( 'ABSPATH' ) || exit;
 
 /**
@@ -44,7 +46,7 @@ class Cvs extends GatewayBase {
 
 		add_action( 'woocommerce_update_options_payment_gateways_' . $this->id, array( $this, 'process_admin_options' ) );
 		add_action( 'woocommerce_receipt_' . $this->id, array( $this, 'receipt_page' ) );
-		add_filter( 'payuni_transaction_args_' . $this->id, array( $this, 'payuni_payment_cvs_transaction_arrgs' ), 10, 2 );
+		add_filter( 'payuni_upp_transaction_args_' . $this->id, array( $this, 'payuni_payment_cvs_transaction_arrgs' ), 10, 2 );
 	}
 
 	/**
@@ -81,9 +83,9 @@ class Cvs extends GatewayBase {
 	public static function get_payment_order_metas() {
 		$order_metas =
 		array(
-			'_payuni_cvs_payno'      => _x( 'Pay No', 'CVS', 'wpbr-payuni-payment' ),
-			'_payuni_cvs_store'      => __( 'CVS Store', 'wpbr-payuni-payment' ),
-			'_payuni_cvs_expiredate' => __( 'Expire Date', 'wpbr-payuni-payment' ),
+			OrderMeta::CVS_PAY_NO      => _x( 'Pay No', 'CVS', 'wpbr-payuni-payment' ),
+			OrderMeta::CVS_STORE       => __( 'CVS Store', 'wpbr-payuni-payment' ),
+			OrderMeta::CVS_EXPIRE_DATE => __( 'Expire Date', 'wpbr-payuni-payment' ),
 		);
 
 		return $order_metas;

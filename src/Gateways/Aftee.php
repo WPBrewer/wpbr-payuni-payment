@@ -7,6 +7,8 @@
 
 namespace WPBrewer\Payuni\Payment\Gateways;
 
+use WPBrewer\Payuni\Payment\Utils\OrderMeta;
+
 defined( 'ABSPATH' ) || exit;
 
 /**
@@ -45,11 +47,9 @@ class Aftee extends GatewayBase {
 		$this->min_amount                 = $this->get_option( 'min_amount' );
 		$this->incomplete_payment_message = $this->get_option( 'incomplete_payment_message' );
 
-		// self::$refund_api_url = ( $this->testmode ) ? 'https://sandbox-api.payuni.com.tw/api/trade/common/refund/aftee' : 'https://api.payuni.com.tw/api/trade/common/refund/aftee';
-
 		add_action( 'woocommerce_update_options_payment_gateways_' . $this->id, array( $this, 'process_admin_options' ) );
 		add_action( 'woocommerce_receipt_' . $this->id, array( $this, 'receipt_page' ) );
-		add_filter( 'payuni_transaction_args_' . $this->id, array( $this, 'payuni_payment_aftee_transaction_arrgs' ), 10, 2 );
+		add_filter( 'payuni_upp_transaction_args_' . $this->id, array( $this, 'payuni_payment_aftee_transaction_arrgs' ), 10, 2 );
 	}
 
 	/**
@@ -84,8 +84,8 @@ class Aftee extends GatewayBase {
 	public static function get_payment_order_metas() {
 		$order_metas =
 		array(
-			'_payuni_aftee_payno'   => _x( 'Pay No', 'AFTEE', 'wpbr-payuni-payment' ),
-			'_payuni_aftee_paytime' => __( 'Pay Time', 'wpbr-payuni-payment' ),
+			OrderMeta::AFTEE_PAY_NO   => _x( 'Pay No', 'AFTEE', 'wpbr-payuni-payment' ),
+			OrderMeta::AFTEE_PAY_TIME => __( 'Pay Time', 'wpbr-payuni-payment' ),
 		);
 
 		return $order_metas;

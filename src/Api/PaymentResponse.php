@@ -8,6 +8,7 @@
 namespace WPBrewer\Payuni\Payment\Api;
 
 use WPBrewer\Payuni\Payment\PayuniPayment;
+use WPBrewer\Payuni\Payment\Utils\OrderMeta;
 use WPBrewer\Payuni\Payment\Utils\SingletonTrait;
 use WPBrewer\Payuni\Payment\Utils\TradeStatus;
 
@@ -157,55 +158,55 @@ class PaymentResponse {
 
 		$pay_type = $decrypted_info['PaymentType'];
 
-		$order->update_meta_data( '_payuni_order_no', $decrypted_info['MerTradeNo'] );
-		$order->update_meta_data( '_payuni_trade_no', $decrypted_info['TradeNo'] );
-		$order->update_meta_data( '_payuni_trade_status', $decrypted_info['TradeStatus'] );
-		$order->update_meta_data( '_payuni_trade_amt', $decrypted_info['TradeAmt'] );
-		$order->update_meta_data( '_payuni_message', $decrypted_info['Message'] );
+		$order->update_meta_data( OrderMeta::PAYUNI_ORDER_NO, $decrypted_info['MerTradeNo'] );
+		$order->update_meta_data( OrderMeta::UNI_NO, $decrypted_info['TradeNo'] );
+		$order->update_meta_data( OrderMeta::TRADE_STATUS, $decrypted_info['TradeStatus'] );
+		$order->update_meta_data( OrderMeta::TRADE_AMOUNT, $decrypted_info['TradeAmt'] );
+		$order->update_meta_data( OrderMeta::MESSAGE, $decrypted_info['Message'] );
 
-		self::update_order_meta( $order, $decrypted_info, '_payuni_credit_rescode', 'ResCode' );
-		self::update_order_meta( $order, $decrypted_info, '_payuni_credit_rescode_msg', 'ResCodeMsg' );
+		self::update_order_meta( $order, $decrypted_info, OrderMeta::CREDIT_REST_CODE, 'ResCode' );
+		self::update_order_meta( $order, $decrypted_info, OrderMeta::CREDIT_REST_CODE_MSG, 'ResCodeMsg' );
 
 		if ( '1' === $pay_type ) {
 			// 信用卡.
-			self::update_order_meta( $order, $decrypted_info, '_payuni_credit_authtype', 'AuthType' );
-			self::update_order_meta( $order, $decrypted_info, '_payuni_credit_card4no', 'Card4No' );
-			self::update_order_meta( $order, $decrypted_info, '_payuni_credit_authday', 'AuthDay' );
-			self::update_order_meta( $order, $decrypted_info, '_payuni_credit_authtime', 'AuthTime' );
+			self::update_order_meta( $order, $decrypted_info, OrderMeta::CREDIT_AUTH_TYPE, 'AuthType' );
+			self::update_order_meta( $order, $decrypted_info, OrderMeta::CREDIT_CARD_4NO, 'Card4No' );
+			self::update_order_meta( $order, $decrypted_info, OrderMeta::CREDIT_AUTH_DAY, 'AuthDay' );
+			self::update_order_meta( $order, $decrypted_info, OrderMeta::CREDIT_AUTH_TIME, 'AuthTime' );
 
 			if ( '2' === $decrypted_info['AuthType'] ) {
 				// 分期.
-				self::update_order_meta( $order, $decrypted_info, '_payuni_credit_cardinst', 'CardInst' );
-				self::update_order_meta( $order, $decrypted_info, '_payuni_credit_firstamt', 'FirstAmt' );
-				self::update_order_meta( $order, $decrypted_info, '_payuni_credit_eachamt', 'EachAmt' );
+				self::update_order_meta( $order, $decrypted_info, OrderMeta::CREDIT_INSTALL, 'CardInst' );
+				self::update_order_meta( $order, $decrypted_info, OrderMeta::CREDIT_FIRST_AMT, 'FirstAmt' );
+				self::update_order_meta( $order, $decrypted_info, OrderMeta::CREDIT_EACH_AMT, 'EachAmt' );
 
 			}
 		} elseif ( '2' === $pay_type ) {
 			// ATM虛擬帳號.
-			self::update_order_meta( $order, $decrypted_info, '_payuni_atm_payno', 'PayNo' );
-			self::update_order_meta( $order, $decrypted_info, '_payuni_atm_banktype', 'BankType' );
-			self::update_order_meta( $order, $decrypted_info, '_payuni_atm_paytime', 'PayTime' );
-			self::update_order_meta( $order, $decrypted_info, '_payuni_atm_account5no', 'Account5No' );
-			self::update_order_meta( $order, $decrypted_info, '_payuni_atm_payset', 'PaySet' );
-			self::update_order_meta( $order, $decrypted_info, '_payuni_atm_expiredate', 'ExpireDate' );
+			self::update_order_meta( $order, $decrypted_info, OrderMeta::AMT_PAY_NO, 'PayNo' );
+			self::update_order_meta( $order, $decrypted_info, OrderMeta::AMT_BANK_TYPE, 'BankType' );
+			self::update_order_meta( $order, $decrypted_info, OrderMeta::AMT_PAY_TIME, 'PayTime' );
+			self::update_order_meta( $order, $decrypted_info, OrderMeta::AMT_ACCOUNT_5NO, 'Account5No' );
+			self::update_order_meta( $order, $decrypted_info, OrderMeta::AMT_PAY_SET, 'PaySet' );
+			self::update_order_meta( $order, $decrypted_info, OrderMeta::AMT_EXPIRE_DATE, 'ExpireDate' );
 
 		} elseif ( '3' === $pay_type ) {
 			// 超商代碼.
-			self::update_order_meta( $order, $decrypted_info, '_payuni_cvs_payno', 'PayNo' );
-			self::update_order_meta( $order, $decrypted_info, '_payuni_cvs_store', 'Store' );
-			self::update_order_meta( $order, $decrypted_info, '_payuni_cvs_expiredate', 'ExpireDate' );
+			self::update_order_meta( $order, $decrypted_info, OrderMeta::CVS_PAY_NO, 'PayNo' );
+			self::update_order_meta( $order, $decrypted_info, OrderMeta::CVS_STORE, 'Store' );
+			self::update_order_meta( $order, $decrypted_info, OrderMeta::CVS_EXPIRE_DATE, 'ExpireDate' );
 
 		} elseif ( '7' === $pay_type ) {
 			// AFTEE.
-			self::update_order_meta( $order, $decrypted_info, '_payuni_aftee_payno', 'PayNo' );
-			self::update_order_meta( $order, $decrypted_info, '_payuni_aftee_paytime', 'PayTime' );
+			self::update_order_meta( $order, $decrypted_info, OrderMeta::AFTEE_PAY_NO, 'PayNo' );
+			self::update_order_meta( $order, $decrypted_info, OrderMeta::AFTEE_PAY_TIME, 'PayTime' );
 
 		} elseif ( '9' === $pay_type ) {
-			// LINE Pay
-			self::update_order_meta( $order, $decrypted_info, '_payuni_linepay_payno', 'PayNo' );
+			// LINE Pay.
+			self::update_order_meta( $order, $decrypted_info, OrderMeta::LINE_PAY_NO, 'PayNo' );
 		}
 
-		$order->update_meta_data( '_wpbr_payuni_upp_plugin_version', WPBR_PAYUNI_PAYMENT_VERSION );
+		$order->update_meta_data( OrderMeta::PLUGIN_VERSION, WPBR_PAYUNI_PAYMENT_VERSION );
 
 		$order->save();
 	}

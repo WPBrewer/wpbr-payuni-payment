@@ -11,25 +11,15 @@ defined( 'ABSPATH' ) || exit;
 
 use Automattic\WooCommerce\Internal\DataStores\Orders\CustomOrdersTableController;
 use WPBrewer\Payuni\Payment\PayuniPayment;
+use WPBrewer\Payuni\Payment\Utils\OrderMeta;
+use WPBrewer\Payuni\Payment\Utils\SingletonTrait;
 
 /**
  * OrderMetaBoxes main class for handling all checkout related process.
  */
 class OrderMetaBoxes {
 
-	/**
-	 * Class instance
-	 *
-	 * @var OrderMetaBoxes
-	 */
-	private static $instance;
-
-	/**
-	 * Constructor
-	 */
-	public function __construct() {
-		// do nothing.
-	}
+	use SingletonTrait;
 
 	/**
 	 * Initialize class andd add hooks
@@ -45,7 +35,9 @@ class OrderMetaBoxes {
 	/**
 	 * Add meta box
 	 *
-	 * @param  object $post The post object.
+	 * @param string $post_type            The post type.
+	 * @param object $post_or_order_object The post object.
+	 * 
 	 * @return void
 	 */
 	public function payuni_add_meta_boxes( $post_type, $post_or_order_object ) {
@@ -95,24 +87,15 @@ class OrderMetaBoxes {
 		$allowed_payments = PayuniPayment::get_allowed_payments( $order );
 		$gateway          = $allowed_payments[ $payment_method ];
 
-		echo '<div><strong>訂單編號:</strong> ' . esc_html( $order->get_meta( '_payuni_order_no' ) ) . '</div>';
+		$payuni_order_no_key = PayuniPayment::get_order_meta_key( $order, OrderMeta::PAYUNI_ORDER_NO );
+		echo '<div><strong>訂單編號:</strong> ' . esc_html( $order->get_meta( $payuni_order_no_key ) ) . '</div>';
 		foreach ( $gateway::get_order_metas() as $key => $value ) {
+			// for backward compatibility.
+			$key = PayuniPayment::get_order_meta_key( $order, $key );
 			echo '<div><strong>' . esc_html( $value ) . ':</strong> ' . esc_html( $order->get_meta( $key ) ) . '</div>';
 		}
 
 		echo '<div><button id="payuni-query-btn" class="button" data-id="' . esc_html( $order->get_id() ) . '">查詢</button></div>';
 	}
 
-	/**
-	 * Returns the single instance of the OrderMetaBoxes object
-	 *
-	 * @return OrderMetaBoxes
-	 */
-	public static function get_instance() {
-		if ( null === self::$instance ) {
-			self::$instance = new self();
-		}
-
-		return self::$instance;
-	}
 }

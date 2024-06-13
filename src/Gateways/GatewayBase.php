@@ -9,6 +9,8 @@ namespace WPBrewer\Payuni\Payment\Gateways;
 
 use WPBrewer\Payuni\Payment\Api\PaymentRequest;
 use WPBrewer\Payuni\Payment\PayuniPayment;
+use WPBrewer\Payuni\Payment\Utils\OrderMeta;
+use WPBrewer\Payuni\Payment\Utils\TradeStatus;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -58,6 +60,13 @@ abstract class GatewayBase extends \WC_Payment_Gateway {
 	 * @var string
 	 */
 	public $return_url;
+
+	/**
+	 * Notify url
+	 *
+	 * @var string
+	 */
+	public $notify_url;
 
 	/**
 	 * The message displayed when the payment is incompleted
@@ -111,7 +120,8 @@ abstract class GatewayBase extends \WC_Payment_Gateway {
 
 			echo '<h2>' . esc_html__( 'PAYUNi Payment Detail', 'wpbr-payuni-payment' ) . '</h2>';
 
-			if ( empty( $order->get_meta( '_payuni_trade_no' ) ) ) {
+			$trade_no_key = PayuniPayment::get_order_meta_key( $order, OrderMeta::UNI_NO );
+			if ( empty( $order->get_meta( $trade_no_key ) ) ) {
 				echo '<div class="payuni_payment_notify_not_received">' . esc_html__( 'If the payment detail is not displayed. Please wait for a moment and reload the page.', 'wpbr-payuni-payment' ) . '</div>';
 			}
 
@@ -121,7 +131,8 @@ abstract class GatewayBase extends \WC_Payment_Gateway {
 
 			foreach ( $order_metas as $key => $value ) {
 				echo '<tr><td><strong>' . esc_html( $value ) . '</strong></td>';
-				echo '<td>' . esc_html( $order->get_meta( $key ) ) . '</td></tr>';
+				$order_meta_key = PayuniPayment::get_order_meta_key( $order, $key );
+				echo '<td>' . esc_html( $order->get_meta( $order_meta_key ) ) . '</td></tr>';
 			}
 
 			echo '</tbody></table>';
@@ -157,9 +168,8 @@ abstract class GatewayBase extends \WC_Payment_Gateway {
 	 * @return array
 	 */
 	public function process_payment( $order_id ) {
-		global $woocommerce;
-		$order = new \WC_Order( $order_id );
 
+		$order = wc_get_order( $order_id );
 		// Return thankyou redirect.
 		return array(
 			'result'   => 'success',
@@ -170,7 +180,7 @@ abstract class GatewayBase extends \WC_Payment_Gateway {
 	/**
 	 * Redirect to payuni payment page
 	 *
-	 * @param  WC_Order $order The order object.
+	 * @param  \WC_Order $order The order object.
 	 * @return void
 	 */
 	public function receipt_page( $order ) {
@@ -183,8 +193,8 @@ abstract class GatewayBase extends \WC_Payment_Gateway {
 	/**
 	 * Display message on order thankyou page.
 	 *
-	 * @param  string   $text  Message on thankyou page.
-	 * @param  WC_Order $order The Order object.
+	 * @param  string    $text  Message on thankyou page.
+	 * @param  \WC_Order $order The Order object.
 	 * @return string
 	 */
 	public function payuni_thankyou_order_unpaid_message( $text, $order ) {
@@ -193,9 +203,10 @@ abstract class GatewayBase extends \WC_Payment_Gateway {
 				return $text;
 			}
 
-			$tran_status = $order->get_meta( '_payuni_trade_status' );
+			$trade_status_key = PayuniPayment::get_order_meta_key( $order, OrderMeta::TRADE_STATUS );
+			$trade_status     = $order->get_meta( $trade_status_key );
 
-			if ( 'pending' === $order->get_status() || '1' !== $tran_status ) {
+			if ( 'pending' === $order->get_status() || TradeStatus::PAID !== $trade_status ) {
 				if ( empty( $this->incomplete_payment_message ) ) {
 					$text = '<span class="payuni-incomplete-payment-message">' . esc_html__( 'We have received your order, but the payment is incompleted.', 'wpbr-payuni-payment' ) . '</span>';
 				} else {

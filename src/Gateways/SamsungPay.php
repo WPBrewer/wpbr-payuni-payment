@@ -8,6 +8,7 @@
 namespace WPBrewer\Payuni\Payment\Gateways;
 
 use WPBrewer\Payuni\Payment\Api\PaymentRequest;
+use WPBrewer\Payuni\Payment\Utils\OrderMeta;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -49,7 +50,7 @@ class SamsungPay extends GatewayBase {
 
 		add_action( 'woocommerce_update_options_payment_gateways_' . $this->id, array( $this, 'process_admin_options' ) );
 		add_action( 'woocommerce_receipt_' . $this->id, array( $this, 'receipt_page' ) );
-		add_filter( 'payuni_transaction_args_' . $this->id, array( $this, 'payuni_payment_samsungpay_transaction_arrgs' ), 10, 2 );
+		add_filter( 'payuni_upp_transaction_args_' . $this->id, array( $this, 'payuni_payment_samsungpay_transaction_arrgs' ), 10, 2 );
 	}
 
 
@@ -104,9 +105,9 @@ class SamsungPay extends GatewayBase {
 	public static function get_payment_order_metas() {
 		$order_metas =
 		array(
-			'_payuni_credit_authtype' => __( 'Auth Type', 'wpbr-payuni-payment' ),
-			'_payuni_credit_authday'  => __( 'Auth Date', 'wpbr-payuni-payment' ),
-			'_payuni_credit_authtime' => __( 'Auth Time', 'wpbr-payuni-payment' ),
+			OrderMeta::CREDIT_AUTH_TYPE => __( 'Auth Type', 'wpbr-payuni-payment' ),
+			OrderMeta::CREDIT_AUTH_DAY  => __( 'Auth Date', 'wpbr-payuni-payment' ),
+			OrderMeta::CREDIT_AUTH_TIME => __( 'Auth Time', 'wpbr-payuni-payment' ),
 		);
 
 		return $order_metas;

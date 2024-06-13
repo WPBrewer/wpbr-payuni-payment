@@ -21,6 +21,7 @@ use WPBrewer\Payuni\Payment\Gateways\GooglePay;
 use WPBrewer\Payuni\Payment\Gateways\LinePay;
 use WPBrewer\Payuni\Payment\Gateways\SamsungPay;
 use WPBrewer\Payuni\Payment\Settings\SettingsTab;
+use WPBrewer\Payuni\Payment\Utils\OrderMeta;
 
 /**
  * PayuniPayment class file
@@ -138,10 +139,10 @@ class PayuniPayment {
 		}
 
 		self::$order_metas = array(
-			'_payuni_trade_no'     => __( 'Trade No', 'wpbr-payuni-payment' ),
-			'_payuni_trade_amt'    => __( 'Trade Amount', 'wpbr-payuni-payment' ),
-			'_payuni_trade_status' => __( 'Trade Status', 'wpbr-payuni-payment' ),
-			'_payuni_message'      => __( 'Message', 'wpbr-payuni-payment' ),
+			OrderMeta::UNI_NO       => __( 'Trade No', 'wpbr-payuni-payment' ),
+			OrderMeta::TRADE_AMOUNT => __( 'Trade Amount', 'wpbr-payuni-payment' ),
+			OrderMeta::TRADE_STATUS => __( 'Trade Status', 'wpbr-payuni-payment' ),
+			OrderMeta::MESSAGE      => __( 'Message', 'wpbr-payuni-payment' ),
 		);
 
 		add_filter( 'woocommerce_get_settings_pages', array( self::get_instance(), 'payuni_add_settings' ) );
@@ -389,7 +390,7 @@ class PayuniPayment {
 			return self::$allowed_payments;
 		}
 
-		$plugin_version = $order->get_meta( '_wpbr_payuni_upp_plugin_version' );
+		$plugin_version = $order->get_meta( OrderMeta::PLUGIN_VERSION );
 		if ( \version_compare( $plugin_version, '1.5.0' ) >= 0 ) {
 			return self::$allowed_payments;
 		} else {
@@ -415,7 +416,7 @@ class PayuniPayment {
 			return self::$available_installments;
 		}
 
-		$plugin_version = $order->get_meta( '_wpbr_payuni_upp_plugin_version' );
+		$plugin_version = $order->get_meta( OrderMeta::PLUGIN_VERSION );
 		if ( \version_compare( $plugin_version, '1.5.0' ) >= 0 ) {
 			return self::$available_installments;
 		} else {
@@ -426,6 +427,24 @@ class PayuniPayment {
 				$old_available_payments[ $old_payment_id ] = $value;
 			}
 			return $old_available_payments;
+		}
+	}
+
+	/**
+	 * Get order meta key
+	 *
+	 * @param \WC_Order $order The order object.
+	 * @param string    $key   The order meta key.
+	 *
+	 * @return string
+	 */
+	public static function get_order_meta_key( $order, $key ) {
+		$plugin_version = $order->get_meta( OrderMeta::PLUGIN_VERSION );
+		if ( \version_compare( $plugin_version, '1.5.0' ) >= 0 ) {
+			return $key;
+		} else {
+			// for backward-compatibility.
+			return str_replace( '_wpbr_payuni_upp_', '_payuni_', $key );
 		}
 	}
 

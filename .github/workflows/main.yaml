@@ -10,6 +10,7 @@ jobs:
       - uses: actions/checkout@master
       - name: Build
         run: |
+          composer update --no-dev --optimize-autoloader
           mkdir build
       - name: Create artifact
         uses: montudor/action-zip@v1

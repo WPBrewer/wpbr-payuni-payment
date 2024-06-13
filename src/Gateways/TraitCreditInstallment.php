@@ -8,6 +8,7 @@
 namespace WPBrewer\Payuni\Payment\Gateways;
 
 use WPBrewer\Payuni\Payment\Api\PaymentRequest;
+use WPBrewer\Payuni\Payment\Utils\OrderMeta;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -67,6 +68,8 @@ trait TraitCreditInstallment {
 	 */
 	public function init_from_fields() {
 		$this->form_fields = include WPBR_PAYUNI_PLUGIN_DIR . 'includes/settings/CreditInstallmentSetting.php';
+		/* translators: %s: number of installments */
+		$this->form_fields['title']['default'] = sprintf( __( 'PAYUNi Installment Payment (%s Installments)', 'wpbr-payuni-payment' ), $this->installs );
 	}
 
 	/**
@@ -130,13 +133,13 @@ trait TraitCreditInstallment {
 	public static function get_payment_order_metas() {
 		$order_metas =
 		array(
-			'_payuni_credit_authtype' => __( 'Auth Type', 'wpbr-payuni-payment' ),
-			'_payuni_credit_card4no'  => __( 'Card Last 4 No', 'wpbr-payuni-payment' ),
-			'_payuni_credit_cardinst' => __( 'Installments', 'wpbr-payuni-payment' ),
-			'_payuni_credit_firstamt' => __( 'First Amount', 'wpbr-payuni-payment' ),
-			'_payuni_credit_eachamt'  => __( 'Each Amount', 'wpbr-payuni-payment' ),
-			'_payuni_credit_authday'  => __( 'Auth Date', 'wpbr-payuni-payment' ),
-			'_payuni_credit_authtime' => __( 'Auth Time', 'wpbr-payuni-payment' ),
+			OrderMeta::CREDIT_AUTH_TYPE => __( 'Auth Type', 'wpbr-payuni-payment' ),
+			OrderMeta::CREDIT_CARD_4NO  => __( 'Card Last 4 No', 'wpbr-payuni-payment' ),
+			OrderMeta::CREDIT_INSTALL   => __( 'Installments', 'wpbr-payuni-payment' ),
+			OrderMeta::CREDIT_FIRST_AMT => __( 'First Amount', 'wpbr-payuni-payment' ),
+			OrderMeta::CREDIT_EACH_AMT  => __( 'Each Amount', 'wpbr-payuni-payment' ),
+			OrderMeta::CREDIT_AUTH_DAY  => __( 'Auth Date', 'wpbr-payuni-payment' ),
+			OrderMeta::CREDIT_AUTH_TIME => __( 'Auth Time', 'wpbr-payuni-payment' ),
 		);
 
 		return $order_metas;

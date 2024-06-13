@@ -1,11 +1,11 @@
 <?php
-
-namespace WPBrewer\Payuni\Payment\Gateways;
 /**
  * Aftee class file
  *
  * @package payuni
  */
+
+namespace WPBrewer\Payuni\Payment\Gateways;
 
 defined( 'ABSPATH' ) || exit;
 

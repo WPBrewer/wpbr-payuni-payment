@@ -1,16 +1,15 @@
 <?php
-
-namespace WPBrewer\Payuni\Payment\Gateways;
-
-use WPBrewer\Payuni\Payment\Api\PaymentRequest;
-
 /**
  * TraitCreditInstallment trait file
  *
  * @package payuni
  */
 
- defined( 'ABSPATH' ) || exit;
+namespace WPBrewer\Payuni\Payment\Gateways;
+
+use WPBrewer\Payuni\Payment\Api\PaymentRequest;
+
+defined( 'ABSPATH' ) || exit;
 
 /**
  * Installmentable trait
@@ -92,8 +91,8 @@ trait TraitCreditInstallment {
 	/**
 	 * Set the transaction args for installment payment
 	 *
-	 * @param array    $args  The transaction args.
-	 * @param WC_Order $order The order object.
+	 * @param array     $args  The transaction args.
+	 * @param \WC_Order $order The order object.
 	 *
 	 * @return array
 	 */

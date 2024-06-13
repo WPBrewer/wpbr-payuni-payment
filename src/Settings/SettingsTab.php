@@ -1,11 +1,19 @@
 <?php
-
-namespace WPBrewer\Payuni\Payment\Settings;
 /**
  * PAYUNi setting class.
  *
  * @package payuni
  */
+
+namespace WPBrewer\Payuni\Payment\Settings;
+
+use WPBrewer\Payuni\Payment\Gateways\CreditInstallment12;
+use WPBrewer\Payuni\Payment\Gateways\CreditInstallment18;
+use WPBrewer\Payuni\Payment\Gateways\CreditInstallment24;
+use WPBrewer\Payuni\Payment\Gateways\CreditInstallment3;
+use WPBrewer\Payuni\Payment\Gateways\CreditInstallment30;
+use WPBrewer\Payuni\Payment\Gateways\CreditInstallment6;
+use WPBrewer\Payuni\Payment\Gateways\CreditInstallment9;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -35,7 +43,7 @@ class SettingsTab extends \WC_Settings_Page {
 	/**
 	 * Get settings array.
 	 *
-	 * @param mixed $sections The sections.
+	 * @param  mixed $sections The sections.
 	 * @return mixed The sections.
 	 */
 	public function payuni_payment_sections( $sections ) {
@@ -71,7 +79,7 @@ class SettingsTab extends \WC_Settings_Page {
 					'type'     => 'checkbox',
 					'default'  => 'yes',
 					'desc'     => __( 'Log PAYUNi payment message', 'wpbr-payuni-payment' ),
-					/* translators:  %s is the order id */
+					/* translators:  %s is the WooCommerce log page url */
 					'desc_tip' => sprintf( __( 'You Can find logs with source name <strong>wpbr-payuni-payment</strong> at <strong>WooCommerce -> Status -> Logs</strong>. %s', 'wpbr-payuni-payment' ), $this->get_log_link() ),
 					'id'       => 'payuni_payment_debug_log_enabled',
 				),
@@ -81,14 +89,15 @@ class SettingsTab extends \WC_Settings_Page {
 					'class'   => 'wc-enhanced-select',
 					'css'     => 'width: 400px;',
 					'options' => array(
-						'payuni-installment-3'  => 3,
-						'payuni-installment-6'  => 6,
-						'payuni-installment-9'  => 9,
-						'payuni-installment-12' => 12,
-						'payuni-installment-18' => 18,
-						'payuni-installment-24' => 24,
-						'payuni-installment-30' => 30,
+						CreditInstallment3::GATEWAY_ID  => 3,
+						CreditInstallment6::GATEWAY_ID  => 6,
+						CreditInstallment9::GATEWAY_ID  => 9,
+						CreditInstallment12::GATEWAY_ID => 12,
+						CreditInstallment18::GATEWAY_ID => 18,
+						CreditInstallment24::GATEWAY_ID => 24,
+						CreditInstallment30::GATEWAY_ID => 30,
 					),
+					/* translators:  %s is the WooCommerce payment setting page url */
 					'desc'    => sprintf( __( 'The number of payments display on Payments section, after setting you still need to eanble each payment in Payments section. %s', 'wpbr-payuni-payment' ), $this->get_woo_payment_settings_url() ),
 					'id'      => 'payuni_payment_installment_number_of_payments',
 				),
@@ -186,7 +195,7 @@ class SettingsTab extends \WC_Settings_Page {
 			return;
 		}
 
-		// phpcs:disable WordPress.Security.NonceVerification.Recommended
+     // phpcs:disable WordPress.Security.NonceVerification.Recommended
 		$page    = ( array_key_exists( 'page', $_GET ) ) ? sanitize_text_field( wp_unslash( $_GET['page'] ) ) : '';
 		$tab     = ( array_key_exists( 'tab', $_GET ) ) ? sanitize_text_field( wp_unslash( $_GET['tab'] ) ) : '';
 		$section = ( array_key_exists( 'section', $_GET ) ) ? sanitize_text_field( wp_unslash( $_GET['section'] ) ) : '';

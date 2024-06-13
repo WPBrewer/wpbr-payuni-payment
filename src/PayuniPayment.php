@@ -35,6 +35,7 @@ defined( 'ABSPATH' ) || exit;
  */
 class PayuniPayment {
 
+
 	/**
 	 * Class instance
 	 *
@@ -158,7 +159,7 @@ class PayuniPayment {
 	/**
 	 * Add payment gateways
 	 *
-	 * @param array $methods PAYUNi payment gateways.
+	 * @param  array $methods PAYUNi payment gateways.
 	 * @return array
 	 */
 	public function add_payuni_payment_gateway( $methods ) {
@@ -169,7 +170,7 @@ class PayuniPayment {
 	/**
 	 * Plugin action links
 	 *
-	 * @param array $links The action links array.
+	 * @param  array $links The action links array.
 	 * @return array
 	 */
 	public function payuni_add_action_links( $links ) {
@@ -336,7 +337,7 @@ class PayuniPayment {
 
 		if ( $order_serial_no && $order_serial_no < 999 ) {
 			$order_serial_no += 1;
-			$payuni_order_no = $payuni_order_no . '-' . $order_serial_no;
+			$payuni_order_no  = $payuni_order_no . '-' . $order_serial_no;
 		} else {
 			$order_serial_no = 1;
 			$payuni_order_no = $payuni_order_no . '-' . $order_serial_no;
@@ -353,7 +354,7 @@ class PayuniPayment {
 	 *
 	 * @param string $payuni_order_no The payuni order number.
 	 *
-	 *  @return string
+	 * @return string
 	 */
 	public static function parse_payuni_order_no_to_woo_order_id( $payuni_order_no ) {
 
@@ -395,8 +396,8 @@ class PayuniPayment {
 			// for backward-compatibility.
 			$old_allowed_payments = array();
 			foreach ( self::$allowed_payments as $key => $value ) {
-				$old_payment_id = str_replace( 'upp-', '', $key );
-				$old_allowed_payments[$old_payment_id] = $value;
+				$old_payment_id                          = str_replace( 'upp-', '', $key );
+				$old_allowed_payments[ $old_payment_id ] = $value;
 			}
 			return $old_allowed_payments;
 		}
@@ -405,8 +406,8 @@ class PayuniPayment {
 	/**
 	 * Log method.
 	 *
-	 * @param string $message The message to be logged.
-	 * @param string $level The log level. Optional. Default 'info'. Possible values: emergency|alert|critical|error|warning|notice|info|debug.
+	 * @param  string $message The message to be logged.
+	 * @param  string $level   The log level. Optional. Default 'info'. Possible values: emergency|alert|critical|error|warning|notice|info|debug.
 	 * @return void
 	 */
 	public static function log( $message, $level = 'info' ) {

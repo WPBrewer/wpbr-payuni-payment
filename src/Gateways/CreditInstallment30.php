@@ -1,14 +1,13 @@
 <?php
-
-namespace WPBrewer\Payuni\Payment\Gateways;
-
 /**
  * CreditInstallment30 class file
  *
  * @package payuni
  */
 
- defined( 'ABSPATH' ) || exit;
+namespace WPBrewer\Payuni\Payment\Gateways;
+
+defined( 'ABSPATH' ) || exit;
 
 /**
  * PAYUNi Credit Card Payment method (30 installments)

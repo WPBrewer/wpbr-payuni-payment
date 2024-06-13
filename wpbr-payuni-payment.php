@@ -1,12 +1,12 @@
 <?php
 /**
- * The PAYUNi Payment plugin
+ * The PAYUNi UPP(UNiPaypage) Payment plugin
  *
  * @since             1.0.0
  *
  * @wordpress-plugin
  * Plugin Name:       Pay with PAYUNi
- * Description:       Provides PAYUNi Payment for WooCommerce.
+ * Description:       Provides PAYUNi UPP(UNiPaypage) Payment for WooCommerce.
  * Plugin URI:        https://wpbrewer.com/product/wpbr-payuni-payment
  * Version:           1.5.0
  * Author:            WPBrewer
@@ -29,7 +29,7 @@ define( 'WPBR_PAYUNI_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
 define( 'WPBR_PAYUNI_BASENAME', plugin_basename( __FILE__ ) );
 define( 'WPBR_PAYUNI_PAYMENT_VERSION', '1.5.0' );
 
-require_once WPBR_PAYUNI_PLUGIN_DIR . "vendor/autoload.php";
+require_once WPBR_PAYUNI_PLUGIN_DIR . 'vendor/autoload.php';
 
 /**
  * Display warning when WooCommerce is not installed and activated.
@@ -68,7 +68,7 @@ function run_payuni_payment() {
 		require_once ABSPATH . 'wp-admin/includes/plugin.php';
 		if ( is_plugin_active( 'wpbr-payuni-payment/wpbr-payuni-payment.php' ) ) {
 			deactivate_plugins( plugin_basename( __FILE__ ) );
-			add_action( 'admin_notices',  __NAMESPACE__ .'\\payuni_payment_needs_woocommerce' );
+			add_action( 'admin_notices', __NAMESPACE__ . '\\payuni_payment_needs_woocommerce' );
 			return;
 		}
 	}

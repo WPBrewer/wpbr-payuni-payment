@@ -1,14 +1,13 @@
 <?php
-
-namespace WPBrewer\Payuni\Payment\Gateways;
-
-use WPBrewer\Payuni\Payment\Api\PaymentRequest;
-
 /**
  * SamsungPay class file
  *
  * @package payuni
  */
+
+namespace WPBrewer\Payuni\Payment\Gateways;
+
+use WPBrewer\Payuni\Payment\Api\PaymentRequest;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -99,6 +98,9 @@ class SamsungPay extends GatewayBase {
 		return $request->refund( $order_id, $amount, $reason );
 	}
 
+	/**
+	 * The order meta for the payment method.
+	 */
 	public static function get_payment_order_metas() {
 		$order_metas =
 		array(

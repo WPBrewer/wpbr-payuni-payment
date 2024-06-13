@@ -1,12 +1,11 @@
 <?php
-
-namespace WPBrewer\Payuni\Payment\Admin;
-
 /**
  * OrderMetaBoxes class file
  *
  * @package payuni
  */
+
+namespace WPBrewer\Payuni\Payment\Admin;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -46,7 +45,7 @@ class OrderMetaBoxes {
 	/**
 	 * Add meta box
 	 *
-	 * @param object $post The post object.
+	 * @param  object $post The post object.
 	 * @return void
 	 */
 	public function payuni_add_meta_boxes( $post_type, $post_or_order_object ) {
@@ -81,7 +80,7 @@ class OrderMetaBoxes {
 	/**
 	 * Meta box ouput
 	 *
-	 * @param object $post The post object.
+	 * @param  object $post_or_order_object The post object.
 	 * @return void
 	 */
 	public function payuni_order_admin_meta_box( $post_or_order_object ) {

@@ -1,15 +1,14 @@
 <?php
-
-namespace WPBrewer\Payuni\Payment\Gateways;
-
-use WPBrewer\Payuni\Payment\Api\PaymentRequest;
-use WPBrewer\Payuni\Payment\PayuniPayment;
-
 /**
  * GatewayBase class file
  *
  * @package payuni
  */
+
+namespace WPBrewer\Payuni\Payment\Gateways;
+
+use WPBrewer\Payuni\Payment\Api\PaymentRequest;
+use WPBrewer\Payuni\Payment\PayuniPayment;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -19,21 +18,21 @@ defined( 'ABSPATH' ) || exit;
 abstract class GatewayBase extends \WC_Payment_Gateway {
 
 	/**
-	 * Web NO
+	 * Merchant ID
 	 *
 	 * @var string
 	 */
 	protected $merchant_id;
 
 	/**
-	 * Trans Password
+	 * Hash Key
 	 *
 	 * @var string
 	 */
 	protected $hashkey;
 
 	/**
-	 * Pay Type
+	 * Hash IV
 	 *
 	 * @var string
 	 */
@@ -61,6 +60,13 @@ abstract class GatewayBase extends \WC_Payment_Gateway {
 	public $return_url;
 
 	/**
+	 * The message displayed when the payment is incompleted
+	 *
+	 * @var string
+	 */
+	public $incomplete_payment_message;
+
+	/**
 	 * Minimum amount of the order
 	 *
 	 * @var string
@@ -72,7 +78,6 @@ abstract class GatewayBase extends \WC_Payment_Gateway {
 	 */
 	public function __construct() {
 
-		// $this->icon              = $this->get_icon();
 		$this->has_fields        = false;
 		$this->order_button_text = __( 'Proceed to PAYUNi', 'wpbr-payuni-payment' );
 		$this->supports          = array(
@@ -97,7 +102,7 @@ abstract class GatewayBase extends \WC_Payment_Gateway {
 	/**
 	 * Display payment detail after order table
 	 *
-	 * @param  WC_Order $order The order object.
+	 * @param  \WC_Order $order The order object.
 	 * @return void
 	 */
 	public function payuni_payment_detail_after_order_table( $order ) {
@@ -222,17 +227,6 @@ abstract class GatewayBase extends \WC_Payment_Gateway {
 	}
 
 	/**
-	 * Payment gateway icon output
-	 *
-	 * @return string
-	 */
-	public function get_icon() {
-		// $icon_html  = '';
-		// $icon_html .= '<img src="' . WPBR_PAYUNI_PLUGIN_URL . 'payuni-logo.jpg " alt="' . __( 'PAYUNi Payment Gateway', 'wpbr-payuni-payment' ) . '" />';
-		// return apply_filters( 'woocommerce_gateway_icon', $icon_html, $this->id );
-	}
-
-	/**
 	 * Get order meta data
 	 *
 	 * @return array
@@ -251,7 +245,7 @@ abstract class GatewayBase extends \WC_Payment_Gateway {
 	}
 
 	/**
-	 * Return PAYUNi web no
+	 * Return PAYUNi Merchant ID
 	 *
 	 * @return string
 	 */
@@ -259,10 +253,20 @@ abstract class GatewayBase extends \WC_Payment_Gateway {
 		return $this->merchant_id;
 	}
 
+	/**
+	 * Return PAYUNi Hash Key
+	 *
+	 * @return string
+	 */
 	public function get_hashkey() {
 		return $this->hashkey;
 	}
 
+	/**
+	 * Return PAYUNi Hash IV
+	 *
+	 * @return string
+	 */
 	public function get_hashiv() {
 		return $this->hashiv;
 	}

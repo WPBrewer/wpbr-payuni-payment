@@ -1,12 +1,11 @@
 <?php
-
-namespace WPBrewer\Payuni\Payment\Gateways;
-
 /**
  * Cvs class file
  *
  * @package payuni
  */
+
+namespace WPBrewer\Payuni\Payment\Gateways;
 
 defined( 'ABSPATH' ) || exit;
 

@@ -1,11 +1,13 @@
 <?php
-
-namespace WPBrewer\Payuni\Payment\Gateways;
 /**
  * GooglePay class file
  *
  * @package payuni
  */
+
+namespace WPBrewer\Payuni\Payment\Gateways;
+
+use WPBrewer\Payuni\Payment\Api\PaymentRequest;
 
 defined( 'ABSPATH' ) || exit;
 

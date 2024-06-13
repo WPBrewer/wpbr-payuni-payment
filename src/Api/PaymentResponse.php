@@ -1,14 +1,15 @@
 <?php
-
-namespace WPBrewer\Payuni\Payment\Api;
-
-use WPBrewer\Payuni\Payment\PayuniPayment;
-
 /**
  * PaymentResponse class file
  *
  * @package payuni
  */
+
+namespace WPBrewer\Payuni\Payment\Api;
+
+use WPBrewer\Payuni\Payment\PayuniPayment;
+use WPBrewer\Payuni\Payment\Utils\SingletonTrait;
+use WPBrewer\Payuni\Payment\Utils\TradeStatus;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -17,32 +18,7 @@ defined( 'ABSPATH' ) || exit;
  */
 class PaymentResponse {
 
-	/**
-	 * Class instance
-	 *
-	 * @var Response
-	 */
-	private static $instance;
-
-	/**
-	 * Constructor
-	 */
-	public function __construct() {
-		// do nothing.
-	}
-
-	/**
-	 * Get the single instance or new one if not exists.
-	 *
-	 * @return Response
-	 */
-	public static function get_instance() {
-		if ( null === self::$instance ) {
-			self::$instance = new self();
-		}
-
-		return self::$instance;
-	}
+	use SingletonTrait;
 
 	/**
 	 * Initialize and add hooks
@@ -61,7 +37,7 @@ class PaymentResponse {
 	 * @return void
 	 */
 	public static function payuni_receive_response() {
-     // phpcs:disable WordPress.Security.NonceVerification.Missing
+        // phpcs:disable WordPress.Security.NonceVerification.Missing
 
 		if ( empty( $_POST ) ) {
 			return;
@@ -70,13 +46,14 @@ class PaymentResponse {
 		$posted = wc_clean( wp_unslash( $_POST ) );
 		PayuniPayment::log( 'payuni_receive_response from ' . current_action() . '. raw post data ' . wc_print_r( $posted, true ) );
 
-		$mer_id = get_option( 'payuni_payment_merchant_id' );
+		$test_mode = wc_string_to_bool( get_option( 'payuni_payment_testmode_enabled' ) );
+		$mer_id    = $test_mode ? get_option( 'payuni_payment_merchant_id_test' ) : get_option( 'payuni_payment_merchant_id' );
+
 		if ( ! array_key_exists( 'MerID', $posted ) || $mer_id !== $posted['MerID'] ) {
 			PayuniPayment::log( 'PAYUNi received response MerID not found or not match. ' );
 			return;
 		}
 
-		$merid        = $posted['MerID'];
 		$status       = array_key_exists( 'Status', $posted ) ? $posted['Status'] : '';
 		$encrypt_info = array_key_exists( 'EncryptInfo', $posted ) ? $posted['EncryptInfo'] : '';
 		$hash_info    = array_key_exists( 'HashInfo', $posted ) ? $posted['HashInfo'] : '';
@@ -100,7 +77,7 @@ class PaymentResponse {
 
 		self::save_payuni_order_data( $order, $decrypted_info );
 
-		if ( '1' === $trade_status ) {
+		if ( TradeStatus::PAID === $trade_status ) {
 			if ( ! $order->is_paid() ) {
 				$order->payment_complete( $decrypted_info['TradeNo'] );
 				$order->add_order_note( 'PAYUNi payment completed (NotifyURL). Trade Status:' . $trade_status . ', Message:' . $message );
@@ -112,8 +89,11 @@ class PaymentResponse {
      // phpcs:enable WordPress.Security.NonceVerification.Missing
 	}
 
+	/**
+	 * Receive return from PAYUNi ReturnURL
+	 */
 	public static function payuni_receive_response_frontend() {
-	 // phpcs:disable WordPress.Security.NonceVerification.Missing	
+     // phpcs:disable WordPress.Security.NonceVerification.Missing	
 		if ( empty( $_POST ) ) {
 			return;
 		}
@@ -129,7 +109,6 @@ class PaymentResponse {
 			return;
 		}
 
-		$merid        = $posted['MerID'];
 		$status       = array_key_exists( 'Status', $posted ) ? $posted['Status'] : '';
 		$encrypt_info = array_key_exists( 'EncryptInfo', $posted ) ? $posted['EncryptInfo'] : '';
 		$hash_info    = array_key_exists( 'HashInfo', $posted ) ? $posted['HashInfo'] : '';
@@ -153,7 +132,7 @@ class PaymentResponse {
 
 		self::save_payuni_order_data( $order, $decrypted_info );
 
-		if ( '1' === $trade_status ) {
+		if ( TradeStatus::PAID === $trade_status ) {
 			if ( ! $order->is_paid() ) {
 				$order->payment_complete( $decrypted_info['TradeNo'] );
 				$order->add_order_note( 'PAYUNi payment completed (ReturnURL). Trade Status:' . $trade_status . ', Message:' . $message );
@@ -162,12 +141,18 @@ class PaymentResponse {
 			$order->add_order_note( 'PAYUNi payment incompleted (ReturnURL). Pay Type:' . $pay_type . ', Trade Status:' . $trade_status . ', Message:' . $message );
 		}
 
-		wp_redirect( $order->get_checkout_order_received_url() );// 訂單感謝頁面
+		wp_redirect( $order->get_checkout_order_received_url() );// 訂單感謝頁面.
 		exit;
 
      // phpcs:enable WordPress.Security.NonceVerification.Missing
 	}
 
+	/**
+	 * Save PAYUNi order data to WooCommerce order meta
+	 *
+	 * @param WC_Order $order          The order object.
+	 * @param array    $decrypted_info The decrypted info from PAYUNi.
+	 */
 	private static function save_payuni_order_data( $order, $decrypted_info ) {
 
 		$pay_type = $decrypted_info['PaymentType'];
@@ -224,8 +209,6 @@ class PaymentResponse {
 
 		$order->save();
 	}
-
-
 
 	/**
 	 * A wrapper function to save received post data from PAYUNi

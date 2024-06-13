@@ -1,14 +1,15 @@
 <?php
-
-namespace WPBrewer\Payuni\Payment\Api;
-
-use WPBrewer\Payuni\Payment\PayuniPayment;
-
 /**
  * PaymentRequest class file
  *
  * @package payuni
  */
+
+namespace WPBrewer\Payuni\Payment\Api;
+
+use WPBrewer\Payuni\Payment\PayuniPayment;
+use WPBrewer\Payuni\Payment\Utils\CloseStatus;
+use WPBrewer\Payuni\Payment\Utils\TradeStatus;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -20,7 +21,7 @@ class PaymentRequest {
 	/**
 	 * The gateway instance
 	 *
-	 * @var WC_Payment_Gateway
+	 * @var \WC_Payment_Gateway
 	 */
 	protected $gateway;
 
@@ -103,6 +104,16 @@ class PaymentRequest {
 		}
 	}
 
+	/**
+	 * Process refund request
+	 *
+	 * @param  int    $order_id The order id.
+	 * @param  float  $amount   The refund amount.
+	 * @param  string $reason   The refund reason.
+	 *
+	 * @return bool|\WP_Error
+	 * @throws \Exception When the refund failed.
+	 */
 	public function refund( $order_id, $amount, $reason ) {
 		$order = wc_get_order( $order_id );
 
@@ -118,7 +129,7 @@ class PaymentRequest {
 			);
 		}
 
-		$payment_method = $order->get_payment_method();
+		$payment_method   = $order->get_payment_method();
 		$allowed_payments = PayuniPayment::get_allowed_payments( $order );
 		if ( array_key_exists( $payment_method, $allowed_payments ) ) {
 			if ( $order->get_total() !== $amount ) {
@@ -150,7 +161,7 @@ class PaymentRequest {
 		}
 
 		$query_result = self::query( $order_id );
-		if ( $query_result === false ) {
+		if ( false === $query_result ) {
 			return new \WP_Error(
 				'process_refund_request',
 				/* translators:  %s is the order id */
@@ -163,38 +174,31 @@ class PaymentRequest {
 		}
 
 		$trade_status = $query_result['TradeStatus'];
-		//9=未付款
-		//1=已付款 (授權成功，請款申請中)
-		//2=付款失敗
-		//3=付款取消 (取消授權成功)
-		//4=交易逾期
-		
-		//已付款
-		if ( '1' === $trade_status ) {
-			
-			//請款狀態
+
+		if ( TradeStatus::PAID === $trade_status ) {
+
+			// 請款狀態.
 			$close_status = $query_result['CloseStatus'];
-			
-			// 1=請款申請中，要用取消授權，9=未申請(for手動請款)
+
 			if ( self::is_cancellable( $close_status ) ) {
 				$encrypt_info = array(
 					'MerID'     => $mer_id,
 					'TradeNo'   => $transaction_id,
 					'Timestamp' => time(),
 				);
-				$url = ( wc_string_to_bool( get_option( 'payuni_payment_testmode_enabled' ) ) ) ? 'https://sandbox-api.payuni.com.tw/api/trade/cancel' : 'https://api.payuni.com.tw/api/trade/cancel';
-			} elseif ( self::is_closeable( $close_status ) ) {
-				// 2=請款成功, // 7=請款處理中，要用退款
+				$url          = ( wc_string_to_bool( get_option( 'payuni_payment_testmode_enabled' ) ) ) ? 'https://sandbox-api.payuni.com.tw/api/trade/cancel' : 'https://api.payuni.com.tw/api/trade/cancel';
+			} elseif ( self::is_refundable( $close_status ) ) {
+				// 2=請款成功, // 7=請款處理中，要用退款，退款完成後要取消授權
 				$encrypt_info = array(
-					'MerID'       => $mer_id,
-					'TradeNo'     => $transaction_id,
-					'Timestamp'   => time(),
-					'CloseType'   => 2,
-					'TradeAmt' => $amount
+					'MerID'     => $mer_id,
+					'TradeNo'   => $transaction_id,
+					'Timestamp' => time(),
+					'CloseType' => 2, // 2=退款.
+					'TradeAmt'  => $amount,
 				);
-				$url = ( wc_string_to_bool( get_option( 'payuni_payment_testmode_enabled' ) ) ) ? 'https://sandbox-api.payuni.com.tw/api/trade/close' : 'https://api.payuni.com.tw/api/trade/close';
+				$url          = ( wc_string_to_bool( get_option( 'payuni_payment_testmode_enabled' ) ) ) ? 'https://sandbox-api.payuni.com.tw/api/trade/close' : 'https://api.payuni.com.tw/api/trade/close';
 			} else {
-				
+
 				return new \WP_Error(
 					'process_refund_request',
 					/* translators:  %s is the TradeStatus of the order */
@@ -205,7 +209,7 @@ class PaymentRequest {
 					)
 				);
 			}
-			
+
 			PayuniPayment::log( 'refund url:' . $url );
 		} else {
 			return new \WP_Error(
@@ -269,8 +273,8 @@ class PaymentRequest {
 			return false;
 		}
 
-		$test_mode      = wc_string_to_bool( get_option( 'payuni_payment_testmode_enabled' ) );
-		$mer_id         = $test_mode ? get_option( 'payuni_payment_merchant_id_test' ) : get_option( 'payuni_payment_merchant_id' );
+		$test_mode = wc_string_to_bool( get_option( 'payuni_payment_testmode_enabled' ) );
+		$mer_id    = $test_mode ? get_option( 'payuni_payment_merchant_id_test' ) : get_option( 'payuni_payment_merchant_id' );
 
 		$payuni_order_no = $order->get_meta( '_payuni_order_no' );
 		$encrypt_info    = array(
@@ -339,16 +343,28 @@ class PaymentRequest {
 		}
 	}
 
+	/**
+	 * Check if the payment transaction auth is cancellable
+	 *
+	 * @param  int $close_status The close status of the order transaction.
+	 * @return bool
+	 */
 	private static function is_cancellable( $close_status ) {
-		if ( '1' === $close_status || '3' === $close_status || '9' === $close_status ) {
+		if ( CloseStatus::CAPTURE_APPLING === $close_status || CloseStatus::CAPTURE_CANCELLED === $close_status || CloseStatus::CAPTURE_UNAPPLY === $close_status ) {
 			return true;
 		} else {
 			return false;
 		}
 	}
 
-	private static function is_closeable( $close_status ) {
-		if ( '2' === $close_status || '7' === $close_status ) {
+	/**
+	 * Check if the payment transaction is closeable
+	 *
+	 * @param  int $close_status The close status of the order transaction.
+	 * @return bool
+	 */
+	private static function is_refundable( $close_status ) {
+		if ( CloseStatus::CAPTURE_OK === $close_status || CloseStatus::CAPTURE_PROCESSING === $close_status ) {
 			return true;
 		} else {
 			return false;

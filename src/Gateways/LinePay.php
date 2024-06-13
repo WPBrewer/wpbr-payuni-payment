@@ -1,14 +1,13 @@
 <?php
-
-namespace WPBrewer\Payuni\Payment\Gateways;
-
-use WPBrewer\Payuni\Payment\Api\PaymentRequest;
-
 /**
  * LinePay class file
  *
  * @package payuni
  */
+
+namespace WPBrewer\Payuni\Payment\Gateways;
+
+use WPBrewer\Payuni\Payment\Api\PaymentRequest;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -80,18 +79,6 @@ class LinePay extends GatewayBase {
 	}
 
 	/**
-	 * The order meta for the payment method.
-	 */
-	public static function get_payment_order_metas() {
-		$order_metas =
-		array(
-			'_payuni_linepay_payno' => _x( 'Pay No', 'LINE Pay', 'wpbr-payuni-payment' ),
-		);
-
-		return $order_metas;
-	}
-
-	/**
 	 * Process the refund and return the result.
 	 *
 	 * This method is called only when the administrator processes it.
@@ -108,5 +95,17 @@ class LinePay extends GatewayBase {
 	public function process_refund( $order_id, $amount = null, $reason = '' ) {
 		$request = new PaymentRequest( $this );
 		return $request->refund( $order_id, $amount, $reason );
+	}
+
+	/**
+	 * The order meta for the payment method.
+	 */
+	public static function get_payment_order_metas() {
+		$order_metas =
+		array(
+			'_payuni_linepay_payno' => _x( 'Pay No', 'LINE Pay', 'wpbr-payuni-payment' ),
+		);
+
+		return $order_metas;
 	}
 }

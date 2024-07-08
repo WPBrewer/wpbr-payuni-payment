@@ -194,6 +194,8 @@ class PayuniPayment {
 		}
 
 		wp_enqueue_style( 'payuni-payment', WPBR_PAYUNI_PLUGIN_URL . 'assets/css/payuni-payment-public.css', array(), '1.0.0', 'all' );
+
+		wp_enqueue_script( 'payuni-public', WPBR_PAYUNI_PLUGIN_URL . 'assets/js/scripts.js', array(), '1.0', true );
 	}
 
 	/**
@@ -203,7 +205,7 @@ class PayuniPayment {
 	 */
 	public function payuni_admin_scripts() {
 
-		wp_enqueue_script( 'payuni-admin', WPBR_PAYUNI_PLUGIN_URL . 'assets/js/payuni-payment-admin.js', array(), '1.0', true );
+		wp_enqueue_script( 'payuni-admin', WPBR_PAYUNI_PLUGIN_URL . 'assets/js/scripts-admin.js', array(), '1.0', true );
 		wp_localize_script(
 			'payuni-admin',
 			'payuni_object',

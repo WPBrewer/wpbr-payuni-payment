@@ -95,9 +95,6 @@ class PaymentRequest {
 			}
 			?>
 			</form>
-			<script type="text/javascript">
-				document.getElementById('payuni-form').submit();
-			</script>
 			<?php
 
 		} catch ( \Exception $e ) {

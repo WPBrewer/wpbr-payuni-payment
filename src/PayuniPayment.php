@@ -223,9 +223,7 @@ class PayuniPayment {
 	 */
 	public function payuni_ajax_query_payment() {
 
-		$posted = wp_unslash( $_POST );
-
-		if ( ! array_key_exists( 'security', $posted ) || ! wp_verify_nonce( $posted['security'], 'payuni-query' ) ) {
+		if ( ! isset( $posted['security'] ) || ! wp_verify_nonce( wc_clean( wp_unslash( $posted['security'] ) ), 'payuni-query' ) ) {
 			$return = array(
 				'success' => false,
 				'message' => __( 'Unsecure AJAX call', 'wpbr-payuni-payment' ),
@@ -233,7 +231,7 @@ class PayuniPayment {
 			wp_send_json( $return );
 		}
 
-		$order_id = $posted['order_id'];
+		$order_id = ( isset( $_POST['order_id'] ) ) ? wc_clean( wp_unslash( $_POST['order_id'] ) ) : '';
 		$order    = wc_get_order( $order_id );
 
 		if ( ! $order ) {

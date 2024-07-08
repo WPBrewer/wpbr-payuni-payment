@@ -44,21 +44,16 @@ class PaymentResponse {
 			return;
 		}
 
-		$posted = wc_clean( wp_unslash( $_POST ) );
-		PayuniPayment::log( 'payuni_receive_response from ' . current_action() . '. raw post data ' . wc_print_r( $posted, true ) );
+		$test_mode     = wc_string_to_bool( get_option( 'payuni_payment_testmode_enabled' ) );
+		$mer_id        = $test_mode ? get_option( 'payuni_payment_merchant_id_test' ) : get_option( 'payuni_payment_merchant_id' );
+		$posted_mer_id = ( isset( $_POST['MerID'] ) ) ? wc_clean( wp_unslash( $_POST['MerID'] ) ) : '';
 
-		$test_mode = wc_string_to_bool( get_option( 'payuni_payment_testmode_enabled' ) );
-		$mer_id    = $test_mode ? get_option( 'payuni_payment_merchant_id_test' ) : get_option( 'payuni_payment_merchant_id' );
-
-		if ( ! array_key_exists( 'MerID', $posted ) || $mer_id !== $posted['MerID'] ) {
+		if ( $mer_id !== $posted_mer_id ) {
 			PayuniPayment::log( 'PAYUNi received response MerID not found or not match. ' );
 			return;
 		}
 
-		$status       = array_key_exists( 'Status', $posted ) ? $posted['Status'] : '';
-		$encrypt_info = array_key_exists( 'EncryptInfo', $posted ) ? $posted['EncryptInfo'] : '';
-		$hash_info    = array_key_exists( 'HashInfo', $posted ) ? $posted['HashInfo'] : '';
-
+		$encrypt_info   = ( isset( $_POST['EncryptInfo'] ) ) ? wc_clean( wp_unslash( $_POST['EncryptInfo'] ) ) : '';
 		$decrypted_info = PayuniPayment::decrypt( $encrypt_info );
 		PayuniPayment::log( 'PAYUNi NotifyURL response decrypted:' . wc_print_r( $decrypted_info, true ) );
 
@@ -69,8 +64,7 @@ class PaymentResponse {
 		$pay_type        = $decrypted_info['PaymentType'];
 
 		$woo_order_id = PayuniPayment::parse_payuni_order_no_to_woo_order_id( $payuni_order_no );
-
-		$order = wc_get_order( $woo_order_id );
+		$order        = wc_get_order( $woo_order_id );
 		if ( ! $order ) {
 			PayuniPayment::log( 'Cant find order by id:' . $woo_order_id );
 			return;
@@ -99,21 +93,16 @@ class PaymentResponse {
 			return;
 		}
 
-		$posted = wc_clean( wp_unslash( $_POST ) );
-		PayuniPayment::log( 'payuni_receive_response from ' . current_action() . '. raw post data ' . wc_print_r( $posted, true ) );
+		$test_mode     = wc_string_to_bool( get_option( 'payuni_payment_testmode_enabled' ) );
+		$mer_id        = $test_mode ? get_option( 'payuni_payment_merchant_id_test' ) : get_option( 'payuni_payment_merchant_id' );
+		$posted_mer_id = ( isset( $_POST['MerID'] ) ) ? wc_clean( wp_unslash( $_POST['MerID'] ) ) : '';
 
-		$test_mode = wc_string_to_bool( get_option( 'payuni_payment_testmode_enabled' ) );
-		$mer_id    = $test_mode ? get_option( 'payuni_payment_merchant_id_test' ) : get_option( 'payuni_payment_merchant_id' );
-
-		if ( ! array_key_exists( 'MerID', $posted ) || $mer_id !== $posted['MerID'] ) {
+		if ( $mer_id !== $posted_mer_id ) {
 			PayuniPayment::log( 'PAYUNi received response MerID not found or not match. ' );
 			return;
 		}
 
-		$status       = array_key_exists( 'Status', $posted ) ? $posted['Status'] : '';
-		$encrypt_info = array_key_exists( 'EncryptInfo', $posted ) ? $posted['EncryptInfo'] : '';
-		$hash_info    = array_key_exists( 'HashInfo', $posted ) ? $posted['HashInfo'] : '';
-
+		$encrypt_info   = ( isset( $_POST['EncryptInfo'] ) ) ? wc_clean( wp_unslash( $_POST['EncryptInfo'] ) ) : '';
 		$decrypted_info = PayuniPayment::decrypt( $encrypt_info );
 		PayuniPayment::log( 'PAYUNi ReturnURL response decrypted:' . wc_print_r( $decrypted_info, true ) );
 
@@ -124,8 +113,7 @@ class PaymentResponse {
 		$pay_type     = $decrypted_info['PaymentType'];
 
 		$woo_order_id = PayuniPayment::parse_payuni_order_no_to_woo_order_id( $order_id );
-
-		$order = wc_get_order( $woo_order_id );
+		$order        = wc_get_order( $woo_order_id );
 		if ( ! $order ) {
 			PayuniPayment::log( 'Cant find order by id:' . $woo_order_id );
 			return;

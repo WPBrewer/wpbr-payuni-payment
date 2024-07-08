@@ -31,7 +31,7 @@ Major features include:
 
 == Get started with PAYUNi ==
 
-1. [Apply PAYUNi's seller member](https://wpbrewer.com/payuni-apply). If you want to test the payment service in sandbox mode, please register seller member in [Sandbox](https://sandbox.payuni.com.tw/signup)
+1. [Apply PAYUNi's seller member](https://www.payuni.com.tw/signup). If you want to test the payment service in sandbox mode, please register seller member in [Sandbox](https://sandbox.payuni.com.tw/signup)
 2. Install & Activate Pay with PAYUNi plugin on your WordPress website.
 3. Setup the Merchant ID、Hash Key and Hash IV
 4. Go to the WordPress Admin Panel. Open WooCommerce > Settings > Payments to enable your preferred payment methods.

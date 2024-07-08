@@ -10,13 +10,16 @@ License URI: http://www.gnu.org/licenses/gpl-2.0.txt
 
 Accept payments via PAYUNi payment for your ecommerce store.
 
+This plugin integrates with PAYUNi's UNiPaypage (UPP) service, which redirects the customer to the payment page when the customer places an order.
+
 == Description ==
 
 Pay with PAYUNi allows you to provide PAYUNi payment gateway for the customers.
-For more information, please refer to PAYUNi website https://www.payuni.com.tw/.
+This plugin
 
 Major features include:
 
+* Integrate with PAYUNi's UNiPaypage(UPP) service
 * Credit Card payment
 * Credit Card installment payment (Cound enable/disable for different installments)
 * Apple Pay、Google Pay、Samsung Pay
@@ -27,6 +30,30 @@ Major features include:
 * Support Language setting for UNiPaypage
 × Support refund on backend (Credit Payment、Installment payment、Apple Pay、Google Pay、Samsung Pay)
 * Compatible with High-Performance Order Storage (HPOS)
+
+== Get started with PAYUNi ==
+
+1. [Apply PAYUNi's seller member](https://wpbrewer.com/payuni-apply)
+2. Install & Activate Pay with PAYUNi plugin on your WordPress website.
+3. Setup the Merchant ID、Hash Key and Hash IV
+4. Go to the WordPress Admin Panel. Open WooCommerce > Settings > Payments to enable your preferred payment methods.
+
+Once your PAYUNi seller member account and your store has been approved, you can start accepting payments.
+The pricing is always per transaction. No startup fees, no monthly fees.
+
+
+== About PAYUNi ==
+
+PAYUNi (統一金流) is a third-party payment service provider based in Taiwan. 
+It offers a wide range of secure and efficient payment solutions for businesses of all sizes. 
+
+PAYUNi's services include credit card payment, ATM virtual account payment, CVS payment, and mobile payment options, 
+making it easy for merchants to accept payments from their customers. 
+
+Additionally, PAYUNi provides shipping services such as 7-11 C2C shipping and TCat Home Delivery. 
+
+For more information, please refer to the PAYUNi website at https://www.payuni.com.tw/.
+Terms of Service https://www.payuni.com.tw/terms.
 
 == Changelog ==
 

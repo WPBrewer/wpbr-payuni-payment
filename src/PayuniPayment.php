@@ -223,7 +223,7 @@ class PayuniPayment {
 	 */
 	public function payuni_ajax_query_payment() {
 
-		if ( ! isset( $posted['security'] ) || ! wp_verify_nonce( wc_clean( wp_unslash( $posted['security'] ) ), 'payuni-query' ) ) {
+		if ( ! isset( $_POST['security'] ) || ! wp_verify_nonce( wc_clean( wp_unslash( $_POST['security'] ) ), 'payuni-query' ) ) {
 			$return = array(
 				'success' => false,
 				'message' => __( 'Unsecure AJAX call', 'wpbr-payuni-payment' ),

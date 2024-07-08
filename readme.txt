@@ -10,11 +10,10 @@ License URI: http://www.gnu.org/licenses/gpl-2.0.txt
 
 Accept payments via PAYUNi payment for your WooCommerce store.
 
-This plugin integrates with PAYUNi's UNiPaypage (UPP) service, which redirects the customer to the payment page when the customer places an order.
-
 == Description ==
 
 Pay with PAYUNi allows you to provide PAYUNi payment gateway for the customers.
+This plugin integrates with PAYUNi's UNiPaypage (UPP) service, which redirects the customer to the payment page when the customer places an order.
 
 Major features include:
 

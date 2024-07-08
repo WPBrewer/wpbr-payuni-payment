@@ -8,14 +8,13 @@ Stable tag: 1.5.0
 License: GPLv2 or later.
 License URI: http://www.gnu.org/licenses/gpl-2.0.txt
 
-Accept payments via PAYUNi payment for your ecommerce store.
+Accept payments via PAYUNi payment for your WooCommerce store.
 
 This plugin integrates with PAYUNi's UNiPaypage (UPP) service, which redirects the customer to the payment page when the customer places an order.
 
 == Description ==
 
 Pay with PAYUNi allows you to provide PAYUNi payment gateway for the customers.
-This plugin
 
 Major features include:
 
@@ -33,7 +32,7 @@ Major features include:
 
 == Get started with PAYUNi ==
 
-1. [Apply PAYUNi's seller member](https://wpbrewer.com/payuni-apply)
+1. [Apply PAYUNi's seller member](https://wpbrewer.com/payuni-apply). If you want to test the payment service in sandbox mode, please register seller member in [Sandbox](https://sandbox.payuni.com.tw/signup)
 2. Install & Activate Pay with PAYUNi plugin on your WordPress website.
 3. Setup the Merchant ID、Hash Key and Hash IV
 4. Go to the WordPress Admin Panel. Open WooCommerce > Settings > Payments to enable your preferred payment methods.

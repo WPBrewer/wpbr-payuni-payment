@@ -26,7 +26,7 @@ Major features include:
 * ATM Virtual Account payment
 * CVS payment
 * Support Language setting for UNiPaypage
-× Support refund on backend (Credit Payment、Installment payment、Apple Pay、Google Pay、Samsung Pay)
+* Support refund on backend (Credit Payment、Installment payment、Apple Pay、Google Pay、Samsung Pay)
 * Compatible with High-Performance Order Storage (HPOS)
 
 == Get started with PAYUNi ==

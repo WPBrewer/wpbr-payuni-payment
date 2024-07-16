@@ -30,7 +30,6 @@ wp-cli.local.yml
 main.yaml
 update-assets.yaml
 tests
-vendor
 node_modules
 *.sql
 *.tar.gz

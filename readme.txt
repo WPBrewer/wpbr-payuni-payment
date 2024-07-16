@@ -50,10 +50,14 @@ making it easy for merchants to accept payments from their customers.
 
 Additionally, PAYUNi provides shipping services such as 7-11 C2C shipping and TCat Home Delivery. 
 
-For more information, please refer to the PAYUNi website at https://www.payuni.com.tw/.
-Terms of Service https://www.payuni.com.tw/terms.
+For more information, please refer to the PAYUNi website at [https://www.payuni.com.tw/](https://www.payuni.com.tw/).
+Terms of Service : [https://www.payuni.com.tw/terms](https://www.payuni.com.tw/terms).
 
 == Changelog ==
+
+= 1.5.1 - 2024/07/08 =
+
+* UPDATE - Refactor code for WordPress.org plugin review
 
 = 1.5.0 - 2024/06/14 =
 

@@ -19,7 +19,7 @@ Major features include:
 
 * Integrate with PAYUNi's UNiPaypage(UPP) service
 * Credit Card payment
-* Credit Card installment payment (Cound enable/disable for different installments)
+* Credit Card installment payment (Could enable/disable for different installments)
 * Apple Pay、Google Pay、Samsung Pay
 * LINE Pay
 * AFTEE payment

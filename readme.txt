@@ -42,7 +42,7 @@ The pricing is always per transaction. No startup fees, no monthly fees.
 
 == About PAYUNi ==
 
-PAYUNi (統一金流) is a third-party payment service provider based in Taiwan. 
+[PAYUNi (統一金流)]((https://www.payuni.com.tw/)) is a third-party payment service provider based in Taiwan. 
 It offers a wide range of secure and efficient payment solutions for businesses of all sizes. 
 
 PAYUNi's services include credit card payment, ATM virtual account payment, CVS payment, and mobile payment options, 
@@ -50,8 +50,8 @@ making it easy for merchants to accept payments from their customers.
 
 Additionally, PAYUNi provides shipping services such as 7-11 C2C shipping and TCat Home Delivery. 
 
-For more information, please refer to the PAYUNi website at [https://www.payuni.com.tw/](https://www.payuni.com.tw/).
-Terms of Service : [https://www.payuni.com.tw/terms](https://www.payuni.com.tw/terms).
+For more information, please refer to the [PAYUNi website](https://www.payuni.com.tw/).
+[PAYUNi Terms of Service](https://www.payuni.com.tw/terms).
 
 == Changelog ==
 

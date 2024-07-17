@@ -12,7 +12,7 @@ Accept payments via PAYUNi payment for your WooCommerce store.
 
 == Description ==
 
-Pay with PAYUNi allows you to provide PAYUNi payment gateway for the customers.
+Pay with PAYUNi plugin allows you to provide PAYUNi payment gateway for your WooCommerce store.
 This plugin integrates with PAYUNi's UNiPaypage (UPP) service, which redirects the customer to the payment page when the customer places an order.
 
 Major features include:

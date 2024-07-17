@@ -8,21 +8,21 @@ Stable tag: 1.5.1
 License: GPLv2 or later.
 License URI: http://www.gnu.org/licenses/gpl-2.0.txt
 
-Accept payments via PAYUNi payment for your WooCommerce store.
+Accept payments via PAYUNi(統一金流) payment for your WooCommerce store.
 
 == Description ==
 
-Pay with PAYUNi plugin allows you to provide PAYUNi payment gateway for your WooCommerce store.
-This plugin integrates with PAYUNi's UNiPaypage (UPP) service, which redirects the customer to the payment page when the customer places an order.
+Pay with PAYUNi(統一金流) plugin allows you to provide PAYUNi payment gateway for your WooCommerce store.
+This plugin integrates with PAYUNi's UNiPaypage (UPP/整合式支付頁) service, which redirects the customer to the payment page when the customer places an order.
 
 Major features include:
 
-* Integrate with PAYUNi's UNiPaypage(UPP) service
+* Integrate with PAYUNi's UNiPaypage(UPP/) service
 * Credit Card payment
 * Credit Card installment payment (Could enable/disable for different installments)
 * Apple Pay、Google Pay、Samsung Pay
 * LINE Pay
-* AFTEE payment
+* AFTEE payment (AFTEE先享後付)
 * ATM Virtual Account payment
 * CVS payment
 * Support Language setting for UNiPaypage

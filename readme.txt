@@ -4,7 +4,7 @@ Tags: WooCommerce, PAYUNi, taiwan, payment, payment gateway
 Requires at least: 5.9
 Tested up to: 6.5.3
 Requires PHP: 7.4
-Stable tag: 1.5.1
+Stable tag: 1.5.2
 License: GPLv2 or later.
 License URI: http://www.gnu.org/licenses/gpl-2.0.txt
 
@@ -54,6 +54,11 @@ For more information, please refer to the [PAYUNi website](https://www.payuni.co
 [PAYUNi Terms of Service](https://www.payuni.com.tw/terms).
 
 == Changelog ==
+
+= 1.5.2 - 2024/08/06 =
+
+* UPDATE - Fail the order when receiving the PAYUNi ATM/CVS expried notification (from Notify URL).
+* FIX    - Allow to set ATM/CVS expire days to 0.
 
 = 1.5.1 - 2024/07/08 =
 

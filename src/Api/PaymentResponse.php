@@ -77,6 +77,12 @@ class PaymentResponse {
 				$order->payment_complete( $decrypted_info['TradeNo'] );
 				$order->add_order_note( 'PAYUNi payment completed (NotifyURL). Trade Status:' . $trade_status . ', Message:' . $message );
 			}
+		} elseif ( TradeStatus::EXPIRED === $trade_status ) {
+			$order->update_status( 'failed' );
+			$order->add_order_note( 'PAYUNi payment expired (NotifyURL). Pay Type:' . $pay_type . ', Trade Status:' . $trade_status . ', Message:' . $message );
+		} elseif ( TradeStatus::CANCEL === $trade_status || TradeStatus::FAIL === $trade_status ) {
+			$order->update_status( 'failed' );
+			$order->add_order_note( 'PAYUNi payment cancelled or failed (NotifyURL). Pay Type:' . $pay_type . ', Trade Status:' . $trade_status . ', Message:' . $message );
 		} else {
 			$order->add_order_note( 'PAYUNi payment incompleted (NotifyURL). Pay Type:' . $pay_type . ', Trade Status:' . $trade_status . ', Message:' . $message );
 		}

@@ -15,9 +15,16 @@ Accept payments via PAYUNi(統一金流) payment for your WooCommerce store.
 Pay with PAYUNi(統一金流) plugin allows you to provide PAYUNi payment gateway for your WooCommerce store.
 This plugin integrates with PAYUNi's UNiPaypage (UPP/整合式支付頁) service, which redirects the customer to the payment page when the customer places an order.
 
-Major features include:
+== Major features include ==
 
 * Integrate with PAYUNi's UNiPaypage(UPP/) service
+* Support Language setting for UNiPaypage
+* Support refund on backend (Credit Payment、Installment payment、Apple Pay、Google Pay、Samsung Pay)
+* Support E-Invoice feature
+* Compatible with High-Performance Order Storage (HPOS)
+
+== Supported Payment Methods ==
+
 * Credit Card payment
 * Credit Card installment payment (Could enable/disable for different installments)
 * Apple Pay、Google Pay、Samsung Pay
@@ -25,9 +32,6 @@ Major features include:
 * AFTEE payment (AFTEE先享後付)
 * ATM Virtual Account payment
 * CVS payment
-* Support Language setting for UNiPaypage
-* Support refund on backend (Credit Payment、Installment payment、Apple Pay、Google Pay、Samsung Pay)
-* Compatible with High-Performance Order Storage (HPOS)
 
 == Get started with PAYUNi ==
 

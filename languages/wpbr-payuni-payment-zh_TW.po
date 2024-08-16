@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PAYUNi Payment for WooCommerce\n"
-"POT-Creation-Date: 2024-08-16 15:45+0800\n"
-"PO-Revision-Date: 2024-08-16 15:48+0800\n"
+"POT-Creation-Date: 2024-08-16 16:20+0800\n"
+"PO-Revision-Date: 2024-08-16 16:20+0800\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: zh_TW\n"
@@ -164,6 +164,14 @@ msgstr "PAYUNi LINE Pay"
 msgid "PAYUNi  Samsung Pay Payment"
 msgstr "PAYUNi Samsung Pay"
 
+#: src/Admin/OrderList.php:38
+msgid "Invoice No"
+msgstr "發票編號"
+
+#: src/Admin/OrderList.php:50
+msgid "Unissue"
+msgstr "未開立"
+
 #: src/Admin/OrderMetaBoxes.php:61 src/Gateways/GatewayBase.php:121
 msgid "PAYUNi Payment Detail"
 msgstr "PAYUNi付款資訊"
@@ -184,19 +192,20 @@ msgstr "發票金額"
 msgid "E-Invoice Time"
 msgstr "開立時間"
 
-#: src/Admin/OrderMetaBoxes.php:108 src/Admin/OrderMetaBoxes.php:134
-#: src/Gateways/GatewayBase.php:175
-msgid "Issued"
-msgstr "已開立"
+#: src/Admin/OrderMetaBoxes.php:108 src/Gateways/GatewayBase.php:149
+msgctxt "Issue Type"
+msgid "Issue"
+msgstr "開立發票"
 
-#: src/Admin/OrderMetaBoxes.php:110 src/Admin/OrderMetaBoxes.php:138
-#: src/Gateways/GatewayBase.php:179
-msgid "Voided"
-msgstr "已作廢"
+#: src/Admin/OrderMetaBoxes.php:110 src/Gateways/GatewayBase.php:151
+msgctxt "Issue Type"
+msgid "Void"
+msgstr "作廢發票"
 
-#: src/Admin/OrderMetaBoxes.php:112
+#: src/Admin/OrderMetaBoxes.php:112 src/Gateways/GatewayBase.php:153
+msgctxt "Issue Type"
 msgid "Unknown Issue Type"
-msgstr "未知的開立類別"
+msgstr "未知的發票類別"
 
 #: src/Admin/OrderMetaBoxes.php:114 src/Gateways/GatewayBase.php:155
 msgid "E-Invoice Type"
@@ -230,9 +239,17 @@ msgstr "未知的開立方式"
 msgid "Issue Info"
 msgstr "開立方式"
 
+#: src/Admin/OrderMetaBoxes.php:134 src/Gateways/GatewayBase.php:175
+msgid "Issued"
+msgstr "已開立"
+
 #: src/Admin/OrderMetaBoxes.php:136 src/Gateways/GatewayBase.php:177
 msgid "Failed"
 msgstr "失敗"
+
+#: src/Admin/OrderMetaBoxes.php:138 src/Gateways/GatewayBase.php:179
+msgid "Voided"
+msgstr "已作廢"
 
 #: src/Admin/OrderMetaBoxes.php:140 src/Gateways/GatewayBase.php:181
 msgid "Unknown Issue Status"
@@ -395,21 +412,6 @@ msgstr "如果未顯示付款詳細資訊。請稍等片刻，再重新載入頁
 msgid "E-Invoice Detail"
 msgstr "電子發票資訊"
 
-#: src/Gateways/GatewayBase.php:149
-msgctxt "Issue Type"
-msgid "Issue"
-msgstr "開立發票"
-
-#: src/Gateways/GatewayBase.php:151
-msgctxt "Issue Type"
-msgid "Void"
-msgstr "作廢發票"
-
-#: src/Gateways/GatewayBase.php:153
-msgctxt "Issue Type"
-msgid "Unknown Issue Type"
-msgstr "未知的發票類別"
-
 #. translators: 1: Payment method title 2: PAYUNi URL
 #: src/Gateways/GatewayBase.php:198
 #, php-format
@@ -461,44 +463,44 @@ msgstr "第一期金額"
 msgid "Each Amount"
 msgstr "每期"
 
-#: src/PayuniPayment.php:150
+#: src/PayuniPayment.php:152
 msgid "Trade No"
 msgstr "UNi序號"
 
-#: src/PayuniPayment.php:151
+#: src/PayuniPayment.php:153
 msgid "Trade Amount"
 msgstr "訂單金額"
 
-#: src/PayuniPayment.php:152
+#: src/PayuniPayment.php:154
 msgid "Trade Status"
 msgstr "訂單狀態"
 
-#: src/PayuniPayment.php:153
+#: src/PayuniPayment.php:155
 msgid "Message"
 msgstr "訊息"
 
-#: src/PayuniPayment.php:187
+#: src/PayuniPayment.php:189
 msgid "General Settings"
 msgstr "一般設定"
 
-#: src/PayuniPayment.php:188 src/Settings/SettingsTab.php:53
+#: src/PayuniPayment.php:190 src/Settings/SettingsTab.php:53
 #: src/Settings/SettingsTab.php:73
 msgid "Payment Settings"
 msgstr "付款方式設定"
 
-#: src/PayuniPayment.php:240
+#: src/PayuniPayment.php:242
 msgid "Unsecure AJAX call"
 msgstr "不安全的 AJAX 呼叫"
 
-#: src/PayuniPayment.php:251
+#: src/PayuniPayment.php:253
 msgid "No such order id"
 msgstr "沒有這個訂單編號"
 
-#: src/PayuniPayment.php:263
+#: src/PayuniPayment.php:265
 msgid "PAYUNi Query Successfully"
 msgstr "PAYUNi 查詢成功"
 
-#: src/PayuniPayment.php:269
+#: src/PayuniPayment.php:271
 msgid "PAYUNi Query Failed!"
 msgstr "PAYUNi 查詢失敗！"
 
@@ -691,6 +693,9 @@ msgstr "WPBrewer"
 #. Author URI of the plugin/theme
 msgid "https://wpbrewer.com/"
 msgstr "https://wpbrewer.com/"
+
+#~ msgid "Unknown Issue Type"
+#~ msgstr "未知的開立類別"
 
 #~ msgid "Thank you. Your order has been received."
 #~ msgstr "謝謝，我們已經收到你的訂單。"

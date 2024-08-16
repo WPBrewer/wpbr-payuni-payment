@@ -2,7 +2,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PAYUNi Payment for WooCommerce\n"
-"POT-Creation-Date: 2024-08-16 15:45+0800\n"
+"POT-Creation-Date: 2024-08-16 16:20+0800\n"
 "PO-Revision-Date: 2023-03-30 14:52+0800\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -177,6 +177,14 @@ msgstr ""
 msgid "PAYUNi  Samsung Pay Payment"
 msgstr ""
 
+#: src/Admin/OrderList.php:38
+msgid "Invoice No"
+msgstr ""
+
+#: src/Admin/OrderList.php:50
+msgid "Unissue"
+msgstr ""
+
 #: src/Admin/OrderMetaBoxes.php:61 src/Gateways/GatewayBase.php:121
 msgid "PAYUNi Payment Detail"
 msgstr ""
@@ -197,17 +205,18 @@ msgstr ""
 msgid "E-Invoice Time"
 msgstr ""
 
-#: src/Admin/OrderMetaBoxes.php:108 src/Admin/OrderMetaBoxes.php:134
-#: src/Gateways/GatewayBase.php:175
-msgid "Issued"
+#: src/Admin/OrderMetaBoxes.php:108 src/Gateways/GatewayBase.php:149
+msgctxt "Issue Type"
+msgid "Issue"
 msgstr ""
 
-#: src/Admin/OrderMetaBoxes.php:110 src/Admin/OrderMetaBoxes.php:138
-#: src/Gateways/GatewayBase.php:179
-msgid "Voided"
+#: src/Admin/OrderMetaBoxes.php:110 src/Gateways/GatewayBase.php:151
+msgctxt "Issue Type"
+msgid "Void"
 msgstr ""
 
-#: src/Admin/OrderMetaBoxes.php:112
+#: src/Admin/OrderMetaBoxes.php:112 src/Gateways/GatewayBase.php:153
+msgctxt "Issue Type"
 msgid "Unknown Issue Type"
 msgstr ""
 
@@ -243,8 +252,16 @@ msgstr ""
 msgid "Issue Info"
 msgstr ""
 
+#: src/Admin/OrderMetaBoxes.php:134 src/Gateways/GatewayBase.php:175
+msgid "Issued"
+msgstr ""
+
 #: src/Admin/OrderMetaBoxes.php:136 src/Gateways/GatewayBase.php:177
 msgid "Failed"
+msgstr ""
+
+#: src/Admin/OrderMetaBoxes.php:138 src/Gateways/GatewayBase.php:179
+msgid "Voided"
 msgstr ""
 
 #: src/Admin/OrderMetaBoxes.php:140 src/Gateways/GatewayBase.php:181
@@ -408,21 +425,6 @@ msgstr ""
 msgid "E-Invoice Detail"
 msgstr ""
 
-#: src/Gateways/GatewayBase.php:149
-msgctxt "Issue Type"
-msgid "Issue"
-msgstr ""
-
-#: src/Gateways/GatewayBase.php:151
-msgctxt "Issue Type"
-msgid "Void"
-msgstr ""
-
-#: src/Gateways/GatewayBase.php:153
-msgctxt "Issue Type"
-msgid "Unknown Issue Type"
-msgstr ""
-
 #. translators: 1: Payment method title 2: PAYUNi URL
 #: src/Gateways/GatewayBase.php:198
 #, php-format
@@ -472,44 +474,44 @@ msgstr ""
 msgid "Each Amount"
 msgstr ""
 
-#: src/PayuniPayment.php:150
+#: src/PayuniPayment.php:152
 msgid "Trade No"
 msgstr ""
 
-#: src/PayuniPayment.php:151
+#: src/PayuniPayment.php:153
 msgid "Trade Amount"
 msgstr ""
 
-#: src/PayuniPayment.php:152
+#: src/PayuniPayment.php:154
 msgid "Trade Status"
 msgstr ""
 
-#: src/PayuniPayment.php:153
+#: src/PayuniPayment.php:155
 msgid "Message"
 msgstr ""
 
-#: src/PayuniPayment.php:187
+#: src/PayuniPayment.php:189
 msgid "General Settings"
 msgstr ""
 
-#: src/PayuniPayment.php:188 src/Settings/SettingsTab.php:53
+#: src/PayuniPayment.php:190 src/Settings/SettingsTab.php:53
 #: src/Settings/SettingsTab.php:73
 msgid "Payment Settings"
 msgstr ""
 
-#: src/PayuniPayment.php:240
+#: src/PayuniPayment.php:242
 msgid "Unsecure AJAX call"
 msgstr ""
 
-#: src/PayuniPayment.php:251
+#: src/PayuniPayment.php:253
 msgid "No such order id"
 msgstr ""
 
-#: src/PayuniPayment.php:263
+#: src/PayuniPayment.php:265
 msgid "PAYUNi Query Successfully"
 msgstr ""
 
-#: src/PayuniPayment.php:269
+#: src/PayuniPayment.php:271
 msgid "PAYUNi Query Failed!"
 msgstr ""
 

@@ -38,6 +38,14 @@ class OrderMeta {
     const AFTEE_PAY_NO         = '_wpbr_payuni_upp_aftee_payno'; // 付款序號.
     const AFTEE_PAY_TIME       = '_wpbr_payuni_upp_aftee_paytime'; // 付款時間.
     const LINE_PAY_NO          = '_wpbr_payuni_upp_linepay_payno'; // 付款序號.
+
+    const EINVOICE_NO          = '_wpbr_payuni_einvoice_no'; // 發票編號.
+    const EINVOICE_AMT         = '_wpbr_payuni_einvoice_amt'; // 發票金額.
+    const EINVOICE_TIME        = '_wpbr_payuni_einvoice_time'; // 發票時間.
+    const EINVOICE_TYPE        = '_wpbr_payuni_einvoice_type'; // 發票類型.(C0401=開立發票,C0501=作廢發票)
+    const EINVOICE_INFO        = '_wpbr_payuni_einvoice_info'; // 發票資訊.(開立方式和載具類型)
+    const EINVOICE_STATUS      = '_wpbr_payuni_einvoice_status'; // 發票狀態.
+
     const PLUGIN_VERSION       = '_wpbr_payuni_upp_plugin_version'; // 外掛版本.
 
 }

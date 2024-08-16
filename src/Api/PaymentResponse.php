@@ -70,6 +70,12 @@ class PaymentResponse {
 			return;
 		}
 
+		if ( array_key_exists( 'InvoiceNo', $decrypted_info ) ) {
+			self::save_einvoice_data( $order, $decrypted_info );
+			$order->add_order_note( 'PAYUNi E-Invoice Notify. InvoiceStatus:' . $decrypted_info['InvoiceStatus'] . ', InvoiceNo:' . $decrypted_info['InvoiceNo'] );
+			return;
+		}
+
 		self::save_payuni_order_data( $order, $decrypted_info );
 
 		if ( TradeStatus::PAID === $trade_status ) {
@@ -202,6 +208,16 @@ class PaymentResponse {
 
 		$order->update_meta_data( OrderMeta::PLUGIN_VERSION, WPBR_PAYUNI_PAYMENT_VERSION );
 
+		$order->save();
+	}
+
+	private static function save_einvoice_data( $order, $decrypted_info ) {
+		$order->update_meta_data( OrderMeta::EINVOICE_NO, $decrypted_info['InvoiceNo'] );
+		$order->update_meta_data( OrderMeta::EINVOICE_AMT, $decrypted_info['TradeAmt'] );
+		$order->update_meta_data( OrderMeta::EINVOICE_TIME, $decrypted_info['InvoiceTime'] );
+		$order->update_meta_data( OrderMeta::EINVOICE_TYPE, $decrypted_info['InvoiceNotifyType'] );
+		$order->update_meta_data( OrderMeta::EINVOICE_INFO, $decrypted_info['InvoiceInfo'] );
+		$order->update_meta_data( OrderMeta::EINVOICE_STATUS, $decrypted_info['InvoiceStatus'] );
 		$order->save();
 	}
 

@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PAYUNi Payment for WooCommerce\n"
-"POT-Creation-Date: 2024-06-14 06:17+0800\n"
-"PO-Revision-Date: 2024-06-14 06:23+0800\n"
+"POT-Creation-Date: 2024-08-16 15:45+0800\n"
+"PO-Revision-Date: 2024-08-16 15:48+0800\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: zh_TW\n"
@@ -168,18 +168,92 @@ msgstr "PAYUNi Samsung Pay"
 msgid "PAYUNi Payment Detail"
 msgstr "PAYUNi付款資訊"
 
-#: src/Api/PaymentRequest.php:86
+#: src/Admin/OrderMetaBoxes.php:93
+msgid "Order No"
+msgstr "訂單編號"
+
+#: src/Admin/OrderMetaBoxes.php:102 src/Gateways/GatewayBase.php:143
+msgid "E-Invoice No"
+msgstr "發票編號"
+
+#: src/Admin/OrderMetaBoxes.php:103 src/Gateways/GatewayBase.php:144
+msgid "E-Invoice Amount"
+msgstr "發票金額"
+
+#: src/Admin/OrderMetaBoxes.php:104 src/Gateways/GatewayBase.php:145
+msgid "E-Invoice Time"
+msgstr "開立時間"
+
+#: src/Admin/OrderMetaBoxes.php:108 src/Admin/OrderMetaBoxes.php:134
+#: src/Gateways/GatewayBase.php:175
+msgid "Issued"
+msgstr "已開立"
+
+#: src/Admin/OrderMetaBoxes.php:110 src/Admin/OrderMetaBoxes.php:138
+#: src/Gateways/GatewayBase.php:179
+msgid "Voided"
+msgstr "已作廢"
+
+#: src/Admin/OrderMetaBoxes.php:112
+msgid "Unknown Issue Type"
+msgstr "未知的開立類別"
+
+#: src/Admin/OrderMetaBoxes.php:114 src/Gateways/GatewayBase.php:155
+msgid "E-Invoice Type"
+msgstr "發票類別"
+
+#: src/Admin/OrderMetaBoxes.php:118 src/Gateways/GatewayBase.php:159
+msgid "Mobile Code"
+msgstr "手機條碼"
+
+#: src/Admin/OrderMetaBoxes.php:120 src/Gateways/GatewayBase.php:161
+msgid "CDC Code"
+msgstr "自然人憑證"
+
+#: src/Admin/OrderMetaBoxes.php:122 src/Gateways/GatewayBase.php:163
+msgid "Amego Member"
+msgstr "光貿會員載具"
+
+#: src/Admin/OrderMetaBoxes.php:124 src/Gateways/GatewayBase.php:165
+msgid "Donation"
+msgstr "捐贈"
+
+#: src/Admin/OrderMetaBoxes.php:126 src/Gateways/GatewayBase.php:167
+msgid "Company"
+msgstr "公司發票"
+
+#: src/Admin/OrderMetaBoxes.php:128 src/Gateways/GatewayBase.php:169
+msgid "Unknown Issue Info"
+msgstr "未知的開立方式"
+
+#: src/Admin/OrderMetaBoxes.php:130 src/Gateways/GatewayBase.php:171
+msgid "Issue Info"
+msgstr "開立方式"
+
+#: src/Admin/OrderMetaBoxes.php:136 src/Gateways/GatewayBase.php:177
+msgid "Failed"
+msgstr "失敗"
+
+#: src/Admin/OrderMetaBoxes.php:140 src/Gateways/GatewayBase.php:181
+msgid "Unknown Issue Status"
+msgstr "未知的開立狀態"
+
+#: src/Admin/OrderMetaBoxes.php:142 src/Gateways/GatewayBase.php:183
+msgid "Issue Status"
+msgstr "開立狀態"
+
+#: src/Api/PaymentRequest.php:90
 msgid "Redirecting..."
 msgstr "重新導向中..."
 
 #. translators:  %s is the order id
-#: src/Api/PaymentRequest.php:125
+#: src/Api/PaymentRequest.php:126
 #, php-format
 msgid "Unable to find order #%s"
 msgstr "找不到訂單編號 #%s"
 
 #. translators:  %s is the order id
-#: src/Api/PaymentRequest.php:140
+#: src/Api/PaymentRequest.php:141
 #, php-format
 msgid ""
 "The refund amount for order #%s should be the same as the order total for "
@@ -187,30 +261,30 @@ msgid ""
 msgstr "訂單#%s的退款金額應與分期付款的訂單總額相同。"
 
 #. translators:  %s is the order id
-#: src/Api/PaymentRequest.php:156
+#: src/Api/PaymentRequest.php:157
 #, php-format
 msgid "Unable to find transaction id for order #%s"
 msgstr "找不到訂單交易編號 #%s"
 
 #. translators:  %s is the order id
-#: src/Api/PaymentRequest.php:169
+#: src/Api/PaymentRequest.php:170
 msgid "Unable to Query Order status before refund"
 msgstr "無法於退款前執行訂單交易狀態查詢"
 
 #. translators:  %s is the TradeStatus of the order
-#: src/Api/PaymentRequest.php:206
+#: src/Api/PaymentRequest.php:207
 #, php-format
 msgid "Unable to Refund this Order. TradeStatus: %1$s, CloseStatus: %2$s"
 msgstr "訂單退款失敗。交易狀態：%1$s，關帳狀態：%2$s"
 
 #. translators:  %s is the TradeStatus of the order
-#: src/Api/PaymentRequest.php:219
+#: src/Api/PaymentRequest.php:220
 #, php-format
 msgid "Unable to Refund this Order. TradeStatus:%s"
 msgstr "退款失敗。交易狀態：%s"
 
 #. translators: %1$s is the status, %2$s is the message, %3$s is the refund amount
-#: src/Api/PaymentRequest.php:257
+#: src/Api/PaymentRequest.php:258
 #, php-format
 msgid ""
 "PAYUNi payment refund success. Status: %1$s, Message: %2$s, Refund Amount: "
@@ -218,7 +292,7 @@ msgid ""
 msgstr "退款成功。狀態：%1$s，訊息：%2$s，退款金額：%3$s"
 
 #. translators:  %s is the decrypted result
-#: src/Api/PaymentRequest.php:343
+#: src/Api/PaymentRequest.php:344
 #, php-format
 msgid "PAYUNi query succeed. Query result: %s"
 msgstr "PAYUNi 查詢成功. 查詢結果: %s"
@@ -317,17 +391,36 @@ msgid ""
 "the page."
 msgstr "如果未顯示付款詳細資訊。請稍等片刻，再重新載入頁面。"
 
-#. translators: 1: Payment method title 2: PAYUNi URL
+#: src/Gateways/GatewayBase.php:141
+msgid "E-Invoice Detail"
+msgstr "電子發票資訊"
+
+#: src/Gateways/GatewayBase.php:149
+msgctxt "Issue Type"
+msgid "Issue"
+msgstr "開立發票"
+
 #: src/Gateways/GatewayBase.php:151
+msgctxt "Issue Type"
+msgid "Void"
+msgstr "作廢發票"
+
+#: src/Gateways/GatewayBase.php:153
+msgctxt "Issue Type"
+msgid "Unknown Issue Type"
+msgstr "未知的發票類別"
+
+#. translators: 1: Payment method title 2: PAYUNi URL
+#: src/Gateways/GatewayBase.php:198
 #, php-format
 msgid "%1$s is a payment gateway provided by %2$s"
 msgstr "%1$s 是由 %2$s 所提供的付款方式"
 
-#: src/Gateways/GatewayBase.php:156 src/Settings/SettingsTab.php:31
+#: src/Gateways/GatewayBase.php:203 src/Settings/SettingsTab.php:31
 msgid "PAYUNi"
 msgstr "PAYUNi"
 
-#: src/Gateways/GatewayBase.php:211
+#: src/Gateways/GatewayBase.php:258
 msgid "We have received your order, but the payment is incompleted."
 msgstr ""
 "我們已經收到您的訂單，但是付款尚未完成，請儘速付款，若有問題請聯繫商店管理"
@@ -368,44 +461,44 @@ msgstr "第一期金額"
 msgid "Each Amount"
 msgstr "每期"
 
-#: src/PayuniPayment.php:142
+#: src/PayuniPayment.php:150
 msgid "Trade No"
 msgstr "UNi序號"
 
-#: src/PayuniPayment.php:143
+#: src/PayuniPayment.php:151
 msgid "Trade Amount"
 msgstr "訂單金額"
 
-#: src/PayuniPayment.php:144
+#: src/PayuniPayment.php:152
 msgid "Trade Status"
 msgstr "訂單狀態"
 
-#: src/PayuniPayment.php:145
+#: src/PayuniPayment.php:153
 msgid "Message"
 msgstr "訊息"
 
-#: src/PayuniPayment.php:179
+#: src/PayuniPayment.php:187
 msgid "General Settings"
 msgstr "一般設定"
 
-#: src/PayuniPayment.php:180 src/Settings/SettingsTab.php:53
+#: src/PayuniPayment.php:188 src/Settings/SettingsTab.php:53
 #: src/Settings/SettingsTab.php:73
 msgid "Payment Settings"
 msgstr "付款方式設定"
 
-#: src/PayuniPayment.php:229
+#: src/PayuniPayment.php:240
 msgid "Unsecure AJAX call"
 msgstr "不安全的 AJAX 呼叫"
 
-#: src/PayuniPayment.php:240
+#: src/PayuniPayment.php:251
 msgid "No such order id"
 msgstr "沒有這個訂單編號"
 
-#: src/PayuniPayment.php:252
+#: src/PayuniPayment.php:263
 msgid "PAYUNi Query Successfully"
 msgstr "PAYUNi 查詢成功"
 
-#: src/PayuniPayment.php:258
+#: src/PayuniPayment.php:269
 msgid "PAYUNi Query Failed!"
 msgstr "PAYUNi 查詢失敗！"
 
@@ -457,75 +550,89 @@ msgstr "英文"
 msgid "The language of the PAYUNi checkout page."
 msgstr "統一金流支付頁的語系設定。"
 
+#: src/Settings/SettingsTab.php:117
+msgid "E-Invoice"
+msgstr "電子發票"
+
+#: src/Settings/SettingsTab.php:120
+msgid "Enable E-Invoice"
+msgstr "啟用電子發票功能"
+
 #: src/Settings/SettingsTab.php:121
+msgid ""
+"You need to register Amego e-invoice and enable e-invoice feature at PAYUNi "
+"website."
+msgstr "需於統一金流後台註冊光貿電子發票並啟用電子發票功能。"
+
+#: src/Settings/SettingsTab.php:129
 msgid "API Settings"
 msgstr "API 設定"
 
-#: src/Settings/SettingsTab.php:123
+#: src/Settings/SettingsTab.php:131
 msgid "Enter your PAYUNi API credentials"
 msgstr "請輸入 PAYUNi 串接資料"
 
-#: src/Settings/SettingsTab.php:127
+#: src/Settings/SettingsTab.php:135
 msgid "Test Mode"
 msgstr "測試模式"
 
-#: src/Settings/SettingsTab.php:130
+#: src/Settings/SettingsTab.php:138
 msgid "When enabled, you need to use the test-only data below."
 msgstr "當啟用測試模式時，請填入測試環境的串接資料。"
 
-#: src/Settings/SettingsTab.php:134
+#: src/Settings/SettingsTab.php:142
 msgid "Test MerchantID"
 msgstr "測試商店代號 (MerID)"
 
-#: src/Settings/SettingsTab.php:136
+#: src/Settings/SettingsTab.php:144
 msgid "This is the test MerchantID when you apply PAYUNi API"
 msgstr "PAYUNi 測試環境的商店代號"
 
-#: src/Settings/SettingsTab.php:141
+#: src/Settings/SettingsTab.php:149
 msgid "Test Hash Key"
 msgstr "測試 Hash Key"
 
-#: src/Settings/SettingsTab.php:143
+#: src/Settings/SettingsTab.php:151
 msgid "This is the test Hash Key when you apply PAYUNi API"
 msgstr "PAYUNi 測試環境的 Hash Key"
 
-#: src/Settings/SettingsTab.php:148
+#: src/Settings/SettingsTab.php:156
 msgid "Test Hash IV"
 msgstr "測試 Hash IV"
 
-#: src/Settings/SettingsTab.php:150
+#: src/Settings/SettingsTab.php:158
 msgid "This is the test Hash IV when you apply PAYUNi API"
 msgstr "PAYUNi 測試環境的 Hash IV"
 
-#: src/Settings/SettingsTab.php:155
+#: src/Settings/SettingsTab.php:163
 msgid "MerchantID"
 msgstr "商店代號 (MerID)"
 
-#: src/Settings/SettingsTab.php:157
+#: src/Settings/SettingsTab.php:165
 msgid "This is the MerchantID when you apply PAYUNi API"
 msgstr "這是您申請 PAYUNi 時的商店代號"
 
-#: src/Settings/SettingsTab.php:162
+#: src/Settings/SettingsTab.php:170
 msgid "Hash Key"
 msgstr "Hash Key"
 
-#: src/Settings/SettingsTab.php:164
+#: src/Settings/SettingsTab.php:172
 msgid "This is the Hash Key when you apply PAYUNi API"
 msgstr "這是PAYUNi 提供的商店專屬 Hash Key"
 
-#: src/Settings/SettingsTab.php:169
+#: src/Settings/SettingsTab.php:177
 msgid "Hash IV"
 msgstr "Hash IV"
 
-#: src/Settings/SettingsTab.php:171
+#: src/Settings/SettingsTab.php:179
 msgid "This is the Hash IV when you apply PAYUNi API"
 msgstr "這是 PAYUNi 提供的商店專屬 HashIV"
 
-#: src/Settings/SettingsTab.php:248
+#: src/Settings/SettingsTab.php:256
 msgid "View logs"
 msgstr "檢視除錯紀錄"
 
-#: src/Settings/SettingsTab.php:255
+#: src/Settings/SettingsTab.php:263
 msgid "Go to Payment Settings"
 msgstr "設定付款方式"
 
@@ -597,11 +704,6 @@ msgstr "https://wpbrewer.com/"
 #~| msgid "PAYUNi Query Successfully"
 #~ msgid "API Keys successfully."
 #~ msgstr "PAYUNi 查詢成功"
-
-#, fuzzy
-#~| msgid "Trade Status"
-#~ msgid "License Status"
-#~ msgstr "訂單狀態"
 
 #, fuzzy
 #~| msgid "Installments"

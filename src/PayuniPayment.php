@@ -73,6 +73,13 @@ class PayuniPayment {
 	public static $available_installments;
 
 	/**
+	 * Whether or not e-invoice is enabled
+	 *
+	 * @var boolean
+	 * */
+	public static $einvoice_enabled;
+
+	/**
 	 * Order meta for all payment gateways
 	 *
 	 * @var array
@@ -102,7 +109,8 @@ class PayuniPayment {
 
 		self::get_instance();
 
-		self::$log_enabled = 'yes' === get_option( 'payuni_payment_debug_log_enabled', 'no' );
+		self::$log_enabled      = 'yes' === get_option( 'payuni_payment_debug_log_enabled', 'no' );
+		self::$einvoice_enabled = 'yes' === get_option( 'payuni_payment_einvoice_enabled', 'no' );
 
 		load_plugin_textdomain( 'wpbr-payuni-payment', false, dirname( WPBR_PAYUNI_BASENAME ) . '/languages/' );
 
@@ -193,9 +201,9 @@ class PayuniPayment {
 			return;
 		}
 
-		wp_enqueue_style( 'payuni-payment', WPBR_PAYUNI_PLUGIN_URL . 'assets/css/payuni-payment-public.css', array(), '1.0.0', 'all' );
+		wp_enqueue_style( 'payuni-payment', WPBR_PAYUNI_PLUGIN_URL . 'assets/css/payuni-payment-public.css', array(), WPBR_PAYUNI_PAYMENT_VERSION, 'all' );
 
-		wp_enqueue_script( 'payuni-public', WPBR_PAYUNI_PLUGIN_URL . 'assets/js/scripts.js', array(), '1.0', true );
+		wp_enqueue_script( 'payuni-public', WPBR_PAYUNI_PLUGIN_URL . 'assets/js/scripts.js', array(), WPBR_PAYUNI_PAYMENT_VERSION, true );
 	}
 
 	/**
@@ -205,7 +213,10 @@ class PayuniPayment {
 	 */
 	public function payuni_admin_scripts() {
 
-		wp_enqueue_script( 'payuni-admin', WPBR_PAYUNI_PLUGIN_URL . 'assets/js/scripts-admin.js', array(), '1.0', true );
+		//enqueue admin css
+		wp_enqueue_style( 'payuni-admin', WPBR_PAYUNI_PLUGIN_URL . 'assets/css/styles-admin.css', array(), WPBR_PAYUNI_PAYMENT_VERSION, 'all' );
+
+		wp_enqueue_script( 'payuni-admin', WPBR_PAYUNI_PLUGIN_URL . 'assets/js/scripts-admin.js', array(), WPBR_PAYUNI_PAYMENT_VERSION, true );
 		wp_localize_script(
 			'payuni-admin',
 			'payuni_object',

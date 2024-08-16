@@ -2,7 +2,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PAYUNi Payment for WooCommerce\n"
-"POT-Creation-Date: 2024-06-14 06:17+0800\n"
+"POT-Creation-Date: 2024-08-16 15:45+0800\n"
 "PO-Revision-Date: 2023-03-30 14:52+0800\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -181,18 +181,92 @@ msgstr ""
 msgid "PAYUNi Payment Detail"
 msgstr ""
 
-#: src/Api/PaymentRequest.php:86
+#: src/Admin/OrderMetaBoxes.php:93
+msgid "Order No"
+msgstr ""
+
+#: src/Admin/OrderMetaBoxes.php:102 src/Gateways/GatewayBase.php:143
+msgid "E-Invoice No"
+msgstr ""
+
+#: src/Admin/OrderMetaBoxes.php:103 src/Gateways/GatewayBase.php:144
+msgid "E-Invoice Amount"
+msgstr ""
+
+#: src/Admin/OrderMetaBoxes.php:104 src/Gateways/GatewayBase.php:145
+msgid "E-Invoice Time"
+msgstr ""
+
+#: src/Admin/OrderMetaBoxes.php:108 src/Admin/OrderMetaBoxes.php:134
+#: src/Gateways/GatewayBase.php:175
+msgid "Issued"
+msgstr ""
+
+#: src/Admin/OrderMetaBoxes.php:110 src/Admin/OrderMetaBoxes.php:138
+#: src/Gateways/GatewayBase.php:179
+msgid "Voided"
+msgstr ""
+
+#: src/Admin/OrderMetaBoxes.php:112
+msgid "Unknown Issue Type"
+msgstr ""
+
+#: src/Admin/OrderMetaBoxes.php:114 src/Gateways/GatewayBase.php:155
+msgid "E-Invoice Type"
+msgstr ""
+
+#: src/Admin/OrderMetaBoxes.php:118 src/Gateways/GatewayBase.php:159
+msgid "Mobile Code"
+msgstr ""
+
+#: src/Admin/OrderMetaBoxes.php:120 src/Gateways/GatewayBase.php:161
+msgid "CDC Code"
+msgstr ""
+
+#: src/Admin/OrderMetaBoxes.php:122 src/Gateways/GatewayBase.php:163
+msgid "Amego Member"
+msgstr ""
+
+#: src/Admin/OrderMetaBoxes.php:124 src/Gateways/GatewayBase.php:165
+msgid "Donation"
+msgstr ""
+
+#: src/Admin/OrderMetaBoxes.php:126 src/Gateways/GatewayBase.php:167
+msgid "Company"
+msgstr ""
+
+#: src/Admin/OrderMetaBoxes.php:128 src/Gateways/GatewayBase.php:169
+msgid "Unknown Issue Info"
+msgstr ""
+
+#: src/Admin/OrderMetaBoxes.php:130 src/Gateways/GatewayBase.php:171
+msgid "Issue Info"
+msgstr ""
+
+#: src/Admin/OrderMetaBoxes.php:136 src/Gateways/GatewayBase.php:177
+msgid "Failed"
+msgstr ""
+
+#: src/Admin/OrderMetaBoxes.php:140 src/Gateways/GatewayBase.php:181
+msgid "Unknown Issue Status"
+msgstr ""
+
+#: src/Admin/OrderMetaBoxes.php:142 src/Gateways/GatewayBase.php:183
+msgid "Issue Status"
+msgstr ""
+
+#: src/Api/PaymentRequest.php:90
 msgid "Redirecting..."
 msgstr ""
 
 #. translators:  %s is the order id
-#: src/Api/PaymentRequest.php:125
+#: src/Api/PaymentRequest.php:126
 #, php-format
 msgid "Unable to find order #%s"
 msgstr ""
 
 #. translators:  %s is the order id
-#: src/Api/PaymentRequest.php:140
+#: src/Api/PaymentRequest.php:141
 #, php-format
 msgid ""
 "The refund amount for order #%s should be the same as the order total for "
@@ -200,30 +274,30 @@ msgid ""
 msgstr ""
 
 #. translators:  %s is the order id
-#: src/Api/PaymentRequest.php:156
+#: src/Api/PaymentRequest.php:157
 #, php-format
 msgid "Unable to find transaction id for order #%s"
 msgstr ""
 
 #. translators:  %s is the order id
-#: src/Api/PaymentRequest.php:169
+#: src/Api/PaymentRequest.php:170
 msgid "Unable to Query Order status before refund"
 msgstr ""
 
 #. translators:  %s is the TradeStatus of the order
-#: src/Api/PaymentRequest.php:206
+#: src/Api/PaymentRequest.php:207
 #, php-format
 msgid "Unable to Refund this Order. TradeStatus: %1$s, CloseStatus: %2$s"
 msgstr ""
 
 #. translators:  %s is the TradeStatus of the order
-#: src/Api/PaymentRequest.php:219
+#: src/Api/PaymentRequest.php:220
 #, php-format
 msgid "Unable to Refund this Order. TradeStatus:%s"
 msgstr ""
 
 #. translators: %1$s is the status, %2$s is the message, %3$s is the refund amount
-#: src/Api/PaymentRequest.php:257
+#: src/Api/PaymentRequest.php:258
 #, php-format
 msgid ""
 "PAYUNi payment refund success. Status: %1$s, Message: %2$s, Refund Amount: "
@@ -231,7 +305,7 @@ msgid ""
 msgstr ""
 
 #. translators:  %s is the decrypted result
-#: src/Api/PaymentRequest.php:343
+#: src/Api/PaymentRequest.php:344
 #, php-format
 msgid "PAYUNi query succeed. Query result: %s"
 msgstr ""
@@ -330,17 +404,36 @@ msgid ""
 "the page."
 msgstr ""
 
-#. translators: 1: Payment method title 2: PAYUNi URL
+#: src/Gateways/GatewayBase.php:141
+msgid "E-Invoice Detail"
+msgstr ""
+
+#: src/Gateways/GatewayBase.php:149
+msgctxt "Issue Type"
+msgid "Issue"
+msgstr ""
+
 #: src/Gateways/GatewayBase.php:151
+msgctxt "Issue Type"
+msgid "Void"
+msgstr ""
+
+#: src/Gateways/GatewayBase.php:153
+msgctxt "Issue Type"
+msgid "Unknown Issue Type"
+msgstr ""
+
+#. translators: 1: Payment method title 2: PAYUNi URL
+#: src/Gateways/GatewayBase.php:198
 #, php-format
 msgid "%1$s is a payment gateway provided by %2$s"
 msgstr ""
 
-#: src/Gateways/GatewayBase.php:156 src/Settings/SettingsTab.php:31
+#: src/Gateways/GatewayBase.php:203 src/Settings/SettingsTab.php:31
 msgid "PAYUNi"
 msgstr ""
 
-#: src/Gateways/GatewayBase.php:211
+#: src/Gateways/GatewayBase.php:258
 msgid "We have received your order, but the payment is incompleted."
 msgstr ""
 
@@ -379,44 +472,44 @@ msgstr ""
 msgid "Each Amount"
 msgstr ""
 
-#: src/PayuniPayment.php:142
+#: src/PayuniPayment.php:150
 msgid "Trade No"
 msgstr ""
 
-#: src/PayuniPayment.php:143
+#: src/PayuniPayment.php:151
 msgid "Trade Amount"
 msgstr ""
 
-#: src/PayuniPayment.php:144
+#: src/PayuniPayment.php:152
 msgid "Trade Status"
 msgstr ""
 
-#: src/PayuniPayment.php:145
+#: src/PayuniPayment.php:153
 msgid "Message"
 msgstr ""
 
-#: src/PayuniPayment.php:179
+#: src/PayuniPayment.php:187
 msgid "General Settings"
 msgstr ""
 
-#: src/PayuniPayment.php:180 src/Settings/SettingsTab.php:53
+#: src/PayuniPayment.php:188 src/Settings/SettingsTab.php:53
 #: src/Settings/SettingsTab.php:73
 msgid "Payment Settings"
 msgstr ""
 
-#: src/PayuniPayment.php:229
+#: src/PayuniPayment.php:240
 msgid "Unsecure AJAX call"
 msgstr ""
 
-#: src/PayuniPayment.php:240
+#: src/PayuniPayment.php:251
 msgid "No such order id"
 msgstr ""
 
-#: src/PayuniPayment.php:252
+#: src/PayuniPayment.php:263
 msgid "PAYUNi Query Successfully"
 msgstr ""
 
-#: src/PayuniPayment.php:258
+#: src/PayuniPayment.php:269
 msgid "PAYUNi Query Failed!"
 msgstr ""
 
@@ -464,75 +557,89 @@ msgstr ""
 msgid "The language of the PAYUNi checkout page."
 msgstr ""
 
+#: src/Settings/SettingsTab.php:117
+msgid "E-Invoice"
+msgstr ""
+
+#: src/Settings/SettingsTab.php:120
+msgid "Enable E-Invoice"
+msgstr ""
+
 #: src/Settings/SettingsTab.php:121
+msgid ""
+"You need to register Amego e-invoice and enable e-invoice feature at PAYUNi "
+"website."
+msgstr ""
+
+#: src/Settings/SettingsTab.php:129
 msgid "API Settings"
 msgstr ""
 
-#: src/Settings/SettingsTab.php:123
+#: src/Settings/SettingsTab.php:131
 msgid "Enter your PAYUNi API credentials"
 msgstr ""
 
-#: src/Settings/SettingsTab.php:127
+#: src/Settings/SettingsTab.php:135
 msgid "Test Mode"
 msgstr ""
 
-#: src/Settings/SettingsTab.php:130
+#: src/Settings/SettingsTab.php:138
 msgid "When enabled, you need to use the test-only data below."
 msgstr ""
 
-#: src/Settings/SettingsTab.php:134
+#: src/Settings/SettingsTab.php:142
 msgid "Test MerchantID"
 msgstr ""
 
-#: src/Settings/SettingsTab.php:136
+#: src/Settings/SettingsTab.php:144
 msgid "This is the test MerchantID when you apply PAYUNi API"
 msgstr ""
 
-#: src/Settings/SettingsTab.php:141
+#: src/Settings/SettingsTab.php:149
 msgid "Test Hash Key"
 msgstr ""
 
-#: src/Settings/SettingsTab.php:143
+#: src/Settings/SettingsTab.php:151
 msgid "This is the test Hash Key when you apply PAYUNi API"
 msgstr ""
 
-#: src/Settings/SettingsTab.php:148
+#: src/Settings/SettingsTab.php:156
 msgid "Test Hash IV"
 msgstr ""
 
-#: src/Settings/SettingsTab.php:150
+#: src/Settings/SettingsTab.php:158
 msgid "This is the test Hash IV when you apply PAYUNi API"
 msgstr ""
 
-#: src/Settings/SettingsTab.php:155
+#: src/Settings/SettingsTab.php:163
 msgid "MerchantID"
 msgstr ""
 
-#: src/Settings/SettingsTab.php:157
+#: src/Settings/SettingsTab.php:165
 msgid "This is the MerchantID when you apply PAYUNi API"
 msgstr ""
 
-#: src/Settings/SettingsTab.php:162
+#: src/Settings/SettingsTab.php:170
 msgid "Hash Key"
 msgstr ""
 
-#: src/Settings/SettingsTab.php:164
+#: src/Settings/SettingsTab.php:172
 msgid "This is the Hash Key when you apply PAYUNi API"
 msgstr ""
 
-#: src/Settings/SettingsTab.php:169
+#: src/Settings/SettingsTab.php:177
 msgid "Hash IV"
 msgstr ""
 
-#: src/Settings/SettingsTab.php:171
+#: src/Settings/SettingsTab.php:179
 msgid "This is the Hash IV when you apply PAYUNi API"
 msgstr ""
 
-#: src/Settings/SettingsTab.php:248
+#: src/Settings/SettingsTab.php:256
 msgid "View logs"
 msgstr ""
 
-#: src/Settings/SettingsTab.php:255
+#: src/Settings/SettingsTab.php:263
 msgid "Go to Payment Settings"
 msgstr ""
 

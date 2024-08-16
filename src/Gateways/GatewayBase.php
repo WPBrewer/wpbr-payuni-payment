@@ -136,6 +136,53 @@ abstract class GatewayBase extends \WC_Payment_Gateway {
 			}
 
 			echo '</tbody></table>';
+
+			if ( PayuniPayment::$einvoice_enabled ) {
+				echo '<h2>' . esc_html__( 'E-Invoice Detail', 'wpbr-payuni-payment' ) . '</h2>';
+				echo '<table class="shop_table payuni_payment_details"><tbody>';
+				echo '<tr><td><strong>' . esc_html__( 'E-Invoice No', 'wpbr-payuni-payment' ) . '</strong></td><td>' . esc_html( $order->get_meta( OrderMeta::EINVOICE_NO ) ) . '</td></tr>';
+				echo '<tr><td><strong>' . esc_html__( 'E-Invoice Amount', 'wpbr-payuni-payment' ) . '</strong></td><td>' . esc_html( $order->get_meta( OrderMeta::EINVOICE_AMT ) ) . '</td></tr>';
+				echo '<tr><td><strong>' . esc_html__( 'E-Invoice Time', 'wpbr-payuni-payment' ) . '</strong></td><td>' . esc_html( $order->get_meta( OrderMeta::EINVOICE_TIME ) ) . '</td></tr>';
+
+				$einvoice_type = $order->get_meta( OrderMeta::EINVOICE_TYPE );
+				if ( $einvoice_type === 'C0401' ) {
+					$einvoice_type_desc =  _x( 'Issue', 'Issue Type', 'wpbr-payuni-payment' );
+				} elseif ( $einvoice_type === 'C0501' ) {
+					$einvoice_type_desc = _x( 'Void', 'Issue Type', 'wpbr-payuni-payment' );
+				} else {
+					$einvoice_type_desc = _x( 'Unknown Issue Type', 'Issue Type', 'wpbr-payuni-payment' );
+				}
+				echo '<tr><td><strong>' . esc_html__( 'E-Invoice Type', 'wpbr-payuni-payment' ) . '</strong></td><td>' . esc_html( $einvoice_type . ' (' . $einvoice_type_desc . ')' ) . '</td></tr>';
+
+				$einvoice_info = $order->get_meta( OrderMeta::EINVOICE_INFO );
+				if ( $einvoice_info === '3J0002' ) {
+					$einvoice_info_desc = __( 'Mobile Code', 'wpbr-payuni-payment' )	;
+				} elseif ( $einvoice_info === 'CQ0001' ) {
+					$einvoice_info_desc = __( 'CDC Code', 'wpbr-payuni-payment' );
+				} elseif ( $einvoice_info === 'amego' ) {
+					$einvoice_info_desc = __( 'Amego Member', 'wpbr-payuni-payment' );
+				} elseif ( $einvoice_info === 'Donate' ) {
+					$einvoice_info_desc = __( 'Donation', 'wpbr-payuni-payment' );
+				} elseif ( $einvoice_info === 'Company' ) {
+					$einvoice_info_desc = __( 'Company', 'wpbr-payuni-payment' );
+				} else {
+					$einvoice_info_desc = __( 'Unknown Issue Info', 'wpbr-payuni-payment' );
+				}
+				echo '<tr><td><strong>' . esc_html__( 'Issue Info', 'wpbr-payuni-payment' ) . '</strong></td><td>' . esc_html( $einvoice_info . ' (' . $einvoice_info_desc . ')' ) . '</td></tr>';
+
+				$einvoice_status = $order->get_meta( OrderMeta::EINVOICE_STATUS );
+				if ( $einvoice_status === '1' ) {
+					$einvoice_status_desc = __( 'Issued', 'wpbr-payuni-payment' );
+				} elseif ( $einvoice_status === '2' ) {
+					$einvoice_status_desc = __( 'Failed', 'wpbr-payuni-payment' );
+				} elseif ( $einvoice_status === '5' ) {
+					$einvoice_status_desc = __( 'Voided', 'wpbr-payuni-payment' );
+				} else {
+					$einvoice_status_desc = __( 'Unknown Issue Status', 'wpbr-payuni-payment' );
+				}
+				echo '<tr><td><strong>' . esc_html__( 'Issue Status', 'wpbr-payuni-payment' ) . '</strong></td><td>' . esc_html( $einvoice_status . ' (' . $einvoice_status_desc . ')' ) . '</td></tr>';
+				echo '</tbody></table>';
+			}// end einvoice enabled
 		}
 	}
 

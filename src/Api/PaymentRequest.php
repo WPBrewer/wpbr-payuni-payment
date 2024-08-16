@@ -43,19 +43,23 @@ class PaymentRequest {
 		$encrypt_info = apply_filters(
 			'payuni_upp_transaction_args_' . $this->gateway->id,
 			array(
-				'MerID'      => $this->gateway->get_merchant_id(),
-				'MerTradeNo' => PayuniPayment::build_payuni_order_no( $order->get_id() ),
-				'TradeAmt'   => (int) $order->get_total(),
-				'ProdDesc'   => implode( ';', $prod_desc ),
-				'ReturnURL'  => $this->gateway->return_url, // 前景通知網址付款完成返回指定網址 (感謝頁面).
-				'NotifyURL'  => $this->gateway->notify_url, // 幕後.
-				'UsrMail'    => $order->get_billing_email(), // 付款頁帶入 email.
-				'UsrMailFix' => '1', // 不可修改 email.
-				'Timestamp'  => time(),
-				'Lang'       => get_option( 'payuni_payment_language', 'zh-tw' ),
+				'MerID'        => $this->gateway->get_merchant_id(),
+				'MerTradeNo'   => PayuniPayment::build_payuni_order_no( $order->get_id() ),
+				'TradeAmt'     => (int) $order->get_total(),
+				'ProdDesc'     => implode( ';', $prod_desc ),
+				'ReturnURL'    => $this->gateway->return_url, // 前景通知網址付款完成返回指定網址 (感謝頁面).
+				'NotifyURL'    => $this->gateway->notify_url, // 幕後.
+				'UsrMail'      => $order->get_billing_email(), // 付款頁帶入 email.
+				'UsrMailFix'   => '1', // 不可修改 email.
+				'Timestamp'    => time(),
+				'Lang'         => get_option( 'payuni_payment_language', 'zh-tw' ),
 			),
 			$order
 		);
+
+		if ( PayuniPayment::$einvoice_enabled ) {
+			$encrypt_info['TradeInvoice'] = 1;
+		}
 
 		PayuniPayment::log( 'request encrypt info:' . wc_print_r( $encrypt_info, true ) );
 

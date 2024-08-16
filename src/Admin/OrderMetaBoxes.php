@@ -87,15 +87,65 @@ class OrderMetaBoxes {
 		$allowed_payments = PayuniPayment::get_allowed_payments( $order );
 		$gateway          = $allowed_payments[ $payment_method ];
 
+		echo '<table>';
+
 		$payuni_order_no_key = PayuniPayment::get_order_meta_key( $order, OrderMeta::PAYUNI_ORDER_NO );
-		echo '<div><strong>訂單編號:</strong> ' . esc_html( $order->get_meta( $payuni_order_no_key ) ) . '</div>';
+		echo '<tr><td><strong>' . esc_html__( 'Order No', 'wpbr-payuni-payment' ) . '</strong></td><td>' . esc_html( $order->get_meta( $payuni_order_no_key ) ) . '</td></tr>';
 		foreach ( $gateway::get_order_metas() as $key => $value ) {
 			// for backward compatibility.
 			$key = PayuniPayment::get_order_meta_key( $order, $key );
-			echo '<div><strong>' . esc_html( $value ) . ':</strong> ' . esc_html( $order->get_meta( $key ) ) . '</div>';
+			echo '<tr><td><strong>' . esc_html( $value ) . ':</strong></td><td>' . esc_html( $order->get_meta( $key ) ) . '</td></tr>';
 		}
 
-		echo '<div><button id="payuni-query-btn" class="button" data-id="' . esc_html( $order->get_id() ) . '">查詢</button></div>';
+		if ( PayuniPayment::$einvoice_enabled ) {
+
+			echo '<tr><td><strong>' . esc_html__( 'E-Invoice No', 'wpbr-payuni-payment' ) . '</strong></td><td>' . esc_html( $order->get_meta( OrderMeta::EINVOICE_NO ) ) . '</td></tr>';
+			echo '<tr><td><strong>' . esc_html__( 'E-Invoice Amount', 'wpbr-payuni-payment' ) . '</strong></td><td>' . esc_html( $order->get_meta( OrderMeta::EINVOICE_AMT ) ) . '</td></tr>';
+			echo '<tr><td><strong>' . esc_html__( 'E-Invoice Time', 'wpbr-payuni-payment' ) . '</strong></td><td>' . esc_html( $order->get_meta( OrderMeta::EINVOICE_TIME ) ) . '</td></tr>';
+
+			$einvoice_type = $order->get_meta( OrderMeta::EINVOICE_TYPE );
+			if ( $einvoice_type === 'C0401' ) {
+				$einvoice_type_desc =  _x( 'Issue', 'Issue Type', 'wpbr-payuni-payment' );
+			} elseif ( $einvoice_type === 'C0501' ) {
+				$einvoice_type_desc = _x( 'Void', 'Issue Type', 'wpbr-payuni-payment' );
+			} else {
+				$einvoice_type_desc = _x( 'Unknown Issue Type', 'Issue Type', 'wpbr-payuni-payment' );
+			}
+			echo '<tr><td><strong>' . esc_html__( 'E-Invoice Type', 'wpbr-payuni-payment' ) . '</strong></td><td>' . esc_html( $einvoice_type . ' (' . $einvoice_type_desc . ')' ) . '</td></tr>';
+
+			$einvoice_info = $order->get_meta( OrderMeta::EINVOICE_INFO );
+			if ( $einvoice_info === '3J0002' ) {
+				$einvoice_info_desc = __( 'Mobile Code', 'wpbr-payuni-payment' )	;
+			} elseif ( $einvoice_info === 'CQ0001' ) {
+				$einvoice_info_desc = __( 'CDC Code', 'wpbr-payuni-payment' );
+			} elseif ( $einvoice_info === 'amego' ) {
+				$einvoice_info_desc = __( 'Amego Member', 'wpbr-payuni-payment' );
+			} elseif ( $einvoice_info === 'Donate' ) {
+				$einvoice_info_desc = __( 'Donation', 'wpbr-payuni-payment' );
+			} elseif ( $einvoice_info === 'Company' ) {
+				$einvoice_info_desc = __( 'Company', 'wpbr-payuni-payment' );
+			} else {
+				$einvoice_info_desc = __( 'Unknown Issue Info', 'wpbr-payuni-payment' );
+			}
+			echo '<tr><td><strong>' . esc_html__( 'Issue Info', 'wpbr-payuni-payment' ) . '</strong></td><td>' . esc_html( $einvoice_info . ' (' . $einvoice_info_desc . ')' ) . '</td></tr>';
+
+			$einvoice_status = $order->get_meta( OrderMeta::EINVOICE_STATUS );
+			if ( $einvoice_status === '1' ) {
+				$einvoice_status_desc = __( 'Issued', 'wpbr-payuni-payment' );
+			} elseif ( $einvoice_status === '2' ) {
+				$einvoice_status_desc = __( 'Failed', 'wpbr-payuni-payment' );
+			} elseif ( $einvoice_status === '5' ) {
+				$einvoice_status_desc = __( 'Voided', 'wpbr-payuni-payment' );
+			} else {
+				$einvoice_status_desc = __( 'Unknown Issue Status', 'wpbr-payuni-payment' );
+			}
+			echo '<tr><td><strong>' . esc_html__( 'Issue Status', 'wpbr-payuni-payment' ) . '</strong></td><td>' . esc_html( $einvoice_status . ' (' . $einvoice_status_desc . ')' ) . '</td></tr>';
+		}// end einvoice enabled
+
+		echo '<tr id="payuni-action"><td colspan="2"><button id="payuni-query-btn" class="button" data-id="' . esc_html( $order->get_id() ) . '">查詢</button></td></tr>';
+		echo '</table>';
+
+		
 	}
 
 }

@@ -2,6 +2,7 @@
 
 namespace WPBrewer\Payuni\Payment;
 
+use WPBrewer\Payuni\Payment\Admin\OrderList;
 use WPBrewer\Payuni\Payment\Admin\OrderMetaBoxes;
 use WPBrewer\Payuni\Payment\Api\PaymentRequest;
 use WPBrewer\Payuni\Payment\Api\PaymentResponse;
@@ -114,6 +115,7 @@ class PayuniPayment {
 
 		load_plugin_textdomain( 'wpbr-payuni-payment', false, dirname( WPBR_PAYUNI_BASENAME ) . '/languages/' );
 
+		OrderList::init();
 		OrderMetaBoxes::init();
 		PaymentResponse::init();
 

@@ -116,7 +116,7 @@ class SettingsTab extends \WC_Settings_Page {
 				array(
 					'title'   => __( 'E-Invoice', 'wpbr-payuni-payment' ),
 					'type'    => 'checkbox',
-					'default' => 'yes',
+					'default' => 'no',
 					'desc'    => __( 'Enable E-Invoice', 'wpbr-payuni-payment' ),
 					'desc_tip' => __( 'You need to register Amego e-invoice and enable e-invoice feature at PAYUNi website.', 'wpbr-payuni-payment' ),
 					'id'      => 'payuni_payment_einvoice_enabled',

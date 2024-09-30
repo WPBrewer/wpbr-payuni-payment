@@ -69,7 +69,7 @@ class Atm extends GatewayBase {
 		return array_merge(
 			$args,
 			array(
-				'ExpireDate' => gmdate( 'Y-m-d H:i:s', strtotime( '+' . $this->expire_days . ' days' ) ),
+				'ExpireDate' => gmdate( 'Y-m-d', strtotime( '+' . $this->expire_days . ' days' ) ),
 				'ATM'        => '1',
 			)
 		);

@@ -11,6 +11,8 @@ use WPBrewer\Payuni\Payment\Api\PaymentRequest;
 use WPBrewer\Payuni\Payment\PayuniPayment;
 use WPBrewer\Payuni\Payment\Utils\OrderMeta;
 use WPBrewer\Payuni\Payment\Utils\TradeStatus;
+use WPBrewer\Payuni\Payment\Utils\AuthType;
+use WPBrewer\Payuni\Payment\Utils\BankType;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -132,7 +134,23 @@ abstract class GatewayBase extends \WC_Payment_Gateway {
 			foreach ( $order_metas as $key => $value ) {
 				echo '<tr><td><strong>' . esc_html( $value ) . '</strong></td>';
 				$order_meta_key = PayuniPayment::get_order_meta_key( $order, $key );
-				echo '<td>' . esc_html( $order->get_meta( $order_meta_key ) ) . '</td></tr>';
+				if ( $order_meta_key === OrderMeta::CREDIT_AUTH_TYPE ) {
+					echo '<td>' . esc_html( AuthType::get_type( $order->get_meta( $order_meta_key ) ) ) . ' (' . esc_html( $order->get_meta( $order_meta_key ) ) . ')</td></tr>';
+				} elseif ( $order_meta_key === OrderMeta::AMT_BANK_TYPE ) {
+					echo '<td>' . esc_html( $order->get_meta( $order_meta_key ) ) . ' (' . esc_html( BankType::get_name( $order->get_meta( $order_meta_key ) ) ) . ')</td></tr>';
+				} elseif ( $order_meta_key === OrderMeta::TRADE_STATUS ) {
+					$trade_status = $order->get_meta( $order_meta_key );
+					if ( isset( $trade_status ) ) {
+						echo '<td>' . esc_html( TradeStatus::get_name( $trade_status, $order->get_payment_method() ) ) . '</td></tr>';
+					} else {
+						echo '<td>' . esc_html( $trade_status ) . '</td></tr>';
+					}
+				} elseif ( $order_meta_key === OrderMeta::MESSAGE ) {
+					echo '<td>' . esc_html( $order->get_meta( $order_meta_key ) ) . ' (' . esc_html( $order->get_meta( OrderMeta::STATUS ) ) . ')</td></tr>';
+				} else {
+					echo '<td>' . esc_html( $order->get_meta( $order_meta_key ) ) . '</td></tr>';
+				}
+				
 			}
 
 			echo '</tbody></table>';
@@ -252,6 +270,8 @@ abstract class GatewayBase extends \WC_Payment_Gateway {
 
 			$trade_status_key = PayuniPayment::get_order_meta_key( $order, OrderMeta::TRADE_STATUS );
 			$trade_status     = $order->get_meta( $trade_status_key );
+
+			PayuniPayment::log( 'imcompleete payment message: ' . $this->incomplete_payment_message );
 
 			if ( 'pending' === $order->get_status() || TradeStatus::PAID !== $trade_status ) {
 				if ( empty( $this->incomplete_payment_message ) ) {

@@ -12,6 +12,9 @@ defined( 'ABSPATH' ) || exit;
 use Automattic\WooCommerce\Internal\DataStores\Orders\CustomOrdersTableController;
 use WPBrewer\Payuni\Payment\PayuniPayment;
 use WPBrewer\Payuni\Payment\Utils\OrderMeta;
+use WPBrewer\Payuni\Payment\Utils\AuthType;
+use WPBrewer\Payuni\Payment\Utils\BankType;
+use WPBrewer\Payuni\Payment\Utils\TradeStatus;
 use WPBrewer\Payuni\Payment\Utils\SingletonTrait;
 
 /**
@@ -94,7 +97,23 @@ class OrderMetaBoxes {
 		foreach ( $gateway::get_order_metas() as $key => $value ) {
 			// for backward compatibility.
 			$key = PayuniPayment::get_order_meta_key( $order, $key );
-			echo '<tr><td><strong>' . esc_html( $value ) . ':</strong></td><td>' . esc_html( $order->get_meta( $key ) ) . '</td></tr>';
+			if ( $key === OrderMeta::CREDIT_AUTH_TYPE ) {
+				echo '<tr><td><strong>' . esc_html( $value ) . '</strong></td><td>' . esc_html( AuthType::get_type( $order->get_meta( $key ) ) ) . ' (' . esc_html( $order->get_meta( $key ) ) . ')</td></tr>';
+			} elseif ( $key === OrderMeta::AMT_BANK_TYPE ) {
+				echo '<tr><td><strong>' . esc_html( $value ) . '</strong></td><td>' . esc_html( $order->get_meta( $key ) ) . ' (' . esc_html( BankType::get_name( $order->get_meta( $key ) ) ) . ')</td></tr>';
+			} elseif ( $key === OrderMeta::TRADE_STATUS ) {
+				$trade_status = $order->get_meta( $key );
+				if ( isset( $trade_status ) ) {
+					echo '<tr><td><strong>' . esc_html( $value ) . '</strong></td><td><span class="payuni-trade-status-' . esc_attr( $trade_status ) . '">' . esc_html( TradeStatus::get_name( $trade_status, $payment_method ) ) . '</span></td></tr>';
+				} else {
+					echo '<tr><td><strong>' . esc_html( $value ) . '</strong></td><td></td></tr>';
+				}
+			} elseif ( $key === OrderMeta::MESSAGE ) {
+				echo '<tr><td><strong>' . esc_html( $value ) . '</strong></td><td>' . esc_html( $order->get_meta( $key ) ) . ' (' . esc_html( $order->get_meta( OrderMeta::STATUS ) ) . ')</td></tr>';
+			} else {
+				echo '<tr><td><strong>' . esc_html( $value ) . '</strong></td><td>' . esc_html( $order->get_meta( $key ) ) . '</td></tr>';
+			}
+			
 		}
 
 		if ( PayuniPayment::$einvoice_enabled ) {

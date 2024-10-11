@@ -203,7 +203,7 @@ class PayuniPayment {
 			return;
 		}
 
-		wp_enqueue_style( 'payuni-payment', WPBR_PAYUNI_PLUGIN_URL . 'assets/css/payuni-payment-public.css', array(), WPBR_PAYUNI_PAYMENT_VERSION, 'all' );
+		wp_enqueue_style( 'payuni-payment', WPBR_PAYUNI_PLUGIN_URL . 'assets/css/styles-public.css', array(), WPBR_PAYUNI_PAYMENT_VERSION, 'all' );
 
 		wp_enqueue_script( 'payuni-public', WPBR_PAYUNI_PLUGIN_URL . 'assets/js/scripts.js', array(), WPBR_PAYUNI_PAYMENT_VERSION, true );
 	}

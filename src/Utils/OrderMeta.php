@@ -16,7 +16,10 @@ class OrderMeta {
     const UNI_NO               = '_wpbr_payuni_upp_trade_no'; // UNi序號.
     const TRADE_STATUS         = '_wpbr_payuni_upp_trade_status'; // 交易狀態.
     const TRADE_AMOUNT         = '_wpbr_payuni_upp_trade_amount'; // 交易金額.
-    const MESSAGE              = '_wpbr_payuni_upp_message'; // 交易訊息.
+    const STATUS               = '_wpbr_payuni_upp_status'; // 狀態代碼.
+    const MESSAGE              = '_wpbr_payuni_upp_message'; // 狀態說明.
+    const PAY_TYPE             = '_wpbr_payuni_upp_payment_type'; // 支付工具
+
     const CREDIT_REST_CODE     = '_wpbr_payuni_upp_credit_rescode'; // 信用卡授權碼.
     const CREDIT_REST_CODE_MSG = '_wpbr_payuni_upp_credit_rescode_msg'; // 信用卡授權碼訊息.
     const CREDIT_AUTH_TYPE     = '_wpbr_payuni_upp_credit_authtype'; // 信用卡授權類型.

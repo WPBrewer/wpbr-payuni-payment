@@ -9,6 +9,7 @@ namespace WPBrewer\Payuni\Payment\Api;
 
 use WPBrewer\Payuni\Payment\PayuniPayment;
 use WPBrewer\Payuni\Payment\Utils\OrderMeta;
+use WPBrewer\Payuni\Payment\Utils\PayType;
 use WPBrewer\Payuni\Payment\Utils\SingletonTrait;
 use WPBrewer\Payuni\Payment\Utils\TradeStatus;
 
@@ -28,7 +29,7 @@ class PaymentResponse {
 	 */
 	public static function init() {
 		self::get_instance();
-		add_action( 'woocommerce_api_payuni_payment', array( self::get_instance(), 'payuni_receive_response' ), 10 );
+		add_action( 'woocommerce_api_payuni_payment', array( self::get_instance(), 'payuni_receive_notify' ), 10 );
 		add_action( 'woocommerce_api_payuni_return', array( self::get_instance(), 'payuni_receive_response_frontend' ), 20 );
 	}
 
@@ -37,7 +38,7 @@ class PaymentResponse {
 	 *
 	 * @return void
 	 */
-	public static function payuni_receive_response() {
+	public static function payuni_receive_notify() {
         // phpcs:disable WordPress.Security.NonceVerification.Missing
 
 		if ( empty( $_POST ) ) {
@@ -62,6 +63,14 @@ class PaymentResponse {
 		$payuni_order_no = $decrypted_info['MerTradeNo'];
 		$message         = $decrypted_info['Message'];
 		$pay_type        = $decrypted_info['PaymentType'];
+		$trade_no        = $decrypted_info['TradeNo'];// UNi序號
+
+		$text_log        = __( 'PAYUNi Notify', 'wpbr-payuni-payment' );
+		$text_code       = __( 'Status code:', 'wpbr-payuni-payment' );
+		$text_message    = __( 'Transaction message:', 'wpbr-payuni-payment' );
+		$text_mertradeno = __( 'MerTradeNo:', 'wpbr-payuni-payment' );
+		$text_number     = __( 'UNi number:', 'wpbr-payuni-payment' );
+		$text_paytype    = __( 'Payment type:', 'wpbr-payuni-payment' );
 
 		$woo_order_id = PayuniPayment::parse_payuni_order_no_to_woo_order_id( $payuni_order_no );
 		$order        = wc_get_order( $woo_order_id );
@@ -70,29 +79,21 @@ class PaymentResponse {
 			return;
 		}
 
+		// 電子發票的通知
 		if ( array_key_exists( 'InvoiceNo', $decrypted_info ) ) {
 			self::save_einvoice_data( $order, $decrypted_info );
 			$order->add_order_note( 'PAYUNi E-Invoice Notify. InvoiceStatus:' . $decrypted_info['InvoiceStatus'] . ', InvoiceNo:' . $decrypted_info['InvoiceNo'] );
 			return;
 		}
 
-		self::save_payuni_order_data( $order, $decrypted_info );
+		$order->add_order_note( "<strong>{$text_log}</strong><br>{$text_code} {$status}<br>{$text_message} {$message}<br>{$text_mertradeno} {$payuni_order_no}<br>{$text_number} {$trade_no}<br>{$text_paytype} " . PayType::get_name( $pay_type ) );
 
-		if ( TradeStatus::PAID === $trade_status ) {
-			if ( ! $order->is_paid() ) {
-				$order->payment_complete( $decrypted_info['TradeNo'] );
-				$order->add_order_note( 'PAYUNi payment completed (NotifyURL). Trade Status:' . $trade_status . ', Message:' . $message );
-			}
-		} elseif ( TradeStatus::EXPIRED === $trade_status ) {
-			$order->update_status( 'failed' );
-			$order->add_order_note( 'PAYUNi payment expired (NotifyURL). Pay Type:' . $pay_type . ', Trade Status:' . $trade_status . ', Message:' . $message );
-		} elseif ( TradeStatus::CANCEL === $trade_status || TradeStatus::FAIL === $trade_status ) {
-			$order->update_status( 'failed' );
-			$order->add_order_note( 'PAYUNi payment cancelled or failed (NotifyURL). Pay Type:' . $pay_type . ', Trade Status:' . $trade_status . ', Message:' . $message );
+
+		if ( $order->is_paid() || $order->get_meta( OrderMeta::TRADE_STATUS ) === TradeStatus::PAID ) {
+			PAYUNiPayment::log( sprintf( 'PAYUNi Notify: Order %s already paid or transaction status has already set as success. Just add note and log.', $woo_order_id ) );
 		} else {
-			$order->add_order_note( 'PAYUNi payment incompleted (NotifyURL). Pay Type:' . $pay_type . ', Trade Status:' . $trade_status . ', Message:' . $message );
+			self::update_order_meta_and_order_status( $order, $decrypted_info );
 		}
-
      // phpcs:enable WordPress.Security.NonceVerification.Missing
 	}
 
@@ -123,6 +124,14 @@ class PaymentResponse {
 		$order_id     = $decrypted_info['MerTradeNo'];
 		$message      = $decrypted_info['Message'];
 		$pay_type     = $decrypted_info['PaymentType'];
+		$trade_no     = $decrypted_info['TradeNo'];
+		
+		$text_log        = __( 'PAYUNi Return', 'wpbr-payuni-payment' );
+		$text_code       = __( 'Status code:', 'wpbr-payuni-payment' );
+		$text_message    = __( 'Transaction message:', 'wpbr-payuni-payment' );
+		$text_mertradeno = __( 'MerTradeNo:', 'wpbr-payuni-payment' );
+		$text_number     = __( 'UNi number:', 'wpbr-payuni-payment' );
+		$text_paytype    = __( 'Payment type:', 'wpbr-payuni-payment' );
 
 		$woo_order_id = PayuniPayment::parse_payuni_order_no_to_woo_order_id( $order_id );
 		$order        = wc_get_order( $woo_order_id );
@@ -131,15 +140,12 @@ class PaymentResponse {
 			return;
 		}
 
-		self::save_payuni_order_data( $order, $decrypted_info );
+		$order->add_order_note( "<strong>{$text_log}</strong><br>{$text_code} {$status}<br>{$text_message} {$message}<br>{$text_mertradeno} {$order_id}<br>{$text_number} {$trade_no}<br>{$text_paytype} " . PayType::get_name( $pay_type ) );
 
-		if ( TradeStatus::PAID === $trade_status ) {
-			if ( ! $order->is_paid() ) {
-				$order->payment_complete( $decrypted_info['TradeNo'] );
-				$order->add_order_note( 'PAYUNi payment completed (ReturnURL). Trade Status:' . $trade_status . ', Message:' . $message );
-			}
+		if ( $order->is_paid() || $order->get_meta( OrderMeta::TRADE_STATUS ) === TradeStatus::PAID ) {
+			PAYUNiPayment::log( sprintf( 'PAYUNi Return: Order %s already paid or transaction status has already set as success. Just add note and log.', $woo_order_id ) );
 		} else {
-			$order->add_order_note( 'PAYUNi payment incompleted (ReturnURL). Pay Type:' . $pay_type . ', Trade Status:' . $trade_status . ', Message:' . $message );
+			self::update_order_meta_and_order_status( $order, $decrypted_info );
 		}
 
 		wp_redirect( $order->get_checkout_order_received_url() );// 訂單感謝頁面.
@@ -158,11 +164,13 @@ class PaymentResponse {
 
 		$pay_type = $decrypted_info['PaymentType'];
 
+		$order->update_meta_data( OrderMeta::STATUS, $decrypted_info['Status'] );
+		$order->update_meta_data( OrderMeta::MESSAGE, $decrypted_info['Message'] );
 		$order->update_meta_data( OrderMeta::PAYUNI_ORDER_NO, $decrypted_info['MerTradeNo'] );
 		$order->update_meta_data( OrderMeta::UNI_NO, $decrypted_info['TradeNo'] );
 		$order->update_meta_data( OrderMeta::TRADE_STATUS, $decrypted_info['TradeStatus'] );
 		$order->update_meta_data( OrderMeta::TRADE_AMOUNT, $decrypted_info['TradeAmt'] );
-		$order->update_meta_data( OrderMeta::MESSAGE, $decrypted_info['Message'] );
+		$order->update_meta_data( OrderMeta::PAY_TYPE, $pay_type );
 
 		self::update_order_meta( $order, $decrypted_info, OrderMeta::CREDIT_REST_CODE, 'ResCode' );
 		self::update_order_meta( $order, $decrypted_info, OrderMeta::CREDIT_REST_CODE_MSG, 'ResCodeMsg' );
@@ -209,6 +217,23 @@ class PaymentResponse {
 		$order->update_meta_data( OrderMeta::PLUGIN_VERSION, WPBR_PAYUNI_PAYMENT_VERSION );
 
 		$order->save();
+	}
+
+	private static function update_order_meta_and_order_status( $order, $decrypted_info ) {
+		
+		$trade_status = $decrypted_info['TradeStatus'];
+		
+		self::save_payuni_order_data( $order, $decrypted_info );
+		
+		if ( TradeStatus::PAID === $trade_status ) {
+			$order->payment_complete( $decrypted_info['TradeNo'] );
+		} elseif ( TradeStatus::EXPIRED === $trade_status ) {
+			// 交易逾期失效 (AFTEE, ATM, CVS)
+			$order->update_status( 'failed' );
+		} elseif ( TradeStatus::CANCEL === $trade_status || TradeStatus::FAIL === $trade_status ) {
+			// 付款取消或付款失敗
+			$order->update_status( 'failed' );
+		}
 	}
 
 	private static function save_einvoice_data( $order, $decrypted_info ) {

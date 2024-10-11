@@ -23,6 +23,19 @@
 	padding: 8px 3px;
 }
 
+#payuni-order-meta-boxes tr td:first-child {
+	width: 80px;
+}
+
 #payuni-order-meta-boxes #payuni-action button {
 	margin: 3px 2px;
+}
+
+.payuni-trade-status-1 {
+    background: #28a745;
+    color: #fff;
+    padding: 3px;
+    border-radius: 5px;
+    vertical-align: middle;
+    font-size: 12px;
 }

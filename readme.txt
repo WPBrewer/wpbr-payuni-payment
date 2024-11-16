@@ -4,7 +4,7 @@ Tags: WooCommerce, PAYUNi, taiwan, payment, payment gateway
 Requires at least: 5.9
 Tested up to: 6.5.3
 Requires PHP: 7.4
-Stable tag: 1.6.2
+Stable tag: 1.6.3
 License: GPLv2 or later.
 License URI: http://www.gnu.org/licenses/gpl-2.0.txt
 
@@ -58,6 +58,10 @@ For more information, please refer to the [PAYUNi website](https://www.payuni.co
 [PAYUNi Terms of Service](https://www.payuni.com.tw/terms).
 
 == Changelog ==
+
+= 1.6.3 - 2024/11/16 =
+
+* UPDATE - Fix WordPress 6.7 load_plugin_textdomain warning issue
 
 = 1.6.2 - 2024/10/11 =
 

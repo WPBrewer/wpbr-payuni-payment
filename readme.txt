@@ -2,7 +2,7 @@
 Contributors: wpbrewer, bluestan
 Tags: WooCommerce, PAYUNi, taiwan, payment, payment gateway
 Requires at least: 5.9
-Tested up to: 6.5.3
+Tested up to: 6.7
 Requires PHP: 7.4
 Stable tag: 1.6.3
 License: GPLv2 or later.
@@ -17,7 +17,7 @@ This plugin integrates with PAYUNi's UNiPaypage (UPP/整合式支付頁) service
 
 == Major features include ==
 
-* Integrate with PAYUNi's UNiPaypage(UPP/) service
+* Integrate with PAYUNi's UNiPaypage(UPP) service
 * Support Language setting for UNiPaypage
 * Support refund on backend (Credit Payment、Installment payment、Apple Pay、Google Pay、Samsung Pay)
 * Support E-Invoice feature

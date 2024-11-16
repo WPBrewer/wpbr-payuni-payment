@@ -110,10 +110,28 @@ class PayuniPayment {
 
 		self::get_instance();
 
+		add_action( 'init', array( self::get_instance(), 'plugin_i18n' ), 20 );
+		add_action( 'init', array( self::get_instance(), 'plugin_init' ), 30 );
+
+		add_filter( 'woocommerce_get_settings_pages', array( self::get_instance(), 'payuni_add_settings' ) );
+
+		add_filter( 'woocommerce_payment_gateways', array( self::get_instance(), 'add_payuni_payment_gateway' ) );
+
+		add_filter( 'plugin_action_links_' . WPBR_PAYUNI_BASENAME, array( self::get_instance(), 'payuni_add_action_links' ) );
+
+		add_action( 'wp_enqueue_scripts', array( self::get_instance(), 'payuni_checkout_enqueue_scripts' ), 9 );
+		add_action( 'admin_enqueue_scripts', array( self::get_instance(), 'payuni_admin_scripts' ), 9 );
+
+		add_action( 'wp_ajax_payuni_query', array( self::get_instance(), 'payuni_ajax_query_payment' ) );
+	}
+
+	public function plugin_i18n() {
+		load_plugin_textdomain( 'wpbr-payuni-payment', false, dirname( WPBR_PAYUNI_BASENAME ) . '/languages/' );
+	}
+
+	public function plugin_init() {
 		self::$log_enabled      = 'yes' === get_option( 'payuni_payment_debug_log_enabled', 'no' );
 		self::$einvoice_enabled = 'yes' === get_option( 'payuni_payment_einvoice_enabled', 'no' );
-
-		load_plugin_textdomain( 'wpbr-payuni-payment', false, dirname( WPBR_PAYUNI_BASENAME ) . '/languages/' );
 
 		OrderList::init();
 		OrderMetaBoxes::init();
@@ -154,17 +172,6 @@ class PayuniPayment {
 			OrderMeta::TRADE_STATUS => __( 'Trade Status', 'wpbr-payuni-payment' ),
 			OrderMeta::MESSAGE      => __( 'Message', 'wpbr-payuni-payment' ),
 		);
-
-		add_filter( 'woocommerce_get_settings_pages', array( self::get_instance(), 'payuni_add_settings' ) );
-
-		add_filter( 'woocommerce_payment_gateways', array( self::get_instance(), 'add_payuni_payment_gateway' ) );
-
-		add_filter( 'plugin_action_links_' . WPBR_PAYUNI_BASENAME, array( self::get_instance(), 'payuni_add_action_links' ) );
-
-		add_action( 'wp_enqueue_scripts', array( self::get_instance(), 'payuni_checkout_enqueue_scripts' ), 9 );
-		add_action( 'admin_enqueue_scripts', array( self::get_instance(), 'payuni_admin_scripts' ), 9 );
-
-		add_action( 'wp_ajax_payuni_query', array( self::get_instance(), 'payuni_ajax_query_payment' ) );
 	}
 
 	/**

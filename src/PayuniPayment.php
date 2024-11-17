@@ -110,8 +110,8 @@ class PayuniPayment {
 
 		self::get_instance();
 
-		add_action( 'init', array( self::get_instance(), 'plugin_i18n' ), 20 );
-		add_action( 'init', array( self::get_instance(), 'plugin_init' ), 30 );
+		add_action( 'after_setup_theme', array( self::get_instance(), 'plugin_i18n' ), 20 );
+		add_action( 'woocommerce_init', array( self::get_instance(), 'plugin_init' ), 30 );
 
 		add_filter( 'woocommerce_get_settings_pages', array( self::get_instance(), 'payuni_add_settings' ) );
 
@@ -181,7 +181,11 @@ class PayuniPayment {
 	 * @return array
 	 */
 	public function add_payuni_payment_gateway( $methods ) {
-		$merged_methods = array_merge( $methods, self::$allowed_payments );
+		if ( self::$allowed_payments && is_array( self::$allowed_payments ) ) {
+			$merged_methods = array_merge( $methods, self::$allowed_payments );
+		} else {
+			$merged_methods = $methods;
+		}
 		return $merged_methods;
 	}
 

@@ -61,6 +61,8 @@ class PaymentRequest {
 			$encrypt_info['TradeInvoice'] = 1;
 		}
 
+		$encrypt_info = apply_filters( 'payuni_upp_transaction_args_data', $encrypt_info, $order );
+
 		PayuniPayment::log( 'request encrypt info:' . wc_print_r( $encrypt_info, true ) );
 
 		$encrypted_info = PayuniPayment::encrypt( $encrypt_info );

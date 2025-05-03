@@ -2,7 +2,7 @@
 Contributors: wpbrewer, bluestan
 Tags: WooCommerce, PAYUNi, taiwan, payment, payment gateway
 Requires at least: 5.9
-Tested up to: 6.7
+Tested up to: 6.8
 Requires PHP: 7.4
 Stable tag: 1.7.0
 License: GPLv2 or later.
@@ -32,6 +32,7 @@ This plugin integrates with PAYUNi's UNiPaypage (UPP/整合式支付頁) service
 * AFTEE payment (AFTEE先享後付)
 * ATM Virtual Account payment
 * CVS payment
+* UnionPay
 
 == Get started with PAYUNi ==
 

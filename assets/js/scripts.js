@@ -1,6 +1,8 @@
-jQuery(function ($) {
+document.addEventListener('DOMContentLoaded', function() {
 	'use strict';
 
-	document.getElementById('payuni-form').submit();
-    
+	const payuniForm = document.getElementById('payuni-form');
+	if (payuniForm) {
+		payuniForm.submit();
+	}
 });

@@ -17,6 +17,7 @@ use WPBrewer\Payuni\Payment\Gateways\CreditInstallment12;
 use WPBrewer\Payuni\Payment\Gateways\CreditInstallment18;
 use WPBrewer\Payuni\Payment\Gateways\CreditInstallment24;
 use WPBrewer\Payuni\Payment\Gateways\CreditInstallment30;
+use WPBrewer\Payuni\Payment\Gateways\CreditUnionPay;
 use WPBrewer\Payuni\Payment\Gateways\Cvs;
 use WPBrewer\Payuni\Payment\Gateways\GooglePay;
 use WPBrewer\Payuni\Payment\Gateways\LinePay;
@@ -138,14 +139,15 @@ class PayuniPayment {
 		PaymentResponse::init();
 
 		self::$allowed_payments = array(
-			Credit::GATEWAY_ID     => '\WPBrewer\Payuni\Payment\Gateways\Credit',
-			Cvs::GATEWAY_ID        => '\WPBrewer\Payuni\Payment\Gateways\Cvs',
-			Atm::GATEWAY_ID        => '\WPBrewer\Payuni\Payment\Gateways\Atm',
-			Aftee::GATEWAY_ID      => '\WPBrewer\Payuni\Payment\Gateways\Aftee',
-			ApplePay::GATEWAY_ID   => '\WPBrewer\Payuni\Payment\Gateways\ApplePay',
-			GooglePay::GATEWAY_ID  => '\WPBrewer\Payuni\Payment\Gateways\GooglePay',
-			SamsungPay::GATEWAY_ID => '\WPBrewer\Payuni\Payment\Gateways\SamsungPay',
-			LinePay::GATEWAY_ID    => '\WPBrewer\Payuni\Payment\Gateways\LinePay',
+			Credit::GATEWAY_ID         => '\WPBrewer\Payuni\Payment\Gateways\Credit',
+			Cvs::GATEWAY_ID            => '\WPBrewer\Payuni\Payment\Gateways\Cvs',
+			Atm::GATEWAY_ID            => '\WPBrewer\Payuni\Payment\Gateways\Atm',
+			Aftee::GATEWAY_ID          => '\WPBrewer\Payuni\Payment\Gateways\Aftee',
+			ApplePay::GATEWAY_ID       => '\WPBrewer\Payuni\Payment\Gateways\ApplePay',
+			GooglePay::GATEWAY_ID      => '\WPBrewer\Payuni\Payment\Gateways\GooglePay',
+			SamsungPay::GATEWAY_ID     => '\WPBrewer\Payuni\Payment\Gateways\SamsungPay',
+			LinePay::GATEWAY_ID        => '\WPBrewer\Payuni\Payment\Gateways\LinePay',
+			CreditUnionPay::GATEWAY_ID => '\WPBrewer\Payuni\Payment\Gateways\CreditUnionPay',
 		);
 
 		$number_of_payments = get_option( 'payuni_payment_installment_number_of_payments', array() );

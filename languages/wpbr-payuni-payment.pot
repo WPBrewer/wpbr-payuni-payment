@@ -2,7 +2,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PAYUNi Payment for WooCommerce\n"
-"POT-Creation-Date: 2024-10-11 03:06+0000\n"
+"POT-Creation-Date: 2025-07-23 15:16+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -10,274 +10,202 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
-"X-Generator: Loco https://localise.biz/\n"
+"X-Generator: Poedit 3.6\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-Flags-xgettext: --add-comments=translators:\n"
 "X-Poedit-WPHeader: wpbr-payuni-payment.php\n"
 "X-Poedit-SourceCharset: UTF-8\n"
-"X-Poedit-KeywordsList: __;_e;_n:1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;esc_attr__;"
-"esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c;_n_noop:1,2;"
-"_nx_noop:3c,1,2;__ngettext_noop:1,2\n"
+"X-Poedit-KeywordsList: "
+"__;_e;_n:1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;esc_attr__;esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c;_n_noop:1,2;_nx_noop:3c,1,2;__ngettext_noop:1,2\n"
 "X-Poedit-SearchPath-0: .\n"
 "X-Poedit-SearchPathExcluded-0: *.min.js\n"
 "X-Poedit-SearchPathExcluded-1: includes/core\n"
 "X-Poedit-SearchPathExcluded-2: includes/core/class-slswc-client-manager.php\n"
 "X-Poedit-SearchPathExcluded-3: includes/core/class-slswc-client.php\n"
 "X-Poedit-SearchPathExcluded-4: includes/core/class-slswc.php\n"
-"Language: "
 
-#. 1: Payment method title 2: PAYUNi URL
-#: src/Gateways/GatewayBase.php:216
-#, php-format
-msgid "%1$s is a payment gateway provided by %2$s"
-msgstr ""
-
-#: src/Gateways/Atm.php:89
-msgid "Account 5 No"
-msgstr ""
-
-#: src/Utils/PayType.php:32
-msgid "AFTEE"
-msgstr ""
-
-#: src/Gateways/Aftee.php:87
-msgctxt "AFTEE"
-msgid "Pay No"
-msgstr ""
-
-#: src/Admin/OrderMetaBoxes.php:141 src/Gateways/GatewayBase.php:181
-msgid "Amego Member"
-msgstr ""
-
-#: src/Settings/SettingsTab.php:129
-msgid "API Settings"
-msgstr ""
-
-#: src/Utils/PayType.php:24
-msgid "ATM"
-msgstr ""
-
-#: src/Gateways/Atm.php:85
-msgctxt "ATM"
-msgid "Pay No"
-msgstr ""
-
-#: src/Gateways/GooglePay.php:109 src/Gateways/TraitCreditInstallment.php:141
-#: src/Gateways/ApplePay.php:109 src/Gateways/Credit.php:102
-#: src/Gateways/SamsungPay.php:109
-msgid "Auth Date"
-msgstr ""
-
-#: src/Gateways/GooglePay.php:110 src/Gateways/TraitCreditInstallment.php:142
-#: src/Gateways/ApplePay.php:110 src/Gateways/Credit.php:103
-#: src/Gateways/SamsungPay.php:110
-msgid "Auth Time"
-msgstr ""
-
-#: src/Gateways/GooglePay.php:108 src/Gateways/TraitCreditInstallment.php:136
-#: src/Gateways/ApplePay.php:108 src/Gateways/Credit.php:101
-#: src/Gateways/SamsungPay.php:108
-msgid "Auth Type"
-msgstr ""
-
-#: src/Gateways/Atm.php:86
-msgid "Bank Code"
-msgstr ""
-
-#: src/Utils/PayType.php:28
-msgid "C2C"
-msgstr ""
-
-#: src/Gateways/TraitCreditInstallment.php:137
-msgid "Card Last 4 No"
-msgstr ""
-
-#: src/Utils/BankType.php:18
-msgid "Cathay Bank"
-msgstr ""
-
-#: src/Admin/OrderMetaBoxes.php:139 src/Gateways/GatewayBase.php:179
-msgid "CDC Code"
-msgstr ""
-
-#: src/Admin/OrderMetaBoxes.php:145 src/Gateways/GatewayBase.php:185
-msgid "Company"
-msgstr ""
-
-#: src/Utils/PayType.php:22
-msgid "Credit Card"
-msgstr ""
-
-#: src/Utils/BankType.php:16
-msgid "CTBC Bank"
-msgstr ""
-
-#: src/Gateways/Cvs.php:86
-msgctxt "CVS"
-msgid "Pay No"
-msgstr ""
-
-#: src/Utils/PayType.php:26
-msgid "CVS Code"
-msgstr ""
-
-#: src/Gateways/Cvs.php:87
-msgid "CVS Store"
-msgstr ""
-
-#: src/Settings/SettingsTab.php:78
-msgid "Debug Log"
-msgstr ""
-
-#: src/Utils/PayType.php:36
-msgid "Delivery"
-msgstr ""
-
-#: includes/settings/AtmSetting.php:29 includes/settings/CvsSetting.php:29
-#: includes/settings/LinePaySetting.php:29
-#: includes/settings/CreditInstallmentSetting.php:29
-#: includes/settings/GooglePaySetting.php:29
-#: includes/settings/SamsungPaySetting.php:29
-#: includes/settings/ApplePaySetting.php:29
-#: includes/settings/CreditSetting.php:29 includes/settings/AfteeSetting.php:29
-msgid "Description"
-msgstr ""
-
-#: src/Admin/OrderMetaBoxes.php:143 src/Gateways/GatewayBase.php:183
-msgid "Donation"
-msgstr ""
-
-#: src/Settings/SettingsTab.php:117
-msgid "E-Invoice"
-msgstr ""
-
-#: src/Admin/OrderMetaBoxes.php:122 src/Gateways/GatewayBase.php:162
-msgid "E-Invoice Amount"
-msgstr ""
-
-#: src/Gateways/GatewayBase.php:159
-msgid "E-Invoice Detail"
-msgstr ""
-
-#: src/Admin/OrderMetaBoxes.php:121 src/Gateways/GatewayBase.php:161
-msgid "E-Invoice No"
-msgstr ""
-
-#: src/Admin/OrderMetaBoxes.php:123 src/Gateways/GatewayBase.php:163
-msgid "E-Invoice Time"
-msgstr ""
-
-#: src/Admin/OrderMetaBoxes.php:133 src/Gateways/GatewayBase.php:173
-msgid "E-Invoice Type"
-msgstr ""
-
-#: src/Gateways/TraitCreditInstallment.php:140
-msgid "Each Amount"
-msgstr ""
-
-#: includes/settings/AtmSetting.php:18 includes/settings/CvsSetting.php:18
-#: includes/settings/LinePaySetting.php:18
-#: includes/settings/CreditInstallmentSetting.php:18
-#: includes/settings/GooglePaySetting.php:18
-#: includes/settings/SamsungPaySetting.php:18
-#: includes/settings/ApplePaySetting.php:18
-#: includes/settings/CreditSetting.php:18 includes/settings/AfteeSetting.php:18
-msgid "Enable"
-msgstr ""
-
-#: src/Settings/SettingsTab.php:120
-msgid "Enable E-Invoice"
-msgstr ""
-
-#: includes/settings/AtmSetting.php:16 includes/settings/CvsSetting.php:16
-#: includes/settings/LinePaySetting.php:16
+#: includes/settings/AfteeSetting.php:16
+#: includes/settings/ApplePaySetting.php:16 includes/settings/AtmSetting.php:16
 #: includes/settings/CreditInstallmentSetting.php:16
+#: includes/settings/CreditSetting.php:16
+#: includes/settings/CreditUnionPay.php:16 includes/settings/CvsSetting.php:16
 #: includes/settings/GooglePaySetting.php:16
+#: includes/settings/LinePaySetting.php:16
 #: includes/settings/SamsungPaySetting.php:16
-#: includes/settings/ApplePaySetting.php:16
-#: includes/settings/CreditSetting.php:16 includes/settings/AfteeSetting.php:16
 msgid "Enable/Disable"
 msgstr ""
 
-#: src/Settings/SettingsTab.php:110
-msgid "English"
+#: includes/settings/AfteeSetting.php:18
+#: includes/settings/ApplePaySetting.php:18 includes/settings/AtmSetting.php:18
+#: includes/settings/CreditInstallmentSetting.php:18
+#: includes/settings/CreditSetting.php:18
+#: includes/settings/CreditUnionPay.php:18 includes/settings/CvsSetting.php:18
+#: includes/settings/GooglePaySetting.php:18
+#: includes/settings/LinePaySetting.php:18
+#: includes/settings/SamsungPaySetting.php:18
+msgid "Enable"
 msgstr ""
 
-#: src/Settings/SettingsTab.php:131
-msgid "Enter your PAYUNi API credentials"
+#: includes/settings/AfteeSetting.php:22
+#: includes/settings/ApplePaySetting.php:22 includes/settings/AtmSetting.php:22
+#: includes/settings/CreditInstallmentSetting.php:22
+#: includes/settings/CreditSetting.php:22
+#: includes/settings/CreditUnionPay.php:22 includes/settings/CvsSetting.php:22
+#: includes/settings/GooglePaySetting.php:22
+#: includes/settings/LinePaySetting.php:22
+#: includes/settings/SamsungPaySetting.php:22
+msgid "Title"
 msgstr ""
 
-#: src/Gateways/Atm.php:87 src/Gateways/Cvs.php:88
-#: includes/settings/AtmSetting.php:35 includes/settings/CvsSetting.php:35
-msgid "Expire Date"
+#: includes/settings/AfteeSetting.php:24
+#: includes/settings/ApplePaySetting.php:24 includes/settings/AtmSetting.php:24
+#: includes/settings/CreditInstallmentSetting.php:24
+#: includes/settings/CreditSetting.php:24
+#: includes/settings/CreditUnionPay.php:24 includes/settings/CvsSetting.php:24
+#: includes/settings/GooglePaySetting.php:24
+#: includes/settings/LinePaySetting.php:24
+#: includes/settings/SamsungPaySetting.php:24
+msgid "This controls the title which the user sees during checkout."
 msgstr ""
 
-#: src/Admin/OrderMetaBoxes.php:155 src/Gateways/GatewayBase.php:195
-msgid "Failed"
+#: includes/settings/AfteeSetting.php:25 src/Gateways/Aftee.php:36
+#: src/Gateways/Aftee.php:37
+msgid "PAYUNi AFTEE Payment"
 msgstr ""
 
-#: src/Gateways/TraitCreditInstallment.php:139
-msgid "First Amount"
+#: includes/settings/AfteeSetting.php:29
+#: includes/settings/ApplePaySetting.php:29 includes/settings/AtmSetting.php:29
+#: includes/settings/CreditInstallmentSetting.php:29
+#: includes/settings/CreditSetting.php:29
+#: includes/settings/CreditUnionPay.php:29 includes/settings/CvsSetting.php:29
+#: includes/settings/GooglePaySetting.php:29
+#: includes/settings/LinePaySetting.php:29
+#: includes/settings/SamsungPaySetting.php:29
+msgid "Description"
 msgstr ""
 
-#: src/PayuniPayment.php:189
-msgid "General Settings"
+#: includes/settings/AfteeSetting.php:31
+#: includes/settings/ApplePaySetting.php:31 includes/settings/AtmSetting.php:31
+#: includes/settings/CreditInstallmentSetting.php:31
+#: includes/settings/CreditSetting.php:31
+#: includes/settings/CreditUnionPay.php:31 includes/settings/CvsSetting.php:31
+#: includes/settings/GooglePaySetting.php:31
+#: includes/settings/LinePaySetting.php:31
+#: includes/settings/SamsungPaySetting.php:31
+msgid "This controls the description which the user sees during checkout."
 msgstr ""
 
-#: src/Settings/SettingsTab.php:263
-msgid "Go to Payment Settings"
+#: includes/settings/AfteeSetting.php:35
+#: includes/settings/CreditInstallmentSetting.php:35
+msgid "Minimum Amount"
 msgstr ""
 
-#: src/Settings/SettingsTab.php:177
-msgid "Hash IV"
+#: includes/settings/AfteeSetting.php:37
+#: includes/settings/CreditInstallmentSetting.php:37
+msgid "Minimum amount to use this payment gateway."
 msgstr ""
 
-#: src/Settings/SettingsTab.php:170
-msgid "Hash Key"
-msgstr ""
-
-#. Author URI of the plugin
-msgid "https://wpbrewer.com/"
-msgstr ""
-
-#. URI of the plugin
-msgid "https://wpbrewer.com/product/wpbr-payuni-payment"
-msgstr ""
-
-#: src/Utils/PayType.php:30
-msgid "ICash"
-msgstr ""
-
-#: src/Gateways/GatewayBase.php:127
-msgid ""
-"If the payment detail is not displayed. Please wait for a moment and reload "
-"the page."
-msgstr ""
-
-#: includes/settings/AtmSetting.php:47 includes/settings/CvsSetting.php:47
-#: includes/settings/LinePaySetting.php:35
+#: includes/settings/AfteeSetting.php:40
+#: includes/settings/ApplePaySetting.php:35 includes/settings/AtmSetting.php:47
 #: includes/settings/CreditInstallmentSetting.php:40
+#: includes/settings/CreditSetting.php:35
+#: includes/settings/CreditUnionPay.php:35 includes/settings/CvsSetting.php:47
 #: includes/settings/GooglePaySetting.php:35
+#: includes/settings/LinePaySetting.php:35
 #: includes/settings/SamsungPaySetting.php:35
-#: includes/settings/ApplePaySetting.php:35
-#: includes/settings/CreditSetting.php:35 includes/settings/AfteeSetting.php:40
 msgid "Incomplete Payment Message"
 msgstr ""
 
-#: src/Gateways/TraitCreditInstallment.php:138
-msgid "Installments"
+#: includes/settings/AfteeSetting.php:42
+#: includes/settings/ApplePaySetting.php:37 includes/settings/AtmSetting.php:49
+#: includes/settings/CreditInstallmentSetting.php:42
+#: includes/settings/CreditSetting.php:37
+#: includes/settings/CreditUnionPay.php:37 includes/settings/CvsSetting.php:49
+#: includes/settings/GooglePaySetting.php:37
+#: includes/settings/LinePaySetting.php:37
+#: includes/settings/SamsungPaySetting.php:37
+msgid ""
+"This controls the message displayed on thank you page when the payment is "
+"incomplated."
+msgstr ""
+
+#: includes/settings/ApplePaySetting.php:25 src/Gateways/ApplePay.php:37
+#: src/Gateways/ApplePay.php:38
+msgid "PAYUNi Apple Pay Payment"
+msgstr ""
+
+#: includes/settings/AtmSetting.php:25 src/Gateways/Atm.php:36
+#: src/Gateways/Atm.php:37
+msgid "PAYUNi ATM Payment"
+msgstr ""
+
+#: includes/settings/AtmSetting.php:35 includes/settings/CvsSetting.php:35
+#: src/Gateways/Atm.php:87 src/Gateways/Cvs.php:88
+msgid "Expire Date"
+msgstr ""
+
+#: includes/settings/AtmSetting.php:37 includes/settings/CvsSetting.php:37
+msgid "This controls the expire date of the payment."
+msgstr ""
+
+#: includes/settings/CreditInstallmentSetting.php:25
+msgid "PAYUNi Installment Payment"
+msgstr ""
+
+#: includes/settings/CreditSetting.php:25 src/Gateways/Credit.php:30
+#: src/Gateways/Credit.php:31
+msgid "PAYUNi Credit Card Payment"
+msgstr ""
+
+#: includes/settings/CreditUnionPay.php:25 src/Gateways/CreditUnionPay.php:30
+#: src/Gateways/CreditUnionPay.php:31
+msgid "PAYUNi UnionPay"
+msgstr ""
+
+#: includes/settings/CvsSetting.php:25 src/Gateways/Cvs.php:36
+#: src/Gateways/Cvs.php:37
+msgid "PAYUNi CVS Payment"
+msgstr ""
+
+#: includes/settings/GooglePaySetting.php:25 src/Gateways/GooglePay.php:37
+#: src/Gateways/GooglePay.php:38
+msgid "PAYUNi Google Pay Payment"
+msgstr ""
+
+#: includes/settings/LinePaySetting.php:25
+msgid "PAYUNi LINE Pay Payment"
+msgstr ""
+
+#: includes/settings/SamsungPaySetting.php:25
+msgid "PAYUNi  Samsung Pay Payment"
 msgstr ""
 
 #: src/Admin/OrderList.php:38
 msgid "Invoice No"
 msgstr ""
 
-#: src/Admin/OrderMetaBoxes.php:149 src/Gateways/GatewayBase.php:189
-msgid "Issue Info"
+#: src/Admin/OrderList.php:50
+msgid "Unissue"
 msgstr ""
 
-#: src/Admin/OrderMetaBoxes.php:161 src/Gateways/GatewayBase.php:201
-msgid "Issue Status"
+#: src/Admin/OrderMetaBoxes.php:64 src/Gateways/GatewayBase.php:123
+msgid "PAYUNi Payment Detail"
+msgstr ""
+
+#: src/Admin/OrderMetaBoxes.php:96
+msgid "Order No"
+msgstr ""
+
+#: src/Admin/OrderMetaBoxes.php:121 src/Gateways/GatewayBase.php:161
+msgid "E-Invoice No"
+msgstr ""
+
+#: src/Admin/OrderMetaBoxes.php:122 src/Gateways/GatewayBase.php:162
+msgid "E-Invoice Amount"
+msgstr ""
+
+#: src/Admin/OrderMetaBoxes.php:123 src/Gateways/GatewayBase.php:163
+msgid "E-Invoice Time"
 msgstr ""
 
 #: src/Admin/OrderMetaBoxes.php:127 src/Gateways/GatewayBase.php:167
@@ -285,138 +213,204 @@ msgctxt "Issue Type"
 msgid "Issue"
 msgstr ""
 
-#: src/Admin/OrderMetaBoxes.php:131 src/Gateways/GatewayBase.php:171
-msgctxt "Issue Type"
-msgid "Unknown Issue Type"
-msgstr ""
-
 #: src/Admin/OrderMetaBoxes.php:129 src/Gateways/GatewayBase.php:169
 msgctxt "Issue Type"
 msgid "Void"
 msgstr ""
 
-#: src/Admin/OrderMetaBoxes.php:153 src/Gateways/GatewayBase.php:193
-msgid "Issued"
+#: src/Admin/OrderMetaBoxes.php:131 src/Gateways/GatewayBase.php:171
+msgctxt "Issue Type"
+msgid "Unknown Issue Type"
 msgstr ""
 
-#: src/Settings/SettingsTab.php:105
-msgid "Language"
-msgstr ""
-
-#: src/Utils/PayType.php:34
-msgid "LINE Pay"
-msgstr ""
-
-#: src/Gateways/LinePay.php:107
-msgctxt "LINE Pay"
-msgid "Pay No"
-msgstr ""
-
-#: src/Settings/SettingsTab.php:81
-msgid "Log PAYUNi payment message"
-msgstr ""
-
-#: src/Settings/SettingsTab.php:163
-msgid "MerchantID"
-msgstr ""
-
-#: src/Api/PaymentResponse.php:71 src/Api/PaymentResponse.php:132
-msgid "MerTradeNo:"
-msgstr ""
-
-#: src/PayuniPayment.php:155
-msgid "Message"
-msgstr ""
-
-#: includes/settings/CreditInstallmentSetting.php:35
-#: includes/settings/AfteeSetting.php:35
-msgid "Minimum Amount"
-msgstr ""
-
-#: includes/settings/CreditInstallmentSetting.php:37
-#: includes/settings/AfteeSetting.php:37
-msgid "Minimum amount to use this payment gateway."
+#: src/Admin/OrderMetaBoxes.php:133 src/Gateways/GatewayBase.php:173
+msgid "E-Invoice Type"
 msgstr ""
 
 #: src/Admin/OrderMetaBoxes.php:137 src/Gateways/GatewayBase.php:177
 msgid "Mobile Code"
 msgstr ""
 
-#: src/PayuniPayment.php:253
-msgid "No such order id"
+#: src/Admin/OrderMetaBoxes.php:139 src/Gateways/GatewayBase.php:179
+msgid "CDC Code"
 msgstr ""
 
-#: src/Settings/SettingsTab.php:87
-msgid "Number of Payments"
+#: src/Admin/OrderMetaBoxes.php:141 src/Gateways/GatewayBase.php:181
+msgid "Amego Member"
 msgstr ""
 
-#: src/Admin/OrderMetaBoxes.php:96
-msgid "Order No"
+#: src/Admin/OrderMetaBoxes.php:143 src/Gateways/GatewayBase.php:183
+msgid "Donation"
 msgstr ""
 
-#: src/Gateways/Atm.php:88 src/Gateways/Aftee.php:88
-msgid "Pay Time"
+#: src/Admin/OrderMetaBoxes.php:145 src/Gateways/GatewayBase.php:185
+msgid "Company"
 msgstr ""
 
-#. Name of the plugin
-msgid "Pay with PAYUNi"
+#: src/Admin/OrderMetaBoxes.php:147 src/Gateways/GatewayBase.php:187
+msgid "Unknown Issue Info"
 msgstr ""
 
-#: src/PayuniPayment.php:190 src/Settings/SettingsTab.php:53
-#: src/Settings/SettingsTab.php:73
-msgid "Payment Settings"
+#: src/Admin/OrderMetaBoxes.php:149 src/Gateways/GatewayBase.php:189
+msgid "Issue Info"
+msgstr ""
+
+#: src/Admin/OrderMetaBoxes.php:153 src/Gateways/GatewayBase.php:193
+msgid "Issued"
+msgstr ""
+
+#: src/Admin/OrderMetaBoxes.php:155 src/Gateways/GatewayBase.php:195
+msgid "Failed"
+msgstr ""
+
+#: src/Admin/OrderMetaBoxes.php:157 src/Gateways/GatewayBase.php:197
+msgid "Voided"
+msgstr ""
+
+#: src/Admin/OrderMetaBoxes.php:159 src/Gateways/GatewayBase.php:199
+msgid "Unknown Issue Status"
+msgstr ""
+
+#: src/Admin/OrderMetaBoxes.php:161 src/Gateways/GatewayBase.php:201
+msgid "Issue Status"
+msgstr ""
+
+#: src/Api/PaymentRequest.php:92
+msgid "Redirecting..."
+msgstr ""
+
+#. translators:  %s is the order id
+#: src/Api/PaymentRequest.php:128
+#, php-format
+msgid "Unable to find order #%s"
+msgstr ""
+
+#. translators:  %s is the order id
+#: src/Api/PaymentRequest.php:143
+#, php-format
+msgid ""
+"The refund amount for order #%s should be the same as the order total for "
+"installment payment."
+msgstr ""
+
+#. translators:  %s is the order id
+#: src/Api/PaymentRequest.php:159
+#, php-format
+msgid "Unable to find transaction id for order #%s"
+msgstr ""
+
+#. translators:  %s is the order id
+#: src/Api/PaymentRequest.php:172
+msgid "Unable to Query Order status before refund"
+msgstr ""
+
+#: src/Api/PaymentRequest.php:198
+#, php-format
+msgid "CloseStatus is not refundable. CloseStatus: %s"
+msgstr ""
+
+#. translators:  %s is the TradeStatus of the order
+#: src/Api/PaymentRequest.php:202
+#, php-format
+msgid "Unable to Refund this Order. TradeStatus: %1$s, CloseStatus: %2$s"
+msgstr ""
+
+#. translators:  %s is the TradeStatus of the order
+#: src/Api/PaymentRequest.php:215
+#, php-format
+msgid "Unable to Refund this Order. TradeStatus:%s"
+msgstr ""
+
+#. translators: %1$s is the status, %2$s is the message, %3$s is the refund amount
+#: src/Api/PaymentRequest.php:253
+#, php-format
+msgid ""
+"PAYUNi payment refund success. Status: %1$s, Message: %2$s, Refund Amount: "
+"%3$s"
+msgstr ""
+
+#: src/Api/PaymentRequest.php:325
+msgid "PAYUNi query returned SUCCESS but no order result found."
+msgstr ""
+
+#. translators:  %s is the decrypted result
+#: src/Api/PaymentRequest.php:348
+#, php-format
+msgid "PAYUNi query succeed. Query result: %s"
+msgstr ""
+
+#. translators:  %s is the decrypted result
+#: src/Api/PaymentRequest.php:355
+#, php-format
+msgid "PAYUNi query failed. Query result: %s"
+msgstr ""
+
+#: src/Api/PaymentResponse.php:68
+msgid "PAYUNi Notify"
+msgstr ""
+
+#: src/Api/PaymentResponse.php:69 src/Api/PaymentResponse.php:130
+msgid "Status code:"
+msgstr ""
+
+#: src/Api/PaymentResponse.php:70 src/Api/PaymentResponse.php:131
+msgid "Transaction message:"
+msgstr ""
+
+#: src/Api/PaymentResponse.php:71 src/Api/PaymentResponse.php:132
+msgid "MerTradeNo:"
+msgstr ""
+
+#: src/Api/PaymentResponse.php:72 src/Api/PaymentResponse.php:133
+msgid "UNi number:"
 msgstr ""
 
 #: src/Api/PaymentResponse.php:73 src/Api/PaymentResponse.php:134
 msgid "Payment type:"
 msgstr ""
 
-#: src/Settings/SettingsTab.php:31 src/Gateways/GatewayBase.php:221
-msgid "PAYUNi"
+#: src/Api/PaymentResponse.php:129
+msgid "PAYUNi Return"
 msgstr ""
 
-#: includes/settings/SamsungPaySetting.php:25
-msgid "PAYUNi  Samsung Pay Payment"
+#: src/Gateways/Aftee.php:87
+msgctxt "AFTEE"
+msgid "Pay No"
 msgstr ""
 
-#: src/Gateways/Aftee.php:36 src/Gateways/Aftee.php:37
-#: includes/settings/AfteeSetting.php:25
-msgid "PAYUNi AFTEE Payment"
+#: src/Gateways/Aftee.php:88 src/Gateways/Atm.php:88
+msgid "Pay Time"
 msgstr ""
 
-#: src/Gateways/ApplePay.php:37 src/Gateways/ApplePay.php:38
-#: includes/settings/ApplePaySetting.php:25
-msgid "PAYUNi Apple Pay Payment"
+#: src/Gateways/ApplePay.php:108 src/Gateways/Credit.php:101
+#: src/Gateways/CreditUnionPay.php:102 src/Gateways/GooglePay.php:108
+#: src/Gateways/SamsungPay.php:108 src/Gateways/TraitCreditInstallment.php:136
+msgid "Auth Type"
 msgstr ""
 
-#: src/Gateways/Atm.php:36 src/Gateways/Atm.php:37
-#: includes/settings/AtmSetting.php:25
-msgid "PAYUNi ATM Payment"
+#: src/Gateways/ApplePay.php:109 src/Gateways/Credit.php:102
+#: src/Gateways/CreditUnionPay.php:103 src/Gateways/GooglePay.php:109
+#: src/Gateways/SamsungPay.php:109 src/Gateways/TraitCreditInstallment.php:141
+msgid "Auth Date"
 msgstr ""
 
-#: src/Gateways/Credit.php:30 src/Gateways/Credit.php:31
-#: includes/settings/CreditSetting.php:25
-msgid "PAYUNi Credit Card Payment"
+#: src/Gateways/ApplePay.php:110 src/Gateways/Credit.php:103
+#: src/Gateways/CreditUnionPay.php:104 src/Gateways/GooglePay.php:110
+#: src/Gateways/SamsungPay.php:110 src/Gateways/TraitCreditInstallment.php:142
+msgid "Auth Time"
 msgstr ""
 
-#: src/Gateways/Cvs.php:36 src/Gateways/Cvs.php:37
-#: includes/settings/CvsSetting.php:25
-msgid "PAYUNi CVS Payment"
+#: src/Gateways/Atm.php:85
+msgctxt "ATM"
+msgid "Pay No"
 msgstr ""
 
-#: src/Gateways/GooglePay.php:37 src/Gateways/GooglePay.php:38
-#: includes/settings/GooglePaySetting.php:25
-msgid "PAYUNi Google Pay Payment"
+#: src/Gateways/Atm.php:86
+msgid "Bank Code"
 msgstr ""
 
-#: includes/settings/CreditInstallmentSetting.php:25
-msgid "PAYUNi Installment Payment"
-msgstr ""
-
-#. %s: number of installments
-#: src/Gateways/TraitCreditInstallment.php:72
-#, php-format
-msgid "PAYUNi Installment Payment (%s Installments)"
+#: src/Gateways/Atm.php:89
+msgid "Account 5 No"
 msgstr ""
 
 #: src/Gateways/CreditInstallment12.php:29
@@ -454,99 +448,144 @@ msgstr ""
 msgid "PAYUNi Installment Payment (9 Installments)"
 msgstr ""
 
-#: src/Gateways/LinePay.php:37 src/Gateways/LinePay.php:38
-msgid "PAYUNi LINE Pay"
+#: src/Gateways/Cvs.php:86
+msgctxt "CVS"
+msgid "Pay No"
 msgstr ""
 
-#: includes/settings/LinePaySetting.php:25
-msgid "PAYUNi LINE Pay Payment"
-msgstr ""
-
-#: src/Api/PaymentResponse.php:68
-msgid "PAYUNi Notify"
-msgstr ""
-
-#: src/Admin/OrderMetaBoxes.php:64 src/Gateways/GatewayBase.php:123
-msgid "PAYUNi Payment Detail"
-msgstr ""
-
-#: wpbr-payuni-payment.php:42
-msgid ""
-"PAYUNi Payment needs WooCommerce, please intall and activate WooCommerce "
-"first!"
-msgstr ""
-
-#. %1$s is the status, %2$s is the message, %3$s is the refund amount
-#: src/Api/PaymentRequest.php:258
-#, php-format
-msgid ""
-"PAYUNi payment refund success. Status: %1$s, Message: %2$s, Refund Amount: "
-"%3$s"
-msgstr ""
-
-#: src/PayuniPayment.php:271
-msgid "PAYUNi Query Failed!"
-msgstr ""
-
-#. %s is the decrypted result
-#: src/Api/PaymentRequest.php:344
-#, php-format
-msgid "PAYUNi query succeed. Query result: %s"
-msgstr ""
-
-#: src/PayuniPayment.php:265
-msgid "PAYUNi Query Successfully"
-msgstr ""
-
-#: src/Api/PaymentResponse.php:129
-msgid "PAYUNi Return"
-msgstr ""
-
-#: src/Gateways/SamsungPay.php:37 src/Gateways/SamsungPay.php:38
-msgid "PAYUNi Samsung Pay"
+#: src/Gateways/Cvs.php:87
+msgid "CVS Store"
 msgstr ""
 
 #: src/Gateways/GatewayBase.php:93
 msgid "Proceed to PAYUNi"
 msgstr ""
 
-#. Description of the plugin
-msgid "Provides PAYUNi UPP(UNiPaypage) Payment for WooCommerce."
+#: src/Gateways/GatewayBase.php:127
+msgid ""
+"If the payment detail is not displayed. Please wait for a moment and reload "
+"the page."
 msgstr ""
 
-#: src/Api/PaymentRequest.php:90
-msgid "Redirecting..."
+#: src/Gateways/GatewayBase.php:159
+msgid "E-Invoice Detail"
 msgstr ""
 
-#: src/Api/PaymentResponse.php:69 src/Api/PaymentResponse.php:130
-msgid "Status code:"
+#. translators: 1: Payment method title 2: PAYUNi URL
+#: src/Gateways/GatewayBase.php:216
+#, php-format
+msgid "%1$s is a payment gateway provided by %2$s"
 msgstr ""
 
-#: src/Utils/BankType.php:14
-msgid "Taiwan Bank"
+#: src/Gateways/GatewayBase.php:221 src/Settings/SettingsTab.php:31
+msgid "PAYUNi"
 msgstr ""
 
-#: src/Settings/SettingsTab.php:156
-msgid "Test Hash IV"
+#: src/Gateways/GatewayBase.php:278
+msgid "We have received your order, but the payment is incompleted."
 msgstr ""
 
-#: src/Settings/SettingsTab.php:149
-msgid "Test Hash Key"
+#: src/Gateways/LinePay.php:37 src/Gateways/LinePay.php:38
+msgid "PAYUNi LINE Pay"
 msgstr ""
 
-#: src/Settings/SettingsTab.php:142
-msgid "Test MerchantID"
+#: src/Gateways/LinePay.php:107
+msgctxt "LINE Pay"
+msgid "Pay No"
 msgstr ""
 
-#: src/Settings/SettingsTab.php:135
-msgid "Test Mode"
+#: src/Gateways/SamsungPay.php:37 src/Gateways/SamsungPay.php:38
+msgid "PAYUNi Samsung Pay"
 msgstr ""
 
-#: src/Settings/SettingsTab.php:113
-msgid "The language of the PAYUNi checkout page."
+#. translators: %s: number of installments
+#: src/Gateways/TraitCreditInstallment.php:72
+#, php-format
+msgid "PAYUNi Installment Payment (%s Installments)"
 msgstr ""
 
-#. %s is the WooCommerce payment setting page url
+#: src/Gateways/TraitCreditInstallment.php:137
+msgid "Card Last 4 No"
+msgstr ""
+
+#: src/Gateways/TraitCreditInstallment.php:138
+msgid "Installments"
+msgstr ""
+
+#: src/Gateways/TraitCreditInstallment.php:139
+msgid "First Amount"
+msgstr ""
+
+#: src/Gateways/TraitCreditInstallment.php:140
+msgid "Each Amount"
+msgstr ""
+
+#: src/PayuniPayment.php:172
+msgid "Trade No"
+msgstr ""
+
+#: src/PayuniPayment.php:173
+msgid "Trade Amount"
+msgstr ""
+
+#: src/PayuniPayment.php:174
+msgid "Trade Status"
+msgstr ""
+
+#: src/PayuniPayment.php:175
+msgid "Message"
+msgstr ""
+
+#: src/PayuniPayment.php:202
+msgid "General Settings"
+msgstr ""
+
+#: src/PayuniPayment.php:203 src/Settings/SettingsTab.php:53
+#: src/Settings/SettingsTab.php:73
+msgid "Payment Settings"
+msgstr ""
+
+#: src/PayuniPayment.php:255
+msgid "Unsecure AJAX call"
+msgstr ""
+
+#: src/PayuniPayment.php:266
+msgid "No such order id"
+msgstr ""
+
+#: src/PayuniPayment.php:278
+msgid "PAYUNi Query Successfully"
+msgstr ""
+
+#: src/PayuniPayment.php:285
+msgid "PAYUNi query failed. Please check the order notes for details."
+msgstr ""
+
+#: src/PayuniPayment.php:291
+msgid "PAYUNi Query Failed!"
+msgstr ""
+
+#: src/Settings/SettingsTab.php:78
+msgid "Debug Log"
+msgstr ""
+
+#: src/Settings/SettingsTab.php:81
+msgid "Log PAYUNi payment message"
+msgstr ""
+
+#. translators:  %s is the WooCommerce log page url
+#: src/Settings/SettingsTab.php:83
+#, php-format
+msgid ""
+"You Can find logs with source name <strong>wpbr-payuni-payment</strong> at "
+"<strong>WooCommerce -> Status -> Logs</strong>. %s"
+msgstr ""
+
+#: src/Settings/SettingsTab.php:87
+msgid "Number of Payments"
+msgstr ""
+
+#. translators:  %s is the WooCommerce payment setting page url
 #: src/Settings/SettingsTab.php:101
 #, php-format
 msgid ""
@@ -554,94 +593,163 @@ msgid ""
 "need to eanble each payment in Payments section. %s"
 msgstr ""
 
-#. %s is the order id
-#: src/Api/PaymentRequest.php:141
-#, php-format
+#: src/Settings/SettingsTab.php:105
+msgid "Language"
+msgstr ""
+
+#: src/Settings/SettingsTab.php:109
+msgid "Traditional Chinese"
+msgstr ""
+
+#: src/Settings/SettingsTab.php:110
+msgid "English"
+msgstr ""
+
+#: src/Settings/SettingsTab.php:113
+msgid "The language of the PAYUNi checkout page."
+msgstr ""
+
+#: src/Settings/SettingsTab.php:117
+msgid "E-Invoice"
+msgstr ""
+
+#: src/Settings/SettingsTab.php:120
+msgid "Enable E-Invoice"
+msgstr ""
+
+#: src/Settings/SettingsTab.php:121
 msgid ""
-"The refund amount for order #%s should be the same as the order total for "
-"installment payment."
+"You need to register Amego e-invoice and enable e-invoice feature at PAYUNi "
+"website."
 msgstr ""
 
-#: includes/settings/AtmSetting.php:31 includes/settings/CvsSetting.php:31
-#: includes/settings/LinePaySetting.php:31
-#: includes/settings/CreditInstallmentSetting.php:31
-#: includes/settings/GooglePaySetting.php:31
-#: includes/settings/SamsungPaySetting.php:31
-#: includes/settings/ApplePaySetting.php:31
-#: includes/settings/CreditSetting.php:31 includes/settings/AfteeSetting.php:31
-msgid "This controls the description which the user sees during checkout."
+#: src/Settings/SettingsTab.php:129
+msgid "API Settings"
 msgstr ""
 
-#: includes/settings/AtmSetting.php:37 includes/settings/CvsSetting.php:37
-msgid "This controls the expire date of the payment."
+#: src/Settings/SettingsTab.php:131
+msgid "Enter your PAYUNi API credentials"
 msgstr ""
 
-#: includes/settings/AtmSetting.php:49 includes/settings/CvsSetting.php:49
-#: includes/settings/LinePaySetting.php:37
-#: includes/settings/CreditInstallmentSetting.php:42
-#: includes/settings/GooglePaySetting.php:37
-#: includes/settings/SamsungPaySetting.php:37
-#: includes/settings/ApplePaySetting.php:37
-#: includes/settings/CreditSetting.php:37 includes/settings/AfteeSetting.php:42
-msgid ""
-"This controls the message displayed on thank you page when the payment is "
-"incomplated."
+#: src/Settings/SettingsTab.php:135
+msgid "Test Mode"
 msgstr ""
 
-#: includes/settings/AtmSetting.php:24 includes/settings/CvsSetting.php:24
-#: includes/settings/LinePaySetting.php:24
-#: includes/settings/CreditInstallmentSetting.php:24
-#: includes/settings/GooglePaySetting.php:24
-#: includes/settings/SamsungPaySetting.php:24
-#: includes/settings/ApplePaySetting.php:24
-#: includes/settings/CreditSetting.php:24 includes/settings/AfteeSetting.php:24
-msgid "This controls the title which the user sees during checkout."
+#: src/Settings/SettingsTab.php:138
+msgid "When enabled, you need to use the test-only data below."
 msgstr ""
 
-#: src/Settings/SettingsTab.php:179
-msgid "This is the Hash IV when you apply PAYUNi API"
-msgstr ""
-
-#: src/Settings/SettingsTab.php:172
-msgid "This is the Hash Key when you apply PAYUNi API"
-msgstr ""
-
-#: src/Settings/SettingsTab.php:165
-msgid "This is the MerchantID when you apply PAYUNi API"
-msgstr ""
-
-#: src/Settings/SettingsTab.php:158
-msgid "This is the test Hash IV when you apply PAYUNi API"
-msgstr ""
-
-#: src/Settings/SettingsTab.php:151
-msgid "This is the test Hash Key when you apply PAYUNi API"
+#: src/Settings/SettingsTab.php:142
+msgid "Test MerchantID"
 msgstr ""
 
 #: src/Settings/SettingsTab.php:144
 msgid "This is the test MerchantID when you apply PAYUNi API"
 msgstr ""
 
-#: includes/settings/AtmSetting.php:22 includes/settings/CvsSetting.php:22
-#: includes/settings/LinePaySetting.php:22
-#: includes/settings/CreditInstallmentSetting.php:22
-#: includes/settings/GooglePaySetting.php:22
-#: includes/settings/SamsungPaySetting.php:22
-#: includes/settings/ApplePaySetting.php:22
-#: includes/settings/CreditSetting.php:22 includes/settings/AfteeSetting.php:22
-msgid "Title"
+#: src/Settings/SettingsTab.php:149
+msgid "Test Hash Key"
 msgstr ""
 
-#: src/PayuniPayment.php:153
-msgid "Trade Amount"
+#: src/Settings/SettingsTab.php:151
+msgid "This is the test Hash Key when you apply PAYUNi API"
 msgstr ""
 
-#: src/PayuniPayment.php:152
-msgid "Trade No"
+#: src/Settings/SettingsTab.php:156
+msgid "Test Hash IV"
 msgstr ""
 
-#: src/PayuniPayment.php:154
-msgid "Trade Status"
+#: src/Settings/SettingsTab.php:158
+msgid "This is the test Hash IV when you apply PAYUNi API"
+msgstr ""
+
+#: src/Settings/SettingsTab.php:163
+msgid "MerchantID"
+msgstr ""
+
+#: src/Settings/SettingsTab.php:165
+msgid "This is the MerchantID when you apply PAYUNi API"
+msgstr ""
+
+#: src/Settings/SettingsTab.php:170
+msgid "Hash Key"
+msgstr ""
+
+#: src/Settings/SettingsTab.php:172
+msgid "This is the Hash Key when you apply PAYUNi API"
+msgstr ""
+
+#: src/Settings/SettingsTab.php:177
+msgid "Hash IV"
+msgstr ""
+
+#: src/Settings/SettingsTab.php:179
+msgid "This is the Hash IV when you apply PAYUNi API"
+msgstr ""
+
+#: src/Settings/SettingsTab.php:256
+msgid "View logs"
+msgstr ""
+
+#: src/Settings/SettingsTab.php:263
+msgid "Go to Payment Settings"
+msgstr ""
+
+#: src/Utils/BankType.php:14
+msgid "Taiwan Bank"
+msgstr ""
+
+#: src/Utils/BankType.php:16
+msgid "CTBC Bank"
+msgstr ""
+
+#: src/Utils/BankType.php:18
+msgid "Cathay Bank"
+msgstr ""
+
+#: src/Utils/BankType.php:20
+msgid "Unknown Bank"
+msgstr ""
+
+#: src/Utils/PayType.php:22
+msgid "Credit Card"
+msgstr ""
+
+#: src/Utils/PayType.php:24
+msgid "ATM"
+msgstr ""
+
+#: src/Utils/PayType.php:26
+msgid "CVS Code"
+msgstr ""
+
+#: src/Utils/PayType.php:28
+msgid "C2C"
+msgstr ""
+
+#: src/Utils/PayType.php:30
+msgid "ICash"
+msgstr ""
+
+#: src/Utils/PayType.php:32
+msgid "AFTEE"
+msgstr ""
+
+#: src/Utils/PayType.php:34
+msgid "LINE Pay"
+msgstr ""
+
+#: src/Utils/PayType.php:36
+msgid "Delivery"
+msgstr ""
+
+#: src/Utils/PayType.php:38
+msgid "Unknown Payment Type"
+msgstr ""
+
+#: src/Utils/TradeStatus.php:36
+msgctxt "Trade Status"
+msgid "Payment Number Taken"
 msgstr ""
 
 #: src/Utils/TradeStatus.php:38
@@ -659,24 +767,14 @@ msgctxt "Trade Status"
 msgid "Paid"
 msgstr ""
 
-#: src/Utils/TradeStatus.php:47
-msgctxt "Trade Status"
-msgid "Payment Cancel"
-msgstr ""
-
 #: src/Utils/TradeStatus.php:45
 msgctxt "Trade Status"
 msgid "Payment Fail"
 msgstr ""
 
-#: src/Utils/TradeStatus.php:36
+#: src/Utils/TradeStatus.php:47
 msgctxt "Trade Status"
-msgid "Payment Number Taken"
-msgstr ""
-
-#: src/Utils/TradeStatus.php:51
-msgctxt "Trade Status"
-msgid "To be Confirmed"
+msgid "Payment Cancel"
 msgstr ""
 
 #: src/Utils/TradeStatus.php:49
@@ -684,9 +782,9 @@ msgctxt "Trade Status"
 msgid "Transaction Expired"
 msgstr ""
 
-#: src/Utils/TradeStatus.php:55
+#: src/Utils/TradeStatus.php:51
 msgctxt "Trade Status"
-msgid "Unknown Trade Status"
+msgid "To be Confirmed"
 msgstr ""
 
 #: src/Utils/TradeStatus.php:53
@@ -694,101 +792,33 @@ msgctxt "Trade Status"
 msgid "Unpaid"
 msgstr ""
 
-#: src/Settings/SettingsTab.php:109
-msgid "Traditional Chinese"
+#: src/Utils/TradeStatus.php:55
+msgctxt "Trade Status"
+msgid "Unknown Trade Status"
 msgstr ""
 
-#: src/Api/PaymentResponse.php:70 src/Api/PaymentResponse.php:131
-msgid "Transaction message:"
+#: wpbr-payuni-payment.php:42
+msgid ""
+"PAYUNi Payment needs WooCommerce, please intall and activate WooCommerce "
+"first!"
 msgstr ""
 
-#. %s is the order id
-#: src/Api/PaymentRequest.php:126
-#, php-format
-msgid "Unable to find order #%s"
+#. Plugin Name of the plugin/theme
+msgid "Pay with PAYUNi"
 msgstr ""
 
-#. %s is the order id
-#: src/Api/PaymentRequest.php:157
-#, php-format
-msgid "Unable to find transaction id for order #%s"
+#. Plugin URI of the plugin/theme
+msgid "https://wpbrewer.com/product/wpbr-payuni-payment"
 msgstr ""
 
-#. %s is the order id
-#: src/Api/PaymentRequest.php:170
-msgid "Unable to Query Order status before refund"
+#. Description of the plugin/theme
+msgid "Provides PAYUNi UPP(UNiPaypage) Payment for WooCommerce."
 msgstr ""
 
-#. %s is the TradeStatus of the order
-#: src/Api/PaymentRequest.php:207
-#, php-format
-msgid "Unable to Refund this Order. TradeStatus: %1$s, CloseStatus: %2$s"
-msgstr ""
-
-#. %s is the TradeStatus of the order
-#: src/Api/PaymentRequest.php:220
-#, php-format
-msgid "Unable to Refund this Order. TradeStatus:%s"
-msgstr ""
-
-#: src/Api/PaymentResponse.php:72 src/Api/PaymentResponse.php:133
-msgid "UNi number:"
-msgstr ""
-
-#: src/Admin/OrderList.php:50
-msgid "Unissue"
-msgstr ""
-
-#: src/Utils/BankType.php:20
-msgid "Unknown Bank"
-msgstr ""
-
-#: src/Admin/OrderMetaBoxes.php:147 src/Gateways/GatewayBase.php:187
-msgid "Unknown Issue Info"
-msgstr ""
-
-#: src/Admin/OrderMetaBoxes.php:159 src/Gateways/GatewayBase.php:199
-msgid "Unknown Issue Status"
-msgstr ""
-
-#: src/Utils/PayType.php:38
-msgid "Unknown Payment Type"
-msgstr ""
-
-#: src/PayuniPayment.php:242
-msgid "Unsecure AJAX call"
-msgstr ""
-
-#: src/Settings/SettingsTab.php:256
-msgid "View logs"
-msgstr ""
-
-#: src/Admin/OrderMetaBoxes.php:157 src/Gateways/GatewayBase.php:197
-msgid "Voided"
-msgstr ""
-
-#: src/Gateways/GatewayBase.php:278
-msgid "We have received your order, but the payment is incompleted."
-msgstr ""
-
-#: src/Settings/SettingsTab.php:138
-msgid "When enabled, you need to use the test-only data below."
-msgstr ""
-
-#. Author of the plugin
+#. Author of the plugin/theme
 msgid "WPBrewer"
 msgstr ""
 
-#. %s is the WooCommerce log page url
-#: src/Settings/SettingsTab.php:83
-#, php-format
-msgid ""
-"You Can find logs with source name <strong>wpbr-payuni-payment</strong> at "
-"<strong>WooCommerce -> Status -> Logs</strong>. %s"
-msgstr ""
-
-#: src/Settings/SettingsTab.php:121
-msgid ""
-"You need to register Amego e-invoice and enable e-invoice feature at PAYUNi "
-"website."
+#. Author URI of the plugin/theme
+msgid "https://wpbrewer.com/"
 msgstr ""

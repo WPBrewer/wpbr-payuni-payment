@@ -8,7 +8,7 @@
 namespace WPBrewer\Payuni\Payment\Utils;
 
 /**
- * Class TradeStatus
+ * Class CloseStatus (請款狀態)
  */
 class CloseStatus {
 

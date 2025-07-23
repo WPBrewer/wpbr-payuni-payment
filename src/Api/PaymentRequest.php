@@ -183,16 +183,9 @@ class PaymentRequest {
 
 			// 請款狀態.
 			$close_status = $query_result['CloseStatus'];
-
-			if ( self::is_cancellable( $close_status ) ) {
-				$encrypt_info = array(
-					'MerID'     => $mer_id,
-					'TradeNo'   => $transaction_id,
-					'Timestamp' => time(),
-				);
-				$url          = ( wc_string_to_bool( get_option( 'payuni_payment_testmode_enabled' ) ) ) ? 'https://sandbox-api.payuni.com.tw/api/trade/cancel' : 'https://api.payuni.com.tw/api/trade/cancel';
-			} elseif ( self::is_refundable( $close_status ) ) {
-				// 2=請款成功, // 7=請款處理中，要用退款，退款完成後要取消授權
+			// 只有在請款成功時，才能退款.
+			if ( self::is_refundable( $close_status ) ) {
+				// 2=請款成功
 				$encrypt_info = array(
 					'MerID'     => $mer_id,
 					'TradeNo'   => $transaction_id,
@@ -202,7 +195,7 @@ class PaymentRequest {
 				);
 				$url          = ( wc_string_to_bool( get_option( 'payuni_payment_testmode_enabled' ) ) ) ? 'https://sandbox-api.payuni.com.tw/api/trade/close' : 'https://api.payuni.com.tw/api/trade/close';
 			} else {
-
+				$order->add_order_note( sprintf( __( 'CloseStatus is not refundable. CloseStatus: %s', 'wpbr-payuni-payment' ), $close_status ) );
 				return new \WP_Error(
 					'process_refund_request',
 					/* translators:  %s is the TradeStatus of the order */
@@ -212,7 +205,7 @@ class PaymentRequest {
 						'refund_amount' => $amount,
 					)
 				);
-			}
+			}	
 
 			PayuniPayment::log( 'refund url:' . $url );
 		} else {
@@ -290,6 +283,7 @@ class PaymentRequest {
 			'MerTradeNo' => $payuni_order_no,
 			'Timestamp'  => time(),
 		);
+		PayuniPayment::log( 'query encrypt info:' . wc_print_r( $encrypt_info, true ) );
 
 		$encrypted_info = PayuniPayment::encrypt( $encrypt_info );
 
@@ -323,22 +317,30 @@ class PaymentRequest {
 		$decrypted = PayuniPayment::decrypt( $result['EncryptInfo'] );
 		PayuniPayment::log( 'query decrypted info:' . wc_print_r( $decrypted, true ) );
 
-		$query_result                = array();
-		$query_result['MerTradeNo']  = $decrypted['Result'][0]['MerTradeNo'];
-		$query_result['TradeNo']     = $decrypted['Result'][0]['TradeNo'];
-		$query_result['TradeStatus'] = $decrypted['Result'][0]['TradeStatus'];
-		$query_result['PaymentDay']  = $decrypted['Result'][0]['PaymentDay'];
-		$query_result['CreateDay']   = $decrypted['Result'][0]['CreateDay'];
-		$query_result['PaymentType'] = $decrypted['Result'][0]['PaymentType'];
-
-		// 信用卡.
-		if ( '1' === $query_result['PaymentType'] ) {
-			$query_result['CloseStatus'] = $decrypted['Result'][0]['CloseStatus'];
-		}
-
-		$woo_order_id = PayuniPayment::parse_payuni_order_no_to_woo_order_id( $query_result['MerTradeNo'] );
-
 		if ( 'SUCCESS' === $result['Status'] ) {
+			// Check if Result array exists and has data
+			if ( ! isset( $decrypted['Result'] ) || ! is_array( $decrypted['Result'] ) || empty( $decrypted['Result'] ) ) {
+				PayuniPayment::log( 'PAYUNi query returned SUCCESS but no Result data found.' );
+				if ( $add_note ) {
+					$order->add_order_note( __( 'PAYUNi query returned SUCCESS but no order result found.', 'wpbr-payuni-payment' ) );
+				}
+				return false;
+			}
+
+			$query_result                = array();
+			$query_result['MerTradeNo']  = $decrypted['Result'][0]['MerTradeNo'];
+			$query_result['TradeNo']     = $decrypted['Result'][0]['TradeNo'];
+			$query_result['TradeStatus'] = $decrypted['Result'][0]['TradeStatus'];
+			$query_result['PaymentDay']  = $decrypted['Result'][0]['PaymentDay'];
+			$query_result['CreateDay']   = $decrypted['Result'][0]['CreateDay'];
+			$query_result['PaymentType'] = $decrypted['Result'][0]['PaymentType'];
+
+			// 信用卡.
+			if ( '1' === $query_result['PaymentType'] ) {
+				$query_result['CloseStatus'] = $decrypted['Result'][0]['CloseStatus'];
+			}
+
+			$woo_order_id = PayuniPayment::parse_payuni_order_no_to_woo_order_id( $query_result['MerTradeNo'] );
 
 			if ( $add_note ) {
 				$order = wc_get_order( $woo_order_id );
@@ -348,13 +350,17 @@ class PaymentRequest {
 			PayuniPayment::log( 'PAYUNi query success. Status:' . $result['Status'] . ', Message:' . $decrypted['Message'] . ', Trade Status:' . $query_result['TradeStatus'] );
 			return $query_result;
 		} else {
+			if ( $add_note ) {
+				/* translators:  %s is the decrypted result */
+				$order->add_order_note( sprintf( __( 'PAYUNi query failed. Query result: %s', 'wpbr-payuni-payment' ), wc_print_r( $decrypted, true ) ) );
+			}
 			PayuniPayment::log( 'PAYUNi query failed. Status:' . $result['Status'] . ', Message:' . $decrypted['Message'] );
 			return false;
 		}
 	}
 
 	/**
-	 * Check if the payment transaction auth is cancellable
+	 * Check if the payment transaction auth is cancellable (取消授權)
 	 *
 	 * @param  int $close_status The close status of the order transaction.
 	 * @return bool
@@ -368,13 +374,13 @@ class PaymentRequest {
 	}
 
 	/**
-	 * Check if the payment transaction is closeable
+	 * Check if the payment transaction is closeable (退款)
 	 *
 	 * @param  int $close_status The close status of the order transaction.
 	 * @return bool
 	 */
 	private static function is_refundable( $close_status ) {
-		if ( CloseStatus::CAPTURE_OK === $close_status || CloseStatus::CAPTURE_PROCESSING === $close_status ) {
+		if ( CloseStatus::CAPTURE_OK === $close_status ) {
 			return true;
 		} else {
 			return false;

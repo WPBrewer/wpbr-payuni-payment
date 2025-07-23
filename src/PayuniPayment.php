@@ -278,6 +278,13 @@ class PayuniPayment {
 					'message' => __( 'PAYUNi Query Successfully', 'wpbr-payuni-payment' ),
 				);
 				wp_send_json( $return );
+			} else {
+				// Query returned false - no results found or query failed
+				$return = array(
+					'success' => false,
+					'message' => __( 'PAYUNi query failed. Please check the order notes for details.', 'wpbr-payuni-payment' ),
+				);
+				wp_send_json( $return );
 			}
 		} catch ( \Exception $e ) {
 

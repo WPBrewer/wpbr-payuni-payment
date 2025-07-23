@@ -10,6 +10,8 @@
 .gitlab-ci.yml
 .travis.yml
 .DS_Store
+.claude
+.cursor
 Thumbs.db
 behat.yml
 bin
@@ -26,6 +28,7 @@ multisite.xml.dist
 phpcs.ruleset.xml
 README.md
 readme.md
+CLAUDE.md
 wp-cli.local.yml
 main.yaml
 update-assets.yaml

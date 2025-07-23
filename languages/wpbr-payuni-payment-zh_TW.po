@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: PAYUNi Payment for WooCommerce\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-07-23 15:16+0800\n"
-"PO-Revision-Date: 2025-07-23 15:17+0800\n"
+"PO-Revision-Date: 2025-07-23 15:56+0800\n"
 "Last-Translator: \n"
 "Language-Team: 繁體中文\n"
 "Language: zh_TW\n"
@@ -313,7 +313,7 @@ msgstr ""
 #: src/Api/PaymentRequest.php:202
 #, php-format
 msgid "Unable to Refund this Order. TradeStatus: %1$s, CloseStatus: %2$s"
-msgstr "訂單退款失敗。交易狀態：%1$s，關帳狀態：%2$s"
+msgstr "訂單退款失敗。交易狀態：%1$s，請款狀態：%2$s"
 
 #. translators:  %s is the TradeStatus of the order
 #: src/Api/PaymentRequest.php:215

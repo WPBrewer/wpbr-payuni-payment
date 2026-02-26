@@ -7,6 +7,9 @@
 
 namespace WPBrewer\Payuni\Payment\Api;
 
+use WPBrewer\Payuni\Payment\Gateways\Aftee;
+use WPBrewer\Payuni\Payment\Gateways\Atm;
+use WPBrewer\Payuni\Payment\Gateways\Cvs;
 use WPBrewer\Payuni\Payment\PayuniPayment;
 use WPBrewer\Payuni\Payment\Utils\OrderMeta;
 use WPBrewer\Payuni\Payment\Utils\PayType;

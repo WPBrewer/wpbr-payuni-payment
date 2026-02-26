@@ -250,6 +250,13 @@ abstract class GatewayBase extends \WC_Payment_Gateway {
 	 */
 	public function receipt_page( $order ) {
 		WC()->cart->empty_cart();
+
+		$order = wc_get_order( $order );
+
+		if ( in_array( $order->get_payment_method(), array( Atm::GATEWAY_ID, Cvs::GATEWAY_ID, Aftee::GATEWAY_ID ), true ) ) {
+			$order->update_status( 'on-hold' );
+		}
+
 		$request = new PaymentRequest();
 		$request->set_gateway( $this );
 		$request->build_request_form( $order );

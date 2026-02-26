@@ -83,6 +83,42 @@ jQuery(function ($) {
 
 			});
 
+			$( document ).on( 'click', '#payuni-schedule-cancel-btn', function( event ){
+				event.preventDefault();
+				var order_id = $(this).data('id');
+				if ($.blockUI) {
+					$('#payuni-order-meta-boxes').block({
+						message: null,
+					});
+				}
+				$.ajax({
+					url: payuni_object.ajax_url,
+					data: {
+						action: 'payuni_schedule_cancel',
+						order_id: order_id,
+						security: payuni_object.query_nonce,
+					},
+					dataType: "json",
+					type: 'post',
+					success: function (data) {
+						if (data.success) {
+							alert(data.message);
+							window.location.reload();
+						} else {
+							alert(data.message);
+						}
+						if ($.blockUI) {
+							$('#payuni-order-meta-boxes').unblock();
+						}
+					},
+					always: function () {
+						if ($.blockUI) {
+							$('#payuni-order-meta-boxes').unblock();
+						}
+					}
+				});
+			});
+
         }//init
     };
 

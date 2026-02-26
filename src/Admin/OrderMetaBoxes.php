@@ -10,6 +10,8 @@ namespace WPBrewer\Payuni\Payment\Admin;
 defined( 'ABSPATH' ) || exit;
 
 use Automattic\WooCommerce\Internal\DataStores\Orders\CustomOrdersTableController;
+use WPBrewer\Payuni\Payment\Gateways\Atm;
+use WPBrewer\Payuni\Payment\Gateways\Cvs;
 use WPBrewer\Payuni\Payment\PayuniPayment;
 use WPBrewer\Payuni\Payment\Utils\OrderMeta;
 use WPBrewer\Payuni\Payment\Utils\AuthType;
@@ -160,6 +162,22 @@ class OrderMetaBoxes {
 			}
 			echo '<tr><td><strong>' . esc_html__( 'Issue Status', 'wpbr-payuni-payment' ) . '</strong></td><td>' . esc_html( $einvoice_status . ' (' . $einvoice_status_desc . ')' ) . '</td></tr>';
 		}// end einvoice enabled
+
+		// 排程自動取消（僅 ATM / CVS）.
+		if ( in_array( $payment_method, array( Atm::GATEWAY_ID, Cvs::GATEWAY_ID ), true ) ) {
+			$scheduled = as_next_scheduled_action( 'payuni_cancel_expired_order', array( 'order_id' => $order->get_id() ), 'payuni' );
+			echo '<tr><td><strong>' . esc_html__( 'Auto Cancel', 'wpbr-payuni-payment' ) . '</strong></td><td>';
+			if ( $scheduled ) {
+				$dt = new \DateTime( '@' . $scheduled );
+				$dt->setTimezone( new \DateTimeZone( wp_timezone_string() ) );
+				echo esc_html( $dt->format( 'Y-m-d H:i:s' ) );
+			} elseif ( in_array( $order->get_status(), array( 'pending', 'on-hold' ), true ) ) {
+				echo '<button id="payuni-schedule-cancel-btn" class="button" data-id="' . esc_attr( $order->get_id() ) . '">' . esc_html__( 'Enable', 'wpbr-payuni-payment' ) . '</button>';
+			} else {
+				echo '—';
+			}
+			echo '</td></tr>';
+		}
 
 		echo '<tr id="payuni-action"><td colspan="2"><button id="payuni-query-btn" class="button" data-id="' . esc_html( $order->get_id() ) . '">查詢</button></td></tr>';
 		echo '</table>';

@@ -24,6 +24,7 @@ use WPBrewer\Payuni\Payment\Gateways\LinePay;
 use WPBrewer\Payuni\Payment\Gateways\SamsungPay;
 use WPBrewer\Payuni\Payment\Settings\SettingsTab;
 use WPBrewer\Payuni\Payment\Utils\OrderMeta;
+use WPBrewer\Payuni\Payment\Utils\TradeStatus;
 
 /**
  * PayuniPayment class file
@@ -124,6 +125,7 @@ class PayuniPayment {
 		add_action( 'admin_enqueue_scripts', array( self::get_instance(), 'payuni_admin_scripts' ), 9 );
 
 		add_action( 'wp_ajax_payuni_query', array( self::get_instance(), 'payuni_ajax_query_payment' ) );
+		add_action( 'wp_ajax_payuni_schedule_cancel', array( self::get_instance(), 'payuni_ajax_schedule_cancel' ) );
 	}
 
 	public function plugin_i18n() {
@@ -137,6 +139,10 @@ class PayuniPayment {
 		OrderList::init();
 		OrderMetaBoxes::init();
 		PaymentResponse::init();
+
+		add_action( 'payuni_cancel_expired_order', array( self::get_instance(), 'handle_cancel_expired_order' ) );
+		add_action( 'wpbr_payuni_on_order_status_updated', array( self::get_instance(), 'handle_order_expiry_schedule' ) );
+		add_action( 'woocommerce_order_status_changed', array( self::get_instance(), 'maybe_unschedule_expiry_on_status_change' ), 10, 4 );
 
 		self::$allowed_payments = array(
 			Credit::GATEWAY_ID         => '\WPBrewer\Payuni\Payment\Gateways\Credit',
@@ -495,6 +501,225 @@ class PayuniPayment {
 			}
 			self::$log->log( $level, $message, array( 'source' => 'wpbr-payuni-payment' ) );
 		}
+	}
+
+	/**
+	 * Handle scheduling/unscheduling of auto-cancellation based on order status.
+	 *
+	 * Hooked to `wpbr_payuni_on_order_status_updated`.
+	 *
+	 * @param \WC_Order $order The order object.
+	 *
+	 * @return void
+	 */
+	public function handle_order_expiry_schedule( $order ) {
+		if ( ! $order ) {
+			return;
+		}
+
+		$payment_method = $order->get_payment_method();
+		if ( Atm::GATEWAY_ID !== $payment_method && Cvs::GATEWAY_ID !== $payment_method ) {
+			return;
+		}
+
+		$args         = array( 'order_id' => $order->get_id() );
+		$trade_status = $order->get_meta( OrderMeta::TRADE_STATUS );
+
+		// 終態：取消排程.
+		if ( in_array( $trade_status, array( TradeStatus::PAID, TradeStatus::EXPIRED, TradeStatus::CANCEL, TradeStatus::FAIL ), true ) ) {
+			if ( as_next_scheduled_action( 'payuni_cancel_expired_order', $args, 'payuni' ) ) {
+				as_unschedule_action( 'payuni_cancel_expired_order', $args, 'payuni' );
+				$order->add_order_note( __( 'Auto-cancellation schedule removed.', 'wpbr-payuni-payment' ) );
+			}
+			return;
+		}
+
+		// 取號成功（TradeStatus=0）：建立排程.
+		$expire_date = '';
+		if ( Atm::GATEWAY_ID === $payment_method ) {
+			$expire_date = $order->get_meta( OrderMeta::AMT_EXPIRE_DATE );
+		} elseif ( Cvs::GATEWAY_ID === $payment_method ) {
+			$expire_date = $order->get_meta( OrderMeta::CVS_EXPIRE_DATE );
+		}
+
+		if ( empty( $expire_date ) ) {
+			self::log( sprintf( 'CVS/ATM Order %d not have expired_date', $order->get_id() ) );
+			return;
+		}
+
+		$timezone = new \DateTimeZone( wp_timezone_string() );
+		$dt       = \DateTime::createFromFormat( 'Y-m-d H:i:s', $expire_date, $timezone );
+		if ( ! $dt ) {
+			$dt = \DateTime::createFromFormat( 'Y-m-d', $expire_date, $timezone );
+		}
+
+		if ( ! $dt ) {
+			self::log( sprintf( 'Failed to parse ExpireDate "%s" for order %d.', $expire_date, $order->get_id() ), 'warning' );
+			return;
+		}
+
+		// Schedule cancellation at 00:10 the day after expire date.
+		$dt->modify( '+1 day' );
+		$dt->setTime( 0, 10, 0 );
+		$timestamp = $dt->getTimestamp();
+
+		// Unschedule any existing action for this order (handles re-payment attempts).
+		as_unschedule_action( 'payuni_cancel_expired_order', $args, 'payuni' );
+		as_schedule_single_action( $timestamp, 'payuni_cancel_expired_order', $args, 'payuni' );
+
+		$order->add_order_note( sprintf( __( 'Scheduled auto-cancellation at %s if payment is not completed.', 'wpbr-payuni-payment' ), $dt->format( 'Y-m-d H:i:s' ) ) );
+		self::log( sprintf( 'Scheduled auto-cancellation for order %d at %s.', $order->get_id(), $dt->format( 'Y-m-d H:i:s' ) ) );
+	}
+
+	/**
+	 * Unschedule auto-cancellation when order status is manually changed.
+	 *
+	 * Hooked to `woocommerce_order_status_changed`.
+	 *
+	 * @param int       $order_id   The order ID.
+	 * @param string    $old_status Old status.
+	 * @param string    $new_status New status.
+	 * @param \WC_Order $order      The order object.
+	 *
+	 * @return void
+	 */
+	public function maybe_unschedule_expiry_on_status_change( $order_id, $old_status, $new_status, $order ) {
+		$payment_method = $order->get_payment_method();
+		if ( Atm::GATEWAY_ID !== $payment_method && Cvs::GATEWAY_ID !== $payment_method ) {
+			return;
+		}
+
+		if ( in_array( $new_status, array( 'pending', 'on-hold' ), true ) ) {
+			return;
+		}
+
+		$args = array( 'order_id' => $order_id );
+		if ( as_next_scheduled_action( 'payuni_cancel_expired_order', $args, 'payuni' ) ) {
+			as_unschedule_action( 'payuni_cancel_expired_order', $args, 'payuni' );
+			$order->add_order_note( __( 'Auto-cancellation schedule removed.', 'wpbr-payuni-payment' ) );
+			self::log( sprintf( 'Auto-cancellation unscheduled for order %d due to status change to %s.', $order_id, $new_status ) );
+		}
+	}
+
+	/**
+	 * AJAX handler to manually schedule auto-cancellation for ATM/CVS orders.
+	 *
+	 * @return void
+	 */
+	public function payuni_ajax_schedule_cancel() {
+
+		if ( ! isset( $_POST['security'] ) || ! wp_verify_nonce( wc_clean( wp_unslash( $_POST['security'] ) ), 'payuni-query' ) ) {
+			wp_send_json(
+				array(
+					'success' => false,
+					'message' => __( 'Unsecure AJAX call', 'wpbr-payuni-payment' ),
+				)
+			);
+		}
+
+		$order_id = isset( $_POST['order_id'] ) ? absint( $_POST['order_id'] ) : 0;
+		$order    = wc_get_order( $order_id );
+
+		if ( ! $order ) {
+			wp_send_json(
+				array(
+					'success' => false,
+					'message' => __( 'No such order id', 'wpbr-payuni-payment' ),
+				)
+			);
+		}
+
+		$payment_method = $order->get_payment_method();
+		if ( Atm::GATEWAY_ID !== $payment_method && Cvs::GATEWAY_ID !== $payment_method ) {
+			wp_send_json(
+				array(
+					'success' => false,
+					'message' => __( 'This order does not support auto-cancellation.', 'wpbr-payuni-payment' ),
+				)
+			);
+		}
+
+		// 取得 ExpireDate.
+		$expire_date = '';
+		if ( Atm::GATEWAY_ID === $payment_method ) {
+			$expire_date = $order->get_meta( OrderMeta::AMT_EXPIRE_DATE );
+		} elseif ( Cvs::GATEWAY_ID === $payment_method ) {
+			$expire_date = $order->get_meta( OrderMeta::CVS_EXPIRE_DATE );
+		}
+
+		if ( empty( $expire_date ) ) {
+			wp_send_json(
+				array(
+					'success' => false,
+					'message' => __( 'No expire date found for this order.', 'wpbr-payuni-payment' ),
+				)
+			);
+		}
+
+		$timezone = new \DateTimeZone( wp_timezone_string() );
+		$dt       = \DateTime::createFromFormat( 'Y-m-d H:i:s', $expire_date, $timezone );
+		if ( ! $dt ) {
+			$dt = \DateTime::createFromFormat( 'Y-m-d', $expire_date, $timezone );
+		}
+
+		if ( ! $dt ) {
+			wp_send_json(
+				array(
+					'success' => false,
+					'message' => sprintf( __( 'Failed to parse expire date: %s', 'wpbr-payuni-payment' ), $expire_date ),
+				)
+			);
+		}
+
+		$dt->modify( '+1 day' );
+		$dt->setTime( 0, 0, 0 );
+		$timestamp = $dt->getTimestamp();
+
+		$args = array( 'order_id' => $order->get_id() );
+
+		as_unschedule_action( 'payuni_cancel_expired_order', $args, 'payuni' );
+		as_schedule_single_action( $timestamp, 'payuni_cancel_expired_order', $args, 'payuni' );
+
+		$scheduled_time = $dt->format( 'Y-m-d H:i:s' );
+		$order->add_order_note( sprintf( __( 'Scheduled auto-cancellation at %s if payment is not completed.', 'wpbr-payuni-payment' ), $scheduled_time ) );
+		self::log( sprintf( 'Manually scheduled auto-cancellation for order %d at %s.', $order_id, $scheduled_time ) );
+
+		wp_send_json(
+			array(
+				'success' => true,
+				'message' => sprintf( __( 'Auto-cancellation scheduled at %s.', 'wpbr-payuni-payment' ), $scheduled_time ),
+			)
+		);
+	}
+
+	/**
+	 * Handle cancellation of expired ATM/CVS orders.
+	 *
+	 * @param int $order_id The order ID.
+	 *
+	 * @return void
+	 */
+	public function handle_cancel_expired_order( $order_id ) {
+		$order = wc_get_order( $order_id );
+		if ( ! $order ) {
+			return;
+		}
+
+		$payment_method = $order->get_payment_method();
+		if ( Atm::GATEWAY_ID !== $payment_method && Cvs::GATEWAY_ID !== $payment_method ) {
+			return;
+		}
+
+		if ( $order->is_paid() || $order->get_meta( OrderMeta::TRADE_STATUS ) === TradeStatus::PAID ) {
+			return;
+		}
+
+		if ( ! in_array( $order->get_status(), array( 'pending', 'on-hold' ), true ) ) {
+			return;
+		}
+
+		$order->update_status( 'cancelled', __( 'Order auto-cancelled: payment has expired.', 'wpbr-payuni-payment' ) );
+		self::log( sprintf( 'Order %d auto-cancelled due to expired %s payment.', $order_id, $payment_method ) );
 	}
 
 	/**

@@ -220,11 +220,11 @@ class PaymentResponse {
 	}
 
 	private static function update_order_meta_and_order_status( $order, $decrypted_info ) {
-		
+
 		$trade_status = $decrypted_info['TradeStatus'];
-		
+
 		self::save_payuni_order_data( $order, $decrypted_info );
-		
+
 		if ( TradeStatus::PAID === $trade_status ) {
 			$order->payment_complete( $decrypted_info['TradeNo'] );
 		} elseif ( TradeStatus::EXPIRED === $trade_status ) {
@@ -234,6 +234,8 @@ class PaymentResponse {
 			// 付款取消或付款失敗
 			$order->update_status( 'failed' );
 		}
+
+		do_action( 'wpbr_payuni_on_order_status_updated', $order );
 	}
 
 	private static function save_einvoice_data( $order, $decrypted_info ) {

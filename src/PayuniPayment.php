@@ -566,9 +566,11 @@ class PayuniPayment {
 			return;
 		}
 
-		// Schedule cancellation at 00:10 the day after expire date.
+		// Schedule cancellation after expire date + delay.
+		$delay_minutes = absint( get_option( 'payuni_payment_auto_cancel_delay_minutes', 10 ) );
 		$dt->modify( '+1 day' );
-		$dt->setTime( 0, 10, 0 );
+		$dt->setTime( 0, 0, 0 );
+		$dt->modify( '+' . $delay_minutes . ' minutes' );
 		$timestamp = $dt->getTimestamp();
 
 		// Unschedule any existing action for this order (handles re-payment attempts).
@@ -688,8 +690,10 @@ class PayuniPayment {
 			);
 		}
 
+		$delay_minutes = absint( get_option( 'payuni_payment_auto_cancel_delay_minutes', 10 ) );
 		$dt->modify( '+1 day' );
 		$dt->setTime( 0, 0, 0 );
+		$dt->modify( '+' . $delay_minutes . ' minutes' );
 		$timestamp = $dt->getTimestamp();
 
 		$args = array( 'order_id' => $order->get_id() );

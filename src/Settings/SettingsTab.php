@@ -130,6 +130,18 @@ class SettingsTab extends \WC_Settings_Page {
 					'id'       => 'payuni_payment_auto_cancel_enabled',
 				),
 				array(
+					'title'             => __( 'Auto Cancel Delay (minutes)', 'wpbr-payuni-payment' ),
+					'type'              => 'number',
+					'default'           => '10',
+					'desc'              => __( 'Delay in minutes after the payment deadline before auto-cancelling the order.', 'wpbr-payuni-payment' ),
+					'id'                => 'payuni_payment_auto_cancel_delay_minutes',
+					'css'               => 'width: 80px;',
+					'custom_attributes' => array(
+						'min'  => '0',
+						'step' => '1',
+					),
+				),
+				array(
 					'type' => 'sectionend',
 					'id'   => 'payment_general_setting',
 				),

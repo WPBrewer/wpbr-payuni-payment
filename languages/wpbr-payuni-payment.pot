@@ -2,14 +2,14 @@
 # This file is distributed under the GPL-2.0+.
 msgid ""
 msgstr ""
-"Project-Id-Version: Pay with PAYUNi 1.7.1\n"
+"Project-Id-Version: Pay with PAYUNi 1.8.0\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/wpbr-payuni-payment\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-02-26T21:35:08+00:00\n"
+"POT-Creation-Date: 2026-02-26T23:21:32+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.11.0\n"
 "X-Domain: wpbr-payuni-payment\n"
@@ -396,36 +396,36 @@ msgstr ""
 msgid "PAYUNi query failed. Query result: %s"
 msgstr ""
 
-#: src/Api/PaymentResponse.php:68
-msgid "PAYUNi Notify"
-msgstr ""
-
-#: src/Api/PaymentResponse.php:69
-#: src/Api/PaymentResponse.php:130
-msgid "Status code:"
-msgstr ""
-
-#: src/Api/PaymentResponse.php:70
-#: src/Api/PaymentResponse.php:131
-msgid "Transaction message:"
-msgstr ""
-
 #: src/Api/PaymentResponse.php:71
-#: src/Api/PaymentResponse.php:132
-msgid "MerTradeNo:"
+msgid "PAYUNi Notify"
 msgstr ""
 
 #: src/Api/PaymentResponse.php:72
 #: src/Api/PaymentResponse.php:133
-msgid "UNi number:"
+msgid "Status code:"
 msgstr ""
 
 #: src/Api/PaymentResponse.php:73
 #: src/Api/PaymentResponse.php:134
+msgid "Transaction message:"
+msgstr ""
+
+#: src/Api/PaymentResponse.php:74
+#: src/Api/PaymentResponse.php:135
+msgid "MerTradeNo:"
+msgstr ""
+
+#: src/Api/PaymentResponse.php:75
+#: src/Api/PaymentResponse.php:136
+msgid "UNi number:"
+msgstr ""
+
+#: src/Api/PaymentResponse.php:76
+#: src/Api/PaymentResponse.php:137
 msgid "Payment type:"
 msgstr ""
 
-#: src/Api/PaymentResponse.php:129
+#: src/Api/PaymentResponse.php:132
 msgid "PAYUNi Return"
 msgstr ""
 
@@ -545,7 +545,7 @@ msgstr ""
 msgid "PAYUNi"
 msgstr ""
 
-#: src/Gateways/GatewayBase.php:278
+#: src/Gateways/GatewayBase.php:285
 msgid "We have received your order, but the payment is incompleted."
 msgstr ""
 
@@ -612,12 +612,12 @@ msgid "Payment Settings"
 msgstr ""
 
 #: src/PayuniPayment.php:269
-#: src/PayuniPayment.php:623
+#: src/PayuniPayment.php:625
 msgid "Unsecure AJAX call"
 msgstr ""
 
 #: src/PayuniPayment.php:280
-#: src/PayuniPayment.php:644
+#: src/PayuniPayment.php:646
 msgid "No such order id"
 msgstr ""
 
@@ -634,36 +634,36 @@ msgid "PAYUNi Query Failed!"
 msgstr ""
 
 #: src/PayuniPayment.php:540
-#: src/PayuniPayment.php:607
+#: src/PayuniPayment.php:609
 msgid "Auto-cancellation schedule removed."
 msgstr ""
 
-#: src/PayuniPayment.php:578
-#: src/PayuniPayment.php:701
+#: src/PayuniPayment.php:580
+#: src/PayuniPayment.php:705
 msgid "Scheduled auto-cancellation at %s if payment is not completed."
 msgstr ""
 
-#: src/PayuniPayment.php:632
+#: src/PayuniPayment.php:634
 msgid "Auto-cancel feature is not enabled."
 msgstr ""
 
-#: src/PayuniPayment.php:654
+#: src/PayuniPayment.php:656
 msgid "This order does not support auto-cancellation."
 msgstr ""
 
-#: src/PayuniPayment.php:671
+#: src/PayuniPayment.php:673
 msgid "No expire date found for this order."
 msgstr ""
 
-#: src/PayuniPayment.php:686
+#: src/PayuniPayment.php:688
 msgid "Failed to parse expire date: %s"
 msgstr ""
 
-#: src/PayuniPayment.php:707
+#: src/PayuniPayment.php:711
 msgid "Auto-cancellation scheduled at %s."
 msgstr ""
 
-#: src/PayuniPayment.php:743
+#: src/PayuniPayment.php:747
 msgid "Order auto-cancelled: payment has expired."
 msgstr ""
 
@@ -729,75 +729,83 @@ msgstr ""
 msgid "Automatically cancel ATM and CVS orders when the payment deadline has passed."
 msgstr ""
 
-#: src/Settings/SettingsTab.php:137
+#: src/Settings/SettingsTab.php:133
+msgid "Auto Cancel Delay (minutes)"
+msgstr ""
+
+#: src/Settings/SettingsTab.php:136
+msgid "Delay in minutes after the payment deadline before auto-cancelling the order."
+msgstr ""
+
+#: src/Settings/SettingsTab.php:149
 msgid "API Settings"
 msgstr ""
 
-#: src/Settings/SettingsTab.php:139
+#: src/Settings/SettingsTab.php:151
 msgid "Enter your PAYUNi API credentials"
 msgstr ""
 
-#: src/Settings/SettingsTab.php:143
+#: src/Settings/SettingsTab.php:155
 msgid "Test Mode"
 msgstr ""
 
-#: src/Settings/SettingsTab.php:146
+#: src/Settings/SettingsTab.php:158
 msgid "When enabled, you need to use the test-only data below."
 msgstr ""
 
-#: src/Settings/SettingsTab.php:150
+#: src/Settings/SettingsTab.php:162
 msgid "Test MerchantID"
 msgstr ""
 
-#: src/Settings/SettingsTab.php:152
+#: src/Settings/SettingsTab.php:164
 msgid "This is the test MerchantID when you apply PAYUNi API"
 msgstr ""
 
-#: src/Settings/SettingsTab.php:157
+#: src/Settings/SettingsTab.php:169
 msgid "Test Hash Key"
 msgstr ""
 
-#: src/Settings/SettingsTab.php:159
+#: src/Settings/SettingsTab.php:171
 msgid "This is the test Hash Key when you apply PAYUNi API"
 msgstr ""
 
-#: src/Settings/SettingsTab.php:164
+#: src/Settings/SettingsTab.php:176
 msgid "Test Hash IV"
 msgstr ""
 
-#: src/Settings/SettingsTab.php:166
+#: src/Settings/SettingsTab.php:178
 msgid "This is the test Hash IV when you apply PAYUNi API"
 msgstr ""
 
-#: src/Settings/SettingsTab.php:171
+#: src/Settings/SettingsTab.php:183
 msgid "MerchantID"
 msgstr ""
 
-#: src/Settings/SettingsTab.php:173
+#: src/Settings/SettingsTab.php:185
 msgid "This is the MerchantID when you apply PAYUNi API"
 msgstr ""
 
-#: src/Settings/SettingsTab.php:178
+#: src/Settings/SettingsTab.php:190
 msgid "Hash Key"
 msgstr ""
 
-#: src/Settings/SettingsTab.php:180
+#: src/Settings/SettingsTab.php:192
 msgid "This is the Hash Key when you apply PAYUNi API"
 msgstr ""
 
-#: src/Settings/SettingsTab.php:185
+#: src/Settings/SettingsTab.php:197
 msgid "Hash IV"
 msgstr ""
 
-#: src/Settings/SettingsTab.php:187
+#: src/Settings/SettingsTab.php:199
 msgid "This is the Hash IV when you apply PAYUNi API"
 msgstr ""
 
-#: src/Settings/SettingsTab.php:264
+#: src/Settings/SettingsTab.php:276
 msgid "View logs"
 msgstr ""
 
-#: src/Settings/SettingsTab.php:271
+#: src/Settings/SettingsTab.php:283
 msgid "Go to Payment Settings"
 msgstr ""
 

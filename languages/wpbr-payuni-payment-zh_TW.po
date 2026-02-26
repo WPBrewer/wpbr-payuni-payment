@@ -383,36 +383,36 @@ msgstr "PAYUNi 查詢成功. 查詢結果: %s"
 msgid "PAYUNi query failed. Query result: %s"
 msgstr "PAYUNi 查詢失敗。 查詢結果: %s"
 
-#: src/Api/PaymentResponse.php:68
+#: src/Api/PaymentResponse.php:71
 msgid "PAYUNi Notify"
 msgstr "PAYUNi Notify"
 
-#: src/Api/PaymentResponse.php:69
-#: src/Api/PaymentResponse.php:130
+#: src/Api/PaymentResponse.php:72
+#: src/Api/PaymentResponse.php:133
 msgid "Status code:"
 msgstr "狀態代碼:"
 
-#: src/Api/PaymentResponse.php:70
-#: src/Api/PaymentResponse.php:131
+#: src/Api/PaymentResponse.php:73
+#: src/Api/PaymentResponse.php:134
 msgid "Transaction message:"
 msgstr "狀態訊息:"
 
-#: src/Api/PaymentResponse.php:71
-#: src/Api/PaymentResponse.php:132
+#: src/Api/PaymentResponse.php:74
+#: src/Api/PaymentResponse.php:135
 msgid "MerTradeNo:"
 msgstr "商店訂單編號:"
 
-#: src/Api/PaymentResponse.php:72
-#: src/Api/PaymentResponse.php:133
+#: src/Api/PaymentResponse.php:75
+#: src/Api/PaymentResponse.php:136
 msgid "UNi number:"
 msgstr "UNi 序號:"
 
-#: src/Api/PaymentResponse.php:73
-#: src/Api/PaymentResponse.php:134
+#: src/Api/PaymentResponse.php:76
+#: src/Api/PaymentResponse.php:137
 msgid "Payment type:"
 msgstr "付款方式:"
 
-#: src/Api/PaymentResponse.php:129
+#: src/Api/PaymentResponse.php:132
 msgid "PAYUNi Return"
 msgstr "PAYUNi Return"
 
@@ -533,7 +533,7 @@ msgstr "%1$s 是由 %2$s 所提供的付款方式"
 msgid "PAYUNi"
 msgstr "PAYUNi"
 
-#: src/Gateways/GatewayBase.php:278
+#: src/Gateways/GatewayBase.php:285
 msgid "We have received your order, but the payment is incompleted."
 msgstr "我們已經收到您的訂單，但是付款尚未完成，請儘速付款，若有問題請聯繫商店管理員。"
 
@@ -601,12 +601,12 @@ msgid "Payment Settings"
 msgstr "付款方式設定"
 
 #: src/PayuniPayment.php:269
-#: src/PayuniPayment.php:623
+#: src/PayuniPayment.php:625
 msgid "Unsecure AJAX call"
 msgstr "不安全的 AJAX 呼叫"
 
 #: src/PayuniPayment.php:280
-#: src/PayuniPayment.php:644
+#: src/PayuniPayment.php:646
 msgid "No such order id"
 msgstr "沒有這個訂單編號"
 
@@ -674,75 +674,75 @@ msgstr "啟用電子發票功能"
 msgid "You need to register Amego e-invoice and enable e-invoice feature at PAYUNi website."
 msgstr "需於統一金流後台註冊光貿電子發票並啟用電子發票功能。"
 
-#: src/Settings/SettingsTab.php:137
+#: src/Settings/SettingsTab.php:149
 msgid "API Settings"
 msgstr "API 設定"
 
-#: src/Settings/SettingsTab.php:139
+#: src/Settings/SettingsTab.php:151
 msgid "Enter your PAYUNi API credentials"
 msgstr "請輸入 PAYUNi 串接資料"
 
-#: src/Settings/SettingsTab.php:143
+#: src/Settings/SettingsTab.php:155
 msgid "Test Mode"
 msgstr "測試模式"
 
-#: src/Settings/SettingsTab.php:146
+#: src/Settings/SettingsTab.php:158
 msgid "When enabled, you need to use the test-only data below."
 msgstr "當啟用測試模式時，請填入測試環境的串接資料。"
 
-#: src/Settings/SettingsTab.php:150
+#: src/Settings/SettingsTab.php:162
 msgid "Test MerchantID"
 msgstr "測試商店代號 (MerID)"
 
-#: src/Settings/SettingsTab.php:152
+#: src/Settings/SettingsTab.php:164
 msgid "This is the test MerchantID when you apply PAYUNi API"
 msgstr "PAYUNi 測試環境的商店代號"
 
-#: src/Settings/SettingsTab.php:157
+#: src/Settings/SettingsTab.php:169
 msgid "Test Hash Key"
 msgstr "測試 Hash Key"
 
-#: src/Settings/SettingsTab.php:159
+#: src/Settings/SettingsTab.php:171
 msgid "This is the test Hash Key when you apply PAYUNi API"
 msgstr "PAYUNi 測試環境的 Hash Key"
 
-#: src/Settings/SettingsTab.php:164
+#: src/Settings/SettingsTab.php:176
 msgid "Test Hash IV"
 msgstr "測試 Hash IV"
 
-#: src/Settings/SettingsTab.php:166
+#: src/Settings/SettingsTab.php:178
 msgid "This is the test Hash IV when you apply PAYUNi API"
 msgstr "PAYUNi 測試環境的 Hash IV"
 
-#: src/Settings/SettingsTab.php:171
+#: src/Settings/SettingsTab.php:183
 msgid "MerchantID"
 msgstr "商店代號 (MerID)"
 
-#: src/Settings/SettingsTab.php:173
+#: src/Settings/SettingsTab.php:185
 msgid "This is the MerchantID when you apply PAYUNi API"
 msgstr "這是您申請 PAYUNi 時的商店代號"
 
-#: src/Settings/SettingsTab.php:178
+#: src/Settings/SettingsTab.php:190
 msgid "Hash Key"
 msgstr "Hash Key"
 
-#: src/Settings/SettingsTab.php:180
+#: src/Settings/SettingsTab.php:192
 msgid "This is the Hash Key when you apply PAYUNi API"
 msgstr "這是PAYUNi 提供的商店專屬 Hash Key"
 
-#: src/Settings/SettingsTab.php:185
+#: src/Settings/SettingsTab.php:197
 msgid "Hash IV"
 msgstr "Hash IV"
 
-#: src/Settings/SettingsTab.php:187
+#: src/Settings/SettingsTab.php:199
 msgid "This is the Hash IV when you apply PAYUNi API"
 msgstr "這是 PAYUNi 提供的商店專屬 HashIV"
 
-#: src/Settings/SettingsTab.php:264
+#: src/Settings/SettingsTab.php:276
 msgid "View logs"
 msgstr "檢視除錯紀錄"
 
-#: src/Settings/SettingsTab.php:271
+#: src/Settings/SettingsTab.php:283
 msgid "Go to Payment Settings"
 msgstr "設定付款方式"
 
@@ -882,36 +882,36 @@ msgid "Auto Cancel"
 msgstr "自動取消"
 
 #: src/PayuniPayment.php:540
-#: src/PayuniPayment.php:607
+#: src/PayuniPayment.php:609
 msgid "Auto-cancellation schedule removed."
 msgstr "已移除自動取消排程。"
 
-#: src/PayuniPayment.php:578
-#: src/PayuniPayment.php:701
+#: src/PayuniPayment.php:580
+#: src/PayuniPayment.php:705
 msgid "Scheduled auto-cancellation at %s if payment is not completed."
 msgstr "自動取消排程已建立於 %s，若屆時尚未付款將自動取消訂單。"
 
-#: src/PayuniPayment.php:632
+#: src/PayuniPayment.php:634
 msgid "Auto-cancel feature is not enabled."
 msgstr "自動取消功能未啟用。"
 
-#: src/PayuniPayment.php:654
+#: src/PayuniPayment.php:656
 msgid "This order does not support auto-cancellation."
 msgstr "此訂單不支援自動取消。"
 
-#: src/PayuniPayment.php:671
+#: src/PayuniPayment.php:673
 msgid "No expire date found for this order."
 msgstr "此訂單沒有付款到期日。"
 
-#: src/PayuniPayment.php:686
+#: src/PayuniPayment.php:688
 msgid "Failed to parse expire date: %s"
 msgstr "無法解析付款到期日：%s"
 
-#: src/PayuniPayment.php:707
+#: src/PayuniPayment.php:711
 msgid "Auto-cancellation scheduled at %s."
 msgstr "自動取消排程已建立於 %s。"
 
-#: src/PayuniPayment.php:743
+#: src/PayuniPayment.php:747
 msgid "Order auto-cancelled: payment has expired."
 msgstr "訂單已自動取消：付款已逾期。"
 
@@ -926,3 +926,11 @@ msgstr "啟用自動取消"
 #: src/Settings/SettingsTab.php:129
 msgid "Automatically cancel ATM and CVS orders when the payment deadline has passed."
 msgstr "當超過付款期限，系統會自動取消 ATM 和超商代碼訂單。"
+
+#: src/Settings/SettingsTab.php:133
+msgid "Auto Cancel Delay (minutes)"
+msgstr "自動取消延遲時間（分鐘）"
+
+#: src/Settings/SettingsTab.php:136
+msgid "Delay in minutes after the payment deadline before auto-cancelling the order."
+msgstr "超過付款期限後，延遲多少分鐘再自動取消訂單。"

@@ -83,6 +83,13 @@ class PayuniPayment {
 	public static $einvoice_enabled;
 
 	/**
+	 * Whether or not auto-cancel expired orders is enabled
+	 *
+	 * @var boolean
+	 * */
+	public static $auto_cancel_expired_order_enabled;
+
+	/**
 	 * Order meta for all payment gateways
 	 *
 	 * @var array
@@ -133,8 +140,9 @@ class PayuniPayment {
 	}
 
 	public function plugin_init() {
-		self::$log_enabled      = 'yes' === get_option( 'payuni_payment_debug_log_enabled', 'no' );
-		self::$einvoice_enabled = 'yes' === get_option( 'payuni_payment_einvoice_enabled', 'no' );
+		self::$log_enabled        = 'yes' === get_option( 'payuni_payment_debug_log_enabled', 'no' );
+		self::$einvoice_enabled   = 'yes' === get_option( 'payuni_payment_einvoice_enabled', 'no' );
+		self::$auto_cancel_expired_order_enabled = 'yes' === get_option( 'payuni_payment_auto_cancel_enabled', 'no' );
 
 		OrderList::init();
 		OrderMetaBoxes::init();
@@ -513,7 +521,7 @@ class PayuniPayment {
 	 * @return void
 	 */
 	public function handle_order_expiry_schedule( $order ) {
-		if ( ! $order ) {
+		if ( ! $order || ! self::$auto_cancel_expired_order_enabled ) {
 			return;
 		}
 
@@ -617,6 +625,15 @@ class PayuniPayment {
 			);
 		}
 
+		if ( ! self::$auto_cancel_expired_order_enabled ) {
+			wp_send_json(
+				array(
+					'success' => false,
+					'message' => __( 'Auto-cancel feature is not enabled.', 'wpbr-payuni-payment' ),
+				)
+			);
+		}
+
 		$order_id = isset( $_POST['order_id'] ) ? absint( $_POST['order_id'] ) : 0;
 		$order    = wc_get_order( $order_id );
 
@@ -700,6 +717,11 @@ class PayuniPayment {
 	 * @return void
 	 */
 	public function handle_cancel_expired_order( $order_id ) {
+		if ( ! self::$auto_cancel_expired_order_enabled ) {
+			self::log( sprintf( 'Auto-cancel is disabled. Skipping cancellation for order %d.', $order_id ) );
+			return;
+		}
+
 		$order = wc_get_order( $order_id );
 		if ( ! $order ) {
 			return;

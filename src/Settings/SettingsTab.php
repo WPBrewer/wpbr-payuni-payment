@@ -122,6 +122,14 @@ class SettingsTab extends \WC_Settings_Page {
 					'id'      => 'payuni_payment_einvoice_enabled',
 				),
 				array(
+					'title'    => __( 'Auto Cancel Expired ATM/CVS Orders', 'wpbr-payuni-payment' ),
+					'type'     => 'checkbox',
+					'default'  => 'no',
+					'desc'     => __( 'Enable auto-cancellation for expired ATM/CVS orders', 'wpbr-payuni-payment' ),
+					'desc_tip' => __( 'Automatically cancel ATM and CVS orders when the payment deadline has passed.', 'wpbr-payuni-payment' ),
+					'id'       => 'payuni_payment_auto_cancel_enabled',
+				),
+				array(
 					'type' => 'sectionend',
 					'id'   => 'payment_general_setting',
 				),

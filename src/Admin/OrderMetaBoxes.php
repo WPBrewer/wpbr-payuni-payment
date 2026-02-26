@@ -163,8 +163,8 @@ class OrderMetaBoxes {
 			echo '<tr><td><strong>' . esc_html__( 'Issue Status', 'wpbr-payuni-payment' ) . '</strong></td><td>' . esc_html( $einvoice_status . ' (' . $einvoice_status_desc . ')' ) . '</td></tr>';
 		}// end einvoice enabled
 
-		// 排程自動取消（僅 ATM / CVS）.
-		if ( in_array( $payment_method, array( Atm::GATEWAY_ID, Cvs::GATEWAY_ID ), true ) ) {
+		// 排程自動取消（僅 ATM / CVS，且啟用自動取消功能）.
+		if ( PayuniPayment::$auto_cancel_expired_order_enabled && in_array( $payment_method, array( Atm::GATEWAY_ID, Cvs::GATEWAY_ID ), true ) ) {
 			$scheduled = as_next_scheduled_action( 'payuni_cancel_expired_order', array( 'order_id' => $order->get_id() ), 'payuni' );
 			echo '<tr><td><strong>' . esc_html__( 'Auto Cancel', 'wpbr-payuni-payment' ) . '</strong></td><td>';
 			if ( $scheduled ) {

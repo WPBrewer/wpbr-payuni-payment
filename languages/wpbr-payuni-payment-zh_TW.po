@@ -889,7 +889,7 @@ msgstr "已移除自動取消排程。"
 #: src/PayuniPayment.php:578
 #: src/PayuniPayment.php:701
 msgid "Scheduled auto-cancellation at %s if payment is not completed."
-msgstr "已排程於 %s 自動取消，若届時尚未付款將自動取消訂單。"
+msgstr "自動取消排程已建立於 %s，若屆時尚未付款將自動取消訂單。"
 
 #: src/PayuniPayment.php:632
 msgid "Auto-cancel feature is not enabled."

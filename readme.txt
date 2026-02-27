@@ -4,7 +4,7 @@ Tags: WooCommerce, PAYUNi, taiwan, payment, payment gateway
 Requires at least: 5.9
 Tested up to: 6.8
 Requires PHP: 7.4
-Stable tag: 1.8.0
+Stable tag: 1.8.1
 License: GPLv2 or later.
 License URI: http://www.gnu.org/licenses/gpl-2.0.txt
 
@@ -59,6 +59,12 @@ For more information, please refer to the [PAYUNi website](https://www.payuni.co
 [PAYUNi Terms of Service](https://www.payuni.com.tw/terms).
 
 == Changelog ==
+
+= 1.8.1 - 2026/02/27
+
+* ADD - Query order before auto-cancelling.
+* ADD - Auto-cancelling delay setting.
+* UPDATE - Add Pay Time meta for CVS Order.
 
 = 1.8.0 - 2026/02/27
 

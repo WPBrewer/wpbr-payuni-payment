@@ -206,6 +206,7 @@ class PaymentResponse {
 			self::update_order_meta( $order, $decrypted_info, OrderMeta::CVS_PAY_NO, 'PayNo' );
 			self::update_order_meta( $order, $decrypted_info, OrderMeta::CVS_STORE, 'Store' );
 			self::update_order_meta( $order, $decrypted_info, OrderMeta::CVS_EXPIRE_DATE, 'ExpireDate' );
+			self::update_order_meta( $order, $decrypted_info, OrderMeta::CVS_PAY_TIME, 'PayTime' );
 
 		} elseif ( '7' === $pay_type ) {
 			// AFTEE.

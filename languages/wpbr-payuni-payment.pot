@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-02-27T00:19:42+00:00\n"
+"POT-Creation-Date: 2026-02-27T00:39:36+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.11.0\n"
 "X-Domain: wpbr-payuni-payment\n"
@@ -387,12 +387,12 @@ msgid "PAYUNi query returned SUCCESS but no order result found."
 msgstr ""
 
 #. translators:  %s is the decrypted result
-#: src/Api/PaymentRequest.php:362
+#: src/Api/PaymentRequest.php:366
 msgid "PAYUNi query succeed. Query result: %s"
 msgstr ""
 
 #. translators:  %s is the decrypted result
-#: src/Api/PaymentRequest.php:369
+#: src/Api/PaymentRequest.php:373
 msgid "PAYUNi query failed. Query result: %s"
 msgstr ""
 
@@ -436,6 +436,7 @@ msgstr ""
 
 #: src/Gateways/Aftee.php:88
 #: src/Gateways/Atm.php:88
+#: src/Gateways/Cvs.php:89
 msgid "Pay Time"
 msgstr ""
 
@@ -663,21 +664,21 @@ msgstr ""
 msgid "Auto-cancellation scheduled at %s."
 msgstr ""
 
-#: src/PayuniPayment.php:800
+#: src/PayuniPayment.php:803
 msgid "Auto-cancel aborted: failed to query PAYUNi transaction status. Please check manually."
 msgstr ""
 
 #. translators: %s is the PAYUNi trade status code
-#: src/PayuniPayment.php:811
+#: src/PayuniPayment.php:814
 msgid "Auto-cancel aborted: PAYUNi query confirmed payment received. Order marked as paid. (TradeStatus: %s)"
 msgstr ""
 
-#: src/PayuniPayment.php:816
+#: src/PayuniPayment.php:819
 msgid "Auto-cancel aborted: PAYUNi query error: %s. Please check manually."
 msgstr ""
 
 #. translators: %s is the PAYUNi trade status code
-#: src/PayuniPayment.php:822
+#: src/PayuniPayment.php:825
 msgid "Order auto-cancelled: payment has expired. (TradeStatus: %s)"
 msgstr ""
 

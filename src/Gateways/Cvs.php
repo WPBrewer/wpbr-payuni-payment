@@ -86,6 +86,7 @@ class Cvs extends GatewayBase {
 			OrderMeta::CVS_PAY_NO      => _x( 'Pay No', 'CVS', 'wpbr-payuni-payment' ),
 			OrderMeta::CVS_STORE       => __( 'CVS Store', 'wpbr-payuni-payment' ),
 			OrderMeta::CVS_EXPIRE_DATE => __( 'Expire Date', 'wpbr-payuni-payment' ),
+			OrderMeta::CVS_PAY_TIME    => __( 'Pay Time', 'wpbr-payuni-payment' ),
 		);
 
 		return $order_metas;

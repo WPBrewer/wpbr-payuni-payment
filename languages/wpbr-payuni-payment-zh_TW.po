@@ -372,13 +372,13 @@ msgid "PAYUNi query returned SUCCESS but no order result found."
 msgstr "PAYUNi 查詢返回 SUCCESS，但沒有訂單結果。"
 
 #. translators:  %s is the decrypted result
-#: src/Api/PaymentRequest.php:362
+#: src/Api/PaymentRequest.php:366
 #, php-format
 msgid "PAYUNi query succeed. Query result: %s"
 msgstr "PAYUNi 查詢成功. 查詢結果: %s"
 
 #. translators:  %s is the decrypted result
-#: src/Api/PaymentRequest.php:369
+#: src/Api/PaymentRequest.php:373
 #, php-format
 msgid "PAYUNi query failed. Query result: %s"
 msgstr "PAYUNi 查詢失敗。 查詢結果: %s"
@@ -423,6 +423,7 @@ msgstr "交易 ID"
 
 #: src/Gateways/Aftee.php:88
 #: src/Gateways/Atm.php:88
+#: src/Gateways/Cvs.php:89
 msgid "Pay Time"
 msgstr "付款時間"
 
@@ -931,20 +932,20 @@ msgstr "自動取消延遲時間（分鐘）"
 msgid "Delay in minutes after the payment deadline before auto-cancelling the order."
 msgstr "超過付款期限後，延遲多少分鐘再自動取消訂單。"
 
-#: src/PayuniPayment.php:800
+#: src/PayuniPayment.php:803
 msgid "Auto-cancel aborted: failed to query PAYUNi transaction status. Please check manually."
 msgstr "自動取消中止：無法查詢 PAYUNi 交易狀態，請至統一激流後台確認交易狀態。"
 
 #. translators: %s is the PAYUNi trade status code
-#: src/PayuniPayment.php:811
+#: src/PayuniPayment.php:814
 msgid "Auto-cancel aborted: PAYUNi query confirmed payment received. Order marked as paid. (TradeStatus: %s)"
 msgstr "自動取消中止：PAYUNi 查詢確認交易已付款，訂單已標記為已付款。（TradeStatus: %s）"
 
-#: src/PayuniPayment.php:816
+#: src/PayuniPayment.php:819
 msgid "Auto-cancel aborted: PAYUNi query error: %s. Please check manually."
 msgstr "自動取消中止：PAYUNi 查詢錯誤：%s，請自行至統一金流後台確認交易狀態。"
 
 #. translators: %s is the PAYUNi trade status code
-#: src/PayuniPayment.php:822
+#: src/PayuniPayment.php:825
 msgid "Order auto-cancelled: payment has expired. (TradeStatus: %s)"
 msgstr "訂單已自動取消：付款已逾期。（TradeStatus: %s）"

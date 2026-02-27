@@ -756,6 +756,9 @@ class PayuniPayment {
 			if ( ! empty( $query_result['OffExpireTime'] ) ) {
 				$order->update_meta_data( OrderMeta::CVS_EXPIRE_DATE, $query_result['OffExpireTime'] );
 			}
+			if ( ! empty( $query_result['PaymentDay'] ) && '0000-00-00 00:00:00' !== $query_result['PaymentDay'] ) {
+				$order->update_meta_data( OrderMeta::CVS_PAY_TIME, $query_result['PaymentDay'] );
+			}
 		}
 
 		$order->save();

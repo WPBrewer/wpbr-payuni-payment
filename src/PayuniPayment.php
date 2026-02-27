@@ -714,6 +714,54 @@ class PayuniPayment {
 	}
 
 	/**
+	 * Update order meta from PAYUNi query result.
+	 *
+	 * @param \WC_Order $order        The order object.
+	 * @param array     $query_result The query result from PAYUNi.
+	 *
+	 * @return void
+	 */
+	private static function update_order_meta_from_query( $order, $query_result ) {
+		$order->update_meta_data( OrderMeta::TRADE_STATUS, $query_result['TradeStatus'] );
+		$order->update_meta_data( OrderMeta::UNI_NO, $query_result['TradeNo'] );
+		$order->update_meta_data( OrderMeta::PAYUNI_ORDER_NO, $query_result['MerTradeNo'] );
+		$order->update_meta_data( OrderMeta::TRADE_AMOUNT, $query_result['TradeAmt'] );
+		$order->update_meta_data( OrderMeta::PAY_TYPE, $query_result['PaymentType'] );
+
+		$pay_type = $query_result['PaymentType'];
+
+		if ( '2' === $pay_type ) {
+			// ATM.
+			if ( ! empty( $query_result['OffPayNo'] ) ) {
+				$order->update_meta_data( OrderMeta::AMT_PAY_NO, $query_result['OffPayNo'] );
+			}
+			if ( ! empty( $query_result['OffChannel'] ) ) {
+				$order->update_meta_data( OrderMeta::AMT_BANK_TYPE, $query_result['OffChannel'] );
+			}
+			if ( ! empty( $query_result['OffExpireTime'] ) ) {
+				$order->update_meta_data( OrderMeta::AMT_EXPIRE_DATE, $query_result['OffExpireTime'] );
+			}
+			if ( ! empty( $query_result['PaymentDay'] ) && '0000-00-00 00:00:00' !== $query_result['PaymentDay'] ) {
+				$order->update_meta_data( OrderMeta::AMT_PAY_TIME, $query_result['PaymentDay'] );
+			}
+		} elseif ( '3' === $pay_type ) {
+			// CVS.
+			if ( ! empty( $query_result['OffPayNo'] ) ) {
+				$order->update_meta_data( OrderMeta::CVS_PAY_NO, $query_result['OffPayNo'] );
+			}
+			if ( ! empty( $query_result['OffChannel'] ) ) {
+				$store = ( 'SEVEN' === $query_result['OffChannel'] ) ? '7-11' : $query_result['OffChannel'];
+				$order->update_meta_data( OrderMeta::CVS_STORE, $store );
+			}
+			if ( ! empty( $query_result['OffExpireTime'] ) ) {
+				$order->update_meta_data( OrderMeta::CVS_EXPIRE_DATE, $query_result['OffExpireTime'] );
+			}
+		}
+
+		$order->save();
+	}
+
+	/**
 	 * Handle cancellation of expired ATM/CVS orders.
 	 *
 	 * @param int $order_id The order ID.
@@ -744,8 +792,35 @@ class PayuniPayment {
 			return;
 		}
 
-		$order->update_status( 'cancelled', __( 'Order auto-cancelled: payment has expired.', 'wpbr-payuni-payment' ) );
-		self::log( sprintf( 'Order %d auto-cancelled due to expired %s payment.', $order_id, $payment_method ) );
+		// 取消前先查詢交易狀態，避免誤取消已付款訂單.
+		try {
+			$query_result = PaymentRequest::query( $order_id );
+
+			if ( false === $query_result ) {
+				$order->add_order_note( __( 'Auto-cancel aborted: failed to query PAYUNi transaction status. Please check manually.', 'wpbr-payuni-payment' ) );
+				self::log( sprintf( 'Auto-cancel aborted for order %d: PAYUNi query failed.', $order_id ), 'warning' );
+				return;
+			}
+
+			// 更新 PAYUNi order meta（查詢結果）.
+			self::update_order_meta_from_query( $order, $query_result );
+
+			if ( TradeStatus::PAID === $query_result['TradeStatus'] ) {
+				$order->payment_complete( $query_result['TradeNo'] );
+				/* translators: %s is the PAYUNi trade status code */
+				$order->add_order_note( sprintf( __( 'Auto-cancel aborted: PAYUNi query confirmed payment received. Order marked as paid. (TradeStatus: %s)', 'wpbr-payuni-payment' ), $query_result['TradeStatus'] ) );
+				self::log( sprintf( 'Order %d confirmed paid via PAYUNi query during auto-cancel.', $order_id ) );
+				return;
+			}
+		} catch ( \Exception $e ) {
+			$order->add_order_note( sprintf( __( 'Auto-cancel aborted: PAYUNi query error: %s. Please check manually.', 'wpbr-payuni-payment' ), $e->getMessage() ) );
+			self::log( sprintf( 'Auto-cancel aborted for order %d: query exception: %s', $order_id, $e->getMessage() ), 'error' );
+			return;
+		}
+
+		/* translators: %s is the PAYUNi trade status code */
+		$order->update_status( 'cancelled', sprintf( __( 'Order auto-cancelled: payment has expired. (TradeStatus: %s)', 'wpbr-payuni-payment' ), $query_result['TradeStatus'] ) );
+		self::log( sprintf( 'Order %d auto-cancelled due to expired %s payment. TradeStatus: %s', $order_id, $payment_method, $query_result['TradeStatus'] ) );
 	}
 
 	/**

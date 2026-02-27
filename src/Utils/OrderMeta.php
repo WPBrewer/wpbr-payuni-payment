@@ -38,6 +38,7 @@ class OrderMeta {
     const CVS_PAY_NO           = '_wpbr_payuni_upp_cvs_payno'; // 付款序號.
     const CVS_STORE            = '_wpbr_payuni_upp_cvs_store'; // 付款超商.
     const CVS_EXPIRE_DATE      = '_wpbr_payuni_upp_cvs_expiredate'; // 到期日.
+    const CVS_PAY_TIME         = '_wpbr_payuni_upp_cvs_paytime'; // 付款時間.
     const AFTEE_PAY_NO         = '_wpbr_payuni_upp_aftee_payno'; // 付款序號.
     const AFTEE_PAY_TIME       = '_wpbr_payuni_upp_aftee_paytime'; // 付款時間.
     const LINE_PAY_NO          = '_wpbr_payuni_upp_linepay_payno'; // 付款序號.

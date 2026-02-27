@@ -334,10 +334,28 @@ class PaymentRequest {
 			$query_result['PaymentDay']  = $decrypted['Result'][0]['PaymentDay'];
 			$query_result['CreateDay']   = $decrypted['Result'][0]['CreateDay'];
 			$query_result['PaymentType'] = $decrypted['Result'][0]['PaymentType'];
+			
+			if ( isset( $decrypted['Result'][0]['TradeAmt'] ) ) {
+				$query_result['TradeAmt'] = $decrypted['Result'][0]['TradeAmt'];
+			}
 
 			// 信用卡.
 			if ( '1' === $query_result['PaymentType'] ) {
 				$query_result['CloseStatus'] = $decrypted['Result'][0]['CloseStatus'];
+			}
+
+			// 線下交易 (ATM, CVS 等).
+			if ( isset( $decrypted['Result'][0]['OffChannel'] ) ) {
+				$query_result['OffChannel'] = $decrypted['Result'][0]['OffChannel'];
+			}
+			if ( isset( $decrypted['Result'][0]['OffPayChannel'] ) ) {
+				$query_result['OffPayChannel'] = $decrypted['Result'][0]['OffPayChannel'];
+			}
+			if ( isset( $decrypted['Result'][0]['OffPayNo'] ) ) {
+				$query_result['OffPayNo'] = $decrypted['Result'][0]['OffPayNo'];
+			}
+			if ( isset( $decrypted['Result'][0]['OffExpireTime'] ) ) {
+				$query_result['OffExpireTime'] = $decrypted['Result'][0]['OffExpireTime'];
 			}
 
 			$woo_order_id = PayuniPayment::parse_payuni_order_no_to_woo_order_id( $query_result['MerTradeNo'] );

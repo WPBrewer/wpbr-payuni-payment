@@ -351,10 +351,45 @@ class PayuniPayment {
 		$hashkey   = $test_mode ? get_option( 'payuni_payment_hashkey_test' ) : get_option( 'payuni_payment_hashkey' );
 		$hashiv    = $test_mode ? get_option( 'payuni_payment_hashiv_test' ) : get_option( 'payuni_payment_hashiv' );
 
-		list($encrypt_data, $tag) = explode( ':::', hex2bin( $encrypt_str ), 2 );
-		$encrypt_info             = openssl_decrypt( $encrypt_data, 'aes-256-gcm', trim( $hashkey ), 0, trim( $hashiv ), base64_decode( $tag ) );
+		if ( '' === $encrypt_str || ! ctype_xdigit( $encrypt_str ) || 0 !== strlen( $encrypt_str ) % 2 ) {
+			return array();
+		}
+
+		$parts = explode( ':::', hex2bin( $encrypt_str ), 2 );
+		if ( 2 !== count( $parts ) ) {
+			return array();
+		}
+
+		list( $encrypt_data, $tag ) = $parts;
+		$tag                        = base64_decode( $tag, true );
+
+		// AES-GCM tag must be full length (16 bytes); reject truncated tags to prevent forgery.
+		if ( false === $tag || 16 !== strlen( $tag ) ) {
+			return array();
+		}
+
+		$encrypt_info = openssl_decrypt( $encrypt_data, 'aes-256-gcm', trim( $hashkey ), 0, trim( $hashiv ), $tag );
+		if ( false === $encrypt_info ) {
+			return array();
+		}
+
 		parse_str( $encrypt_info, $encrypt_arr );
 		return $encrypt_arr;
+	}
+
+	/**
+	 * Verify HashInfo sent by PAYUNi against EncryptInfo.
+	 *
+	 * @param string $encrypt_str The EncryptInfo string.
+	 * @param string $hash_str    The HashInfo string.
+	 *
+	 * @return bool
+	 */
+	public static function verify_hash_info( string $encrypt_str, string $hash_str ) {
+		if ( '' === $encrypt_str || '' === $hash_str ) {
+			return false;
+		}
+		return hash_equals( self::hash_info( $encrypt_str ), strtoupper( $hash_str ) );
 	}
 
 	/**
@@ -487,12 +522,17 @@ class PayuniPayment {
 	 */
 	public static function get_order_meta_key( $order, $key ) {
 		$plugin_version = $order->get_meta( OrderMeta::PLUGIN_VERSION );
-		if ( \version_compare( $plugin_version, '1.5.0' ) >= 0 ) {
+		if ( \version_compare( (string) $plugin_version, '1.5.0' ) >= 0 ) {
 			return $key;
-		} else {
-			// for backward-compatibility.
-			return str_replace( '_wpbr_payuni_upp_', '_payuni_', $key );
 		}
+
+		// Prefer modern keys when present (e.g. error Return saved without plugin version meta).
+		if ( is_callable( array( $order, 'meta_exists' ) ) && $order->meta_exists( $key ) ) {
+			return $key;
+		}
+
+		// for backward-compatibility.
+		return str_replace( '_wpbr_payuni_upp_', '_payuni_', $key );
 	}
 
 	/**

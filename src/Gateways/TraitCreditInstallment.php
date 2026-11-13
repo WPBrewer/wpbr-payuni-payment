@@ -67,28 +67,12 @@ trait TraitCreditInstallment {
 	 * @return void
 	 */
 	public function init_from_fields() {
-		$this->form_fields = include WPBR_PAYUNI_PLUGIN_DIR . 'includes/settings/CreditInstallmentSetting.php';
+		$this->form_fields = $this->with_amount_limit_fields(
+			include WPBR_PAYUNI_PLUGIN_DIR . 'includes/settings/CreditInstallmentSetting.php',
+			1
+		);
 		/* translators: %s: number of installments */
 		$this->form_fields['title']['default'] = sprintf( __( 'PAYUNi Installment Payment (%s Installments)', 'wpbr-payuni-payment' ), $this->installs );
-	}
-
-	/**
-	 * Check If The Gateway Is Available For Use.
-	 *
-	 * @return bool
-	 */
-	public function is_available() {
-		$is_available = ( 'yes' === $this->enabled );
-
-		if ( WC()->cart && 0 < $this->get_order_total() && 0 < $this->max_amount && $this->max_amount < $this->get_order_total() ) {
-			$is_available = false;
-		}
-
-		if ( WC()->cart && 0 < $this->get_order_total() && 0 < $this->min_amount && $this->min_amount > $this->get_order_total() ) {
-			$is_available = false;
-		}
-
-		return $is_available;
 	}
 
 	/**

@@ -261,10 +261,11 @@ class PaymentRequest {
 	/**
 	 * Query payment status and result
 	 *
-	 * @param int  $order_id The order id.
-	 * @param bool $add_note Add order note.
+	 * @param int         $order_id      The order id.
+	 * @param bool        $add_note      Add order note.
+	 * @param string|null $mer_trade_no  Optional MerTradeNo override when order meta is empty (e.g. first Notify).
 	 */
-	public static function query( $order_id, $add_note = true ) {
+	public static function query( $order_id, $add_note = true, $mer_trade_no = null ) {
 
 		$order = wc_get_order( $order_id );
 		if ( ! $order ) {
@@ -277,6 +278,15 @@ class PaymentRequest {
 
 		$payuni_order_no_key = PayuniPayment::get_order_meta_key( $order, OrderMeta::PAYUNI_ORDER_NO );
 		$payuni_order_no     = $order->get_meta( $payuni_order_no_key );
+
+		if ( empty( $payuni_order_no ) && ! empty( $mer_trade_no ) ) {
+			$payuni_order_no = $mer_trade_no;
+		}
+
+		if ( empty( $payuni_order_no ) ) {
+			PayuniPayment::log( 'PAYUNi query failed. MerTradeNo missing for order_id:' . $order_id );
+			return false;
+		}
 
 		$encrypt_info    = array(
 			'MerID'      => $mer_id,

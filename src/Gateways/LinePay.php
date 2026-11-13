@@ -46,6 +46,8 @@ class LinePay extends GatewayBase {
 		$this->title                      = $this->get_option( 'title' );
 		$this->description                = $this->get_option( 'description' );
 		$this->incomplete_payment_message = $this->get_option( 'incomplete_payment_message' );
+		// LINE Pay limits follow LINE Pay announcements; leave empty unless merchant sets them.
+		$this->load_amount_limits( 0 );
 
 		add_action( 'woocommerce_update_options_payment_gateways_' . $this->id, array( $this, 'process_admin_options' ) );
 		add_action( 'woocommerce_receipt_' . $this->id, array( $this, 'receipt_page' ) );
@@ -59,7 +61,10 @@ class LinePay extends GatewayBase {
 	 * @return void
 	 */
 	public function init_form_fields() {
-		$this->form_fields = include WPBR_PAYUNI_PLUGIN_DIR . 'includes/settings/LinePaySetting.php';
+		$this->form_fields = $this->with_amount_limit_fields(
+			include WPBR_PAYUNI_PLUGIN_DIR . 'includes/settings/LinePaySetting.php',
+			''
+		);
 	}
 
 	/**

@@ -44,8 +44,8 @@ class Aftee extends GatewayBase {
 
 		$this->title                      = $this->get_option( 'title' );
 		$this->description                = $this->get_option( 'description' );
-		$this->min_amount                 = $this->get_option( 'min_amount' );
 		$this->incomplete_payment_message = $this->get_option( 'incomplete_payment_message' );
+		$this->load_amount_limits( 20 );
 
 		add_action( 'woocommerce_update_options_payment_gateways_' . $this->id, array( $this, 'process_admin_options' ) );
 		add_action( 'woocommerce_receipt_' . $this->id, array( $this, 'receipt_page' ) );
@@ -58,7 +58,10 @@ class Aftee extends GatewayBase {
 	 * @return void
 	 */
 	public function init_form_fields() {
-		$this->form_fields = include WPBR_PAYUNI_PLUGIN_DIR . 'includes/settings/AfteeSetting.php';
+		$this->form_fields = $this->with_amount_limit_fields(
+			include WPBR_PAYUNI_PLUGIN_DIR . 'includes/settings/AfteeSetting.php',
+			20
+		);
 	}
 
 	/**

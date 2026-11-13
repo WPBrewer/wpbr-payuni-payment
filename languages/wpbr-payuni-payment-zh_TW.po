@@ -111,6 +111,10 @@ msgstr "這是使用者結帳時看到的付款方式說明。"
 msgid "Minimum Amount"
 msgstr "最低付款金額"
 
+#: src/Gateways/GatewayBase.php
+msgid "Hide this payment method when the order total is below this amount. Based on PAYUNi transaction amount limits."
+msgstr "當訂單總額低於此金額時隱藏此付款方式。預設依 PAYUNi 交易訂單金額限制。"
+
 #: includes/settings/AfteeSetting.php:37
 #: includes/settings/CreditInstallmentSetting.php:37
 msgid "Minimum amount to use this payment gateway."
@@ -949,3 +953,69 @@ msgstr "自動取消中止：PAYUNi 查詢錯誤：%s，請自行至統一金流
 #: src/PayuniPayment.php:825
 msgid "Order auto-cancelled: payment has expired. (TradeStatus: %s)"
 msgstr "訂單已自動取消：付款已逾期。（TradeStatus: %s）"
+
+#: src/Api/PaymentResponse.php
+msgid "TradeStatus:"
+msgstr "交易狀態："
+
+#. translators: 1: PAYUNi TradeAmt 2: order total
+#: src/Api/PaymentResponse.php
+msgid "PAYUNi Notify rejected: TradeAmt (%1$s) does not match order total (%2$s)."
+msgstr "PAYUNi Notify 已拒絕：TradeAmt（%1$s）與訂單總額（%2$s）不符。"
+
+#. translators: 1: PAYUNi TradeAmt 2: order total
+#: src/Api/PaymentResponse.php
+msgid "PAYUNi Return rejected: TradeAmt (%1$s) does not match order total (%2$s)."
+msgstr "PAYUNi Return 已拒絕：TradeAmt（%1$s）與訂單總額（%2$s）不符。"
+
+#: src/Api/PaymentResponse.php
+msgid "PAYUNi Notify received but trade/query failed. Order status was not changed. Please check manually or wait for thankyou query."
+msgstr "已收到 PAYUNi Notify，但 trade/query 失敗，訂單狀態未變更。請手動確認，或等待感謝頁面查詢補救。"
+
+#. translators: %s: query TradeStatus
+#: src/Api/PaymentResponse.php
+msgid "PAYUNi Notify query confirmed. TradeStatus: %s"
+msgstr "PAYUNi Notify 查詢已確認。TradeStatus：%s"
+
+#. translators: 1: query TradeAmt 2: order total
+#: src/Api/PaymentResponse.php
+msgid "PAYUNi Notify query rejected: TradeAmt (%1$s) does not match order total (%2$s)."
+msgstr "PAYUNi Notify 查詢已拒絕：TradeAmt（%1$s）與訂單總額（%2$s）不符。"
+
+#. translators: %s: query TradeStatus
+#: src/Api/PaymentResponse.php
+msgid "PAYUNi thankyou query. TradeStatus: %s"
+msgstr "PAYUNi 感謝頁面查詢。TradeStatus：%s"
+
+#. translators: 1: query TradeAmt 2: order total
+#: src/Api/PaymentResponse.php
+msgid "PAYUNi thankyou query rejected: TradeAmt (%1$s) does not match order total (%2$s)."
+msgstr "PAYUNi 感謝頁面查詢已拒絕：TradeAmt（%1$s）與訂單總額（%2$s）不符。"
+
+#. translators: 1: context 2: PAYUNi PaymentType 3: WooCommerce payment method
+#: src/Api/PaymentResponse.php
+msgid "PAYUNi %1$s rejected: PaymentType (%2$s) does not match order payment method (%3$s)."
+msgstr "PAYUNi %1$s 已拒絕：PaymentType（%2$s）與訂單付款方式（%3$s）不符。"
+
+#. translators: %s: countdown seconds element
+#: src/Api/PaymentResponse.php
+msgid "Confirming payment result… %s seconds remaining."
+msgstr "正在確認付款結果… 剩餘 %s 秒。"
+
+#: src/Api/PaymentResponse.php
+msgid "If you have already paid, please refresh this page later. If not, please complete the payment as soon as possible."
+msgstr "若您已完成付款，請稍後重新整理本頁；若尚未付款，請儘速完成付款。"
+
+#. translators: 1: PAYUNi message 2: status code
+#: src/Gateways/GatewayBase.php
+msgid "Payment could not be completed: %1$s (%2$s)"
+msgstr "無法完成付款：%1$s（%2$s）"
+
+#: src/Gateways/GatewayBase.php
+msgid "Unknown error"
+msgstr "未知錯誤"
+
+#. translators: 1: Notify or Return 2: MerTradeNo 3: claimed TradeStatus 4: HashInfo prefix
+#: src/Api/PaymentResponse.php
+msgid "PAYUNi %1$s rejected: invalid HashInfo (possible forgery). MerTradeNo: %2$s, claimed TradeStatus: %3$s, HashInfo: %4$s…"
+msgstr "PAYUNi %1$s 已拒絕：HashInfo 無效（可能為偽造）。商店訂單編號：%2$s，宣稱的 TradeStatus：%3$s，HashInfo：%4$s…"

@@ -80,7 +80,7 @@ abstract class GatewayBase extends \WC_Payment_Gateway {
 	/**
 	 * Minimum amount of the order
 	 *
-	 * @var string
+	 * @var float
 	 */
 	protected $min_amount = 0;
 
@@ -122,8 +122,12 @@ abstract class GatewayBase extends \WC_Payment_Gateway {
 
 			echo '<h2>' . esc_html__( 'PAYUNi Payment Detail', 'wpbr-payuni-payment' ) . '</h2>';
 
+			$status_key   = PayuniPayment::get_order_meta_key( $order, OrderMeta::STATUS );
 			$trade_no_key = PayuniPayment::get_order_meta_key( $order, OrderMeta::UNI_NO );
-			if ( empty( $order->get_meta( $trade_no_key ) ) ) {
+			$upp_status   = (string) $order->get_meta( $status_key );
+
+			// Hard gateway errors are already shown via thankyou order received text; skip the "reload" hint.
+			if ( ( '' === $upp_status || 'SUCCESS' === $upp_status ) && empty( $order->get_meta( $trade_no_key ) ) ) {
 				echo '<div class="payuni_payment_notify_not_received">' . esc_html__( 'If the payment detail is not displayed. Please wait for a moment and reload the page.', 'wpbr-payuni-payment' ) . '</div>';
 			}
 
@@ -134,19 +138,25 @@ abstract class GatewayBase extends \WC_Payment_Gateway {
 			foreach ( $order_metas as $key => $value ) {
 				echo '<tr><td><strong>' . esc_html( $value ) . '</strong></td>';
 				$order_meta_key = PayuniPayment::get_order_meta_key( $order, $key );
-				if ( $order_meta_key === OrderMeta::CREDIT_AUTH_TYPE ) {
+				if ( OrderMeta::CREDIT_AUTH_TYPE === $key ) {
 					echo '<td>' . esc_html( AuthType::get_type( $order->get_meta( $order_meta_key ) ) ) . ' (' . esc_html( $order->get_meta( $order_meta_key ) ) . ')</td></tr>';
-				} elseif ( $order_meta_key === OrderMeta::AMT_BANK_TYPE ) {
+				} elseif ( OrderMeta::AMT_BANK_TYPE === $key ) {
 					echo '<td>' . esc_html( $order->get_meta( $order_meta_key ) ) . ' (' . esc_html( BankType::get_name( $order->get_meta( $order_meta_key ) ) ) . ')</td></tr>';
-				} elseif ( $order_meta_key === OrderMeta::TRADE_STATUS ) {
+				} elseif ( OrderMeta::TRADE_STATUS === $key ) {
 					$trade_status = $order->get_meta( $order_meta_key );
 					if ( isset( $trade_status ) ) {
 						echo '<td>' . esc_html( TradeStatus::get_name( $trade_status, $order->get_payment_method() ) ) . '</td></tr>';
 					} else {
 						echo '<td>' . esc_html( $trade_status ) . '</td></tr>';
 					}
-				} elseif ( $order_meta_key === OrderMeta::MESSAGE ) {
-					echo '<td>' . esc_html( $order->get_meta( $order_meta_key ) ) . ' (' . esc_html( $order->get_meta( OrderMeta::STATUS ) ) . ')</td></tr>';
+				} elseif ( OrderMeta::MESSAGE === $key ) {
+					$status_value = $order->get_meta( $status_key );
+					$message_value = $order->get_meta( $order_meta_key );
+					if ( '' !== (string) $message_value || '' !== (string) $status_value ) {
+						echo '<td>' . esc_html( $message_value ) . ( '' !== (string) $status_value ? ' (' . esc_html( $status_value ) . ')' : '' ) . '</td></tr>';
+					} else {
+						echo '<td></td></tr>';
+					}
 				} else {
 					echo '<td>' . esc_html( $order->get_meta( $order_meta_key ) ) . '</td></tr>';
 				}
@@ -275,6 +285,23 @@ abstract class GatewayBase extends \WC_Payment_Gateway {
 				return $text;
 			}
 
+			$status_key  = PayuniPayment::get_order_meta_key( $order, OrderMeta::STATUS );
+			$message_key = PayuniPayment::get_order_meta_key( $order, OrderMeta::MESSAGE );
+			$upp_status  = (string) $order->get_meta( $status_key );
+			$upp_message = (string) $order->get_meta( $message_key );
+
+			// Gateway declined / failed take-number — show PAYUNi message instead of generic unpaid text.
+			if ( '' !== $upp_status && 'SUCCESS' !== $upp_status ) {
+				return '<span class="payuni-incomplete-payment-message payuni-payment-error">' . esc_html(
+					sprintf(
+						/* translators: 1: PAYUNi message 2: status code */
+						__( 'Payment could not be completed: %1$s (%2$s)', 'wpbr-payuni-payment' ),
+						$upp_message ? $upp_message : __( 'Unknown error', 'wpbr-payuni-payment' ),
+						$upp_status
+					)
+				) . '</span>';
+			}
+
 			$trade_status_key = PayuniPayment::get_order_meta_key( $order, OrderMeta::TRADE_STATUS );
 			$trade_status     = $order->get_meta( $trade_status_key );
 
@@ -300,15 +327,83 @@ abstract class GatewayBase extends \WC_Payment_Gateway {
 	public function is_available() {
 		$is_available = ( 'yes' === $this->enabled );
 
-		if ( WC()->cart && 0 < $this->get_order_total() && 0 < $this->max_amount && $this->max_amount < $this->get_order_total() ) {
-			$is_available = false;
-		}
+		if ( WC()->cart && 0 < $this->get_order_total() ) {
+			$total = (float) $this->get_order_total();
+			$min   = (float) $this->min_amount;
 
-		if ( WC()->cart && 0 < $this->get_order_total() && $this->min_amount > $this->get_order_total() ) {
-			$is_available = false;
+			if ( 0 < $min && $min > $total ) {
+				$is_available = false;
+			}
 		}
 
 		return $is_available;
+	}
+
+	/**
+	 * Load minimum amount from gateway settings.
+	 *
+	 * Empty saved values fall back to PAYUNi documented defaults.
+	 *
+	 * @param float|int $min_default Default minimum amount.
+	 *
+	 * @return void
+	 */
+	protected function load_amount_limits( $min_default = 0 ) {
+		$min = $this->get_option( 'min_amount' );
+
+		$this->min_amount = ( is_numeric( $min ) && '' !== $min ) ? (float) $min : (float) $min_default;
+	}
+
+	/**
+	 * Form fields for PAYUNi minimum amount.
+	 *
+	 * @param float|int|string $min_default Default minimum.
+	 *
+	 * @return array
+	 */
+	protected static function get_amount_limit_form_fields( $min_default = '' ) {
+		return array(
+			'min_amount' => array(
+				'title'             => __( 'Minimum Amount', 'wpbr-payuni-payment' ),
+				'type'              => 'number',
+				'description'       => __( 'Hide this payment method when the order total is below this amount. Based on PAYUNi transaction amount limits.', 'wpbr-payuni-payment' ),
+				'default'           => (string) $min_default,
+				'desc_tip'          => true,
+				'custom_attributes' => array(
+					'step' => '1',
+					'min'  => '0',
+				),
+			),
+		);
+	}
+
+	/**
+	 * Insert minimum amount field before incomplete payment message.
+	 *
+	 * @param array            $fields      Existing form fields.
+	 * @param float|int|string $min_default Default minimum.
+	 *
+	 * @return array
+	 */
+	protected function with_amount_limit_fields( $fields, $min_default = '' ) {
+		$amount_fields = self::get_amount_limit_form_fields( $min_default );
+
+		// Replace any existing amount fields to avoid duplicates.
+		unset( $fields['min_amount'], $fields['max_amount'] );
+
+		if ( ! isset( $fields['incomplete_payment_message'] ) ) {
+			return array_merge( $fields, $amount_fields );
+		}
+
+		$merged = array();
+		foreach ( $fields as $key => $field ) {
+			if ( 'incomplete_payment_message' === $key ) {
+				$merged = array_merge( $merged, $amount_fields );
+			}
+			$merged[ $key ] = $field;
+		}
+
+		return $merged;
 	}
 
 	/**

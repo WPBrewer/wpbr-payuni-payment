@@ -64,14 +64,12 @@ jQuery(function ($) {
 					success: function (data) {
 						console.log(data);
 
-						if (data.success) {
-							alert(data.message);
-							window.location.reload();
-						} else {
-							alert(data.message);
-						}
-						if ($.blockUI) {
-							$('#payuni-order-meta-boxes').unblock();
+						alert( data.message );
+						window.location.reload();
+					},
+					error: function () {
+						if ( $.blockUI ) {
+							$( '#payuni-order-meta-boxes' ).unblock();
 						}
 					},
 					always: function () {

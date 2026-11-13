@@ -39,10 +39,11 @@ class Atm extends GatewayBase {
 		$this->init_form_fields();
 		$this->init_settings();
 
-		$this->title       = $this->get_option( 'title' );
-		$this->description = $this->get_option( 'description' );
+		$this->title                      = $this->get_option( 'title' );
+		$this->description                = $this->get_option( 'description' );
 		$this->expire_days                = $this->get_option( 'expire_days', 7 );
 		$this->incomplete_payment_message = $this->get_option( 'incomplete_payment_message' );
+		$this->load_amount_limits( 15 );
 
 		add_action( 'woocommerce_update_options_payment_gateways_' . $this->id, array( $this, 'process_admin_options' ) );
 		add_action( 'woocommerce_receipt_' . $this->id, array( $this, 'receipt_page' ) );
@@ -55,7 +56,10 @@ class Atm extends GatewayBase {
 	 * @return void
 	 */
 	public function init_form_fields() {
-		$this->form_fields = include WPBR_PAYUNI_PLUGIN_DIR . 'includes/settings/AtmSetting.php';
+		$this->form_fields = $this->with_amount_limit_fields(
+			include WPBR_PAYUNI_PLUGIN_DIR . 'includes/settings/AtmSetting.php',
+			15
+		);
 	}
 
 	/**

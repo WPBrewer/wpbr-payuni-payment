@@ -60,20 +60,19 @@ For more information, please refer to the [PAYUNi website](https://www.payuni.co
 
 == Changelog ==
 
-= 1.8.2 - 2026/11/14
+= 1.8.2 - 2026/11/14 =
 
-* FIX - Return URL no longer changes order status; only Notify (after trade/query) updates payment status.
-* ADD - Verify HashInfo and TradeAmt on Return/Notify callbacks.
+* SECURITY - Return URL no longer changes order status; only Notify (after trade/query) updates payment status.
+* SECURITY - Verify HashInfo and TradeAmt on Return/Notify callbacks.
 * ADD - Thankyou page server-side trade/query fallback when Notify is late.
-* ADD - Thankyou page polls order status every 3 seconds for up to 1 minute.
 
-= 1.8.1 - 2026/02/27
+= 1.8.1 - 2026/02/27 =
 
 * ADD - Query order before auto-cancelling.
 * ADD - Auto-cancelling delay setting.
 * UPDATE - Add Pay Time meta for CVS Order.
 
-= 1.8.0 - 2026/02/27
+= 1.8.0 - 2026/02/27 =
 
 * ADD - Auto-cancelling expired CVS/ATM Orders.
 * UPDATE - Change default unpaid ATM/CVS/AFTEE Order status to on-hold

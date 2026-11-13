@@ -416,6 +416,16 @@ msgstr "付款方式:"
 msgid "PAYUNi Return"
 msgstr "PAYUNi Return"
 
+#. translators: %s: PAYUNi trade number from the simulated payment response
+#: src/Api/PaymentResponse.php
+#, php-format
+msgid "Ignored PAYUNi simulated payment (UNi number: %s). This is not a real payment, so the order was not marked as paid."
+msgstr "已忽略 PAYUNi 模擬付款（UNi 序號：%s）。這不是實際付款，訂單未標記為已付款。"
+
+#: src/Api/PaymentResponse.php
+msgid "PAYUNi foreground return reported this ATM/CVS payment as paid. Foreground return cannot confirm payment, so the order was not marked as paid. Waiting for the background notification."
+msgstr "PAYUNi 前景回傳將此 ATM/CVS 付款回報為已付款。前景回傳無法確認付款，訂單未標記為已付款，等待背景通知。"
+
 #: src/Gateways/Aftee.php:87
 msgctxt "AFTEE"
 msgid "Pay No"

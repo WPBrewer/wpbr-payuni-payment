@@ -91,9 +91,10 @@ class PaymentResponse {
 
 		$order->add_order_note( "<strong>{$text_log}</strong><br>{$text_code} {$status}<br>{$text_message} {$message}<br>{$text_mertradeno} {$payuni_order_no}<br>{$text_number} {$trade_no}<br>{$text_paytype} " . PayType::get_name( $pay_type ) );
 
-
-		if ( $order->is_paid() || $order->get_meta( OrderMeta::TRADE_STATUS ) === TradeStatus::PAID ) {
-			PAYUNiPayment::log( sprintf( 'PAYUNi Notify: Order %s already paid or transaction status has already set as success. Just add note and log.', $woo_order_id ) );
+		if ( self::is_simulated_payment( $decrypted_info ) ) {
+			self::note_simulated_payment( $order, $decrypted_info );
+		} elseif ( $order->is_paid() || $order->get_meta( OrderMeta::TRADE_STATUS ) === TradeStatus::PAID ) {
+			PayuniPayment::log( sprintf( 'PAYUNi Notify: Order %s already paid or transaction status has already set as success. Just add note and log.', $woo_order_id ) );
 		} else {
 			self::update_order_meta_and_order_status( $order, $decrypted_info );
 		}
@@ -145,8 +146,14 @@ class PaymentResponse {
 
 		$order->add_order_note( "<strong>{$text_log}</strong><br>{$text_code} {$status}<br>{$text_message} {$message}<br>{$text_mertradeno} {$order_id}<br>{$text_number} {$trade_no}<br>{$text_paytype} " . PayType::get_name( $pay_type ) );
 
-		if ( $order->is_paid() || $order->get_meta( OrderMeta::TRADE_STATUS ) === TradeStatus::PAID ) {
-			PAYUNiPayment::log( sprintf( 'PAYUNi Return: Order %s already paid or transaction status has already set as success. Just add note and log.', $woo_order_id ) );
+		// Sandbox payment-page 「模擬付款完成」only posts here and does not collect money. ATM/CVS is confirmed by NotifyURL.
+		if ( self::is_simulated_payment( $decrypted_info ) ) {
+			self::note_simulated_payment( $order, $decrypted_info );
+		} elseif ( self::is_offline_payment_type( $pay_type ) && TradeStatus::PAID === (string) $trade_status ) {
+			$order->add_order_note( __( 'PAYUNi foreground return reported this ATM/CVS payment as paid. Foreground return cannot confirm payment, so the order was not marked as paid. Waiting for the background notification.', 'wpbr-payuni-payment' ) );
+			PayuniPayment::log( sprintf( 'PAYUNi Return: ignored paid status for offline payment. Order %s, TradeNo %s.', $woo_order_id, $trade_no ) );
+		} elseif ( $order->is_paid() || $order->get_meta( OrderMeta::TRADE_STATUS ) === TradeStatus::PAID ) {
+			PayuniPayment::log( sprintf( 'PAYUNi Return: Order %s already paid or transaction status has already set as success. Just add note and log.', $woo_order_id ) );
 		} else {
 			self::update_order_meta_and_order_status( $order, $decrypted_info );
 		}
@@ -223,7 +230,78 @@ class PaymentResponse {
 		$order->save();
 	}
 
+	/**
+	 * PAYUNi sandbox payment page 「模擬付款完成」posts a fake success.
+	 *
+	 * TradeNo is `{prefix}TN` and Message is the same prefix plus `MSG`
+	 * (for example TradeNo PV26084TN, Message PV26084MSG). No money is collected
+	 * and NotifyURL is not called.
+	 *
+	 * @param array $decrypted_info Decrypted PAYUNi payload.
+	 * @return bool
+	 */
+	private static function is_simulated_payment( $decrypted_info ) {
+		$trade_no = isset( $decrypted_info['TradeNo'] ) ? trim( (string) $decrypted_info['TradeNo'] ) : '';
+		$message  = isset( $decrypted_info['Message'] ) ? trim( (string) $decrypted_info['Message'] ) : '';
+
+		if ( strlen( $trade_no ) < 3 || strlen( $message ) < 4 ) {
+			return false;
+		}
+
+		if ( 'TN' !== substr( $trade_no, -2 ) || 'MSG' !== substr( $message, -3 ) ) {
+			return false;
+		}
+
+		$trade_prefix   = substr( $trade_no, 0, -2 );
+		$message_prefix = substr( $message, 0, -3 );
+
+		return '' !== $trade_prefix && $trade_prefix === $message_prefix;
+	}
+
+	/**
+	 * ATM and CVS are paid later. ReturnURL only means the payment number was issued.
+	 *
+	 * @param string|int $pay_type PAYUNi PaymentType.
+	 * @return bool
+	 */
+	private static function is_offline_payment_type( $pay_type ) {
+		return in_array( (string) $pay_type, array( (string) PayType::ATM, (string) PayType::CVS_CODE ), true );
+	}
+
+	/**
+	 * Leave an order note when a simulated payment is ignored.
+	 *
+	 * @param \WC_Order $order          The order object.
+	 * @param array     $decrypted_info Decrypted PAYUNi payload.
+	 * @return void
+	 */
+	private static function note_simulated_payment( $order, $decrypted_info ) {
+		$trade_no = isset( $decrypted_info['TradeNo'] ) ? (string) $decrypted_info['TradeNo'] : '';
+
+		$order->add_order_note(
+			sprintf(
+				/* translators: %s: PAYUNi trade number from the simulated payment response */
+				__( 'Ignored PAYUNi simulated payment (UNi number: %s). This is not a real payment, so the order was not marked as paid.', 'wpbr-payuni-payment' ),
+				$trade_no
+			)
+		);
+
+		PayuniPayment::log(
+			sprintf(
+				'Ignored simulated PAYUNi payment for order %d. TradeNo:%s Message:%s',
+				$order->get_id(),
+				$trade_no,
+				isset( $decrypted_info['Message'] ) ? (string) $decrypted_info['Message'] : ''
+			)
+		);
+	}
+
 	private static function update_order_meta_and_order_status( $order, $decrypted_info ) {
+
+		if ( self::is_simulated_payment( $decrypted_info ) ) {
+			PayuniPayment::log( 'Blocked simulated PAYUNi payment from updating order ' . $order->get_id() );
+			return;
+		}
 
 		$trade_status = $decrypted_info['TradeStatus'];
 
